@@ -1,0 +1,65 @@
+﻿@{
+	ViewBag.Title = "About";
+}
+
+<hgroup class="title">
+	<h1>@ViewBag.Title.</h1>
+	<h2>@ViewBag.Message</h2>
+</hgroup>
+
+
+
+<div class="span6">
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="myTab">
+			<li class="active">
+				<a data-toggle="tab" href="#home">
+					<i class="green icon-home bigger-110"></i>
+					Home
+				</a>
+			</li>
+
+			<li>
+				<a data-toggle="tab" href="#profile">
+					Messages
+					<span class="badge badge-important">4</span>
+				</a>
+			</li>
+
+			<li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+					Dropdown
+					<b class="caret"></b>
+				</a>
+
+				<ul class="dropdown-menu dropdown-info">
+					<li>
+						<a data-toggle="tab" href="#dropdown1">DD 1</a>
+					</li>
+
+					<li>
+						<a data-toggle="tab" href="#dropdown2">DD 2</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="home" class="tab-pane in active">
+				<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+			</div>
+
+			<div id="profile" class="tab-pane">
+				<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+			</div>
+
+			<div id="dropdown1" class="tab-pane">
+				<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+			</div>
+
+			<div id="dropdown2" class="tab-pane">
+				<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
+			</div>
+		</div>
+	</div>
+</div><!--/span-->

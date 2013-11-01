@@ -1,0 +1,188 @@
+﻿@model PlumRunDomain.Customer
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Customer</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AROrgName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AROrgName)
+            @Html.ValidationMessageFor(model => model.AROrgName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ARAddress1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ARAddress1)
+            @Html.ValidationMessageFor(model => model.ARAddress1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ARAddress2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ARAddress2)
+            @Html.ValidationMessageFor(model => model.ARAddress2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ARAddress3)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ARAddress3)
+            @Html.ValidationMessageFor(model => model.ARAddress3)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ARCity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ARCity)
+            @Html.ValidationMessageFor(model => model.ARCity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ARStateProvID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ARStateProvID)
+            @Html.ValidationMessageFor(model => model.ARStateProvID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ARPostalCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ARPostalCode)
+            @Html.ValidationMessageFor(model => model.ARPostalCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CountryID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CountryID)
+            @Html.ValidationMessageFor(model => model.CountryID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PriceID, "Price")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PriceID", String.Empty)
+            @Html.ValidationMessageFor(model => model.PriceID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActiveDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ActiveDate)
+            @Html.ValidationMessageFor(model => model.ActiveDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InactiveDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InactiveDate)
+            @Html.ValidationMessageFor(model => model.InactiveDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardTypeID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardTypeID)
+            @Html.ValidationMessageFor(model => model.CardTypeID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardNumber)
+            @Html.ValidationMessageFor(model => model.CardNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardSecurityCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardSecurityCode)
+            @Html.ValidationMessageFor(model => model.CardSecurityCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardExpMonth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardExpMonth)
+            @Html.ValidationMessageFor(model => model.CardExpMonth)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CardExpYear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CardExpYear)
+            @Html.ValidationMessageFor(model => model.CardExpYear)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDate)
+            @Html.ValidationMessageFor(model => model.CreatedDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedByPersonID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedByPersonID)
+            @Html.ValidationMessageFor(model => model.CreatedByPersonID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModifiedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModifiedDate)
+            @Html.ValidationMessageFor(model => model.ModifiedDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModifiedByPersonID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModifiedByPersonID)
+            @Html.ValidationMessageFor(model => model.ModifiedByPersonID)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,1251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2210060-12D7-4F97-8D6F-2B263033DE16}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebUI</RootNamespace>
+    <AssemblyName>WebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\Kendo UI for ASP.NET MVC Q2 2013\wrappers\aspnetmvc\Binaries\Mvc3\Kendo.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc.Html5">
+      <HintPath>..\packages\MVCHtml5Toolkit.1.8\lib\System.Web.Mvc.Html5.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.2.724.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.OData, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.4.0.0\lib\net40\System.Web.Http.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DateHelpers.cs" />
+    <Compile Include="Helpers\DropDownHelpers.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="KendoHelpers\DataSourceResult.cs" />
+    <Compile Include="KendoHelpers\Dynamic.cs" />
+    <Compile Include="KendoHelpers\Filter.cs" />
+    <Compile Include="KendoHelpers\QueryableExtensions.cs" />
+    <Compile Include="KendoHelpers\Sort.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CustomerCreate.cs" />
+    <Compile Include="ViewModels\CustomerCreateVM.cs" />
+    <Compile Include="ViewModels\CustomerSearch.cs" />
+    <Compile Include="ViewModels\Customer\CustomerEdit.cs" />
+    <Compile Include="ViewModels\DropDownLists\PricesDropDown.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Ace\avatars\avatar.png" />
+    <Content Include="Content\Ace\avatars\avatar1.png" />
+    <Content Include="Content\Ace\avatars\avatar2.png" />
+    <Content Include="Content\Ace\avatars\avatar3.png" />
+    <Content Include="Content\Ace\avatars\avatar4.png" />
+    <Content Include="Content\Ace\avatars\avatar5.png" />
+    <Content Include="Content\Ace\avatars\profile-pic.jpg" />
+    <Content Include="Content\Ace\avatars\user.jpg" />
+    <Content Include="Content\Ace\css\ace-fonts.css" />
+    <Content Include="Content\Ace\css\ace-ie.min.css" />
+    <Content Include="Content\Ace\css\ace-responsive.min.css" />
+    <Content Include="Content\Ace\css\ace-skins.min.css" />
+    <Content Include="Content\Ace\css\ace.min.css" />
+    <Content Include="Content\Ace\css\bootstrap-editable.css" />
+    <Content Include="Content\Ace\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\Ace\css\bootstrap-timepicker.css" />
+    <Content Include="Content\Ace\css\bootstrap.min.css" />
+    <Content Include="Content\Ace\css\chosen-sprite%402x.png" />
+    <Content Include="Content\Ace\css\chosen-sprite.png" />
+    <Content Include="Content\Ace\css\chosen.css" />
+    <Content Include="Content\Ace\css\chosen.min.css" />
+    <Content Include="Content\Ace\css\colorbox.css" />
+    <Content Include="Content\Ace\css\colorpicker.css" />
+    <Content Include="Content\Ace\css\datepicker.css" />
+    <Content Include="Content\Ace\css\daterangepicker.css" />
+    <Content Include="Content\Ace\css\font-awesome-ie7.min.css" />
+    <Content Include="Content\Ace\css\font-awesome.min.css" />
+    <Content Include="Content\Ace\css\fullcalendar.css" />
+    <Content Include="Content\Ace\css\images\border.png" />
+    <Content Include="Content\Ace\css\images\border1.png" />
+    <Content Include="Content\Ace\css\images\border2.png" />
+    <Content Include="Content\Ace\css\images\controls.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderBottomCenter.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderBottomLeft.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderBottomRight.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderMiddleLeft.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderMiddleRight.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderTopCenter.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderTopLeft.png" />
+    <Content Include="Content\Ace\css\images\ie6\borderTopRight.png" />
+    <Content Include="Content\Ace\css\images\loading.gif" />
+    <Content Include="Content\Ace\css\images\loading_background.png" />
+    <Content Include="Content\Ace\css\images\overlay.png" />
+    <Content Include="Content\Ace\css\img\alpha.png" />
+    <Content Include="Content\Ace\css\img\hue.png" />
+    <Content Include="Content\Ace\css\img\saturation.png" />
+    <Content Include="Content\Ace\css\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="Content\Ace\css\jquery.gritter.css" />
+    <Content Include="Content\Ace\css\prettify.css" />
+    <Content Include="Content\Ace\css\select2-spinner.gif" />
+    <Content Include="Content\Ace\css\select2.css" />
+    <Content Include="Content\Ace\css\select2.png" />
+    <Content Include="Content\Ace\css\select2x2.png" />
+    <Content Include="Content\Ace\css\uncompressed\ace-ie.css" />
+    <Content Include="Content\Ace\css\uncompressed\ace-responsive.css" />
+    <Content Include="Content\Ace\css\uncompressed\ace-skins.css" />
+    <Content Include="Content\Ace\css\uncompressed\ace.css" />
+    <Content Include="Content\Ace\css\uncompressed\bootstrap-responsive.css" />
+    <Content Include="Content\Ace\css\uncompressed\bootstrap.css" />
+    <Content Include="Content\Ace\css\uncompressed\font-awesome-ie7.css" />
+    <Content Include="Content\Ace\css\uncompressed\font-awesome.css" />
+    <Content Include="Content\Ace\css\uncompressed\jquery-ui-1.10.3.custom.css" />
+    <Content Include="Content\Ace\font\fontawesome-webfont.svg" />
+    <Content Include="Content\Ace\images\back_disabled.png" />
+    <Content Include="Content\Ace\images\back_enabled.png" />
+    <Content Include="Content\Ace\images\back_enabled_hover.png" />
+    <Content Include="Content\Ace\images\forward_disabled.png" />
+    <Content Include="Content\Ace\images\forward_enabled.png" />
+    <Content Include="Content\Ace\images\forward_enabled_hover.png" />
+    <Content Include="Content\Ace\images\gallery\image-1.jpg" />
+    <Content Include="Content\Ace\images\gallery\image-2.jpg" />
+    <Content Include="Content\Ace\images\gallery\image-3.jpg" />
+    <Content Include="Content\Ace\images\gallery\image-4.jpg" />
+    <Content Include="Content\Ace\images\gallery\image-5.jpg" />
+    <Content Include="Content\Ace\images\gallery\image-6.jpg" />
+    <Content Include="Content\Ace\images\gallery\thumb-1.jpg" />
+    <Content Include="Content\Ace\images\gallery\thumb-2.jpg" />
+    <Content Include="Content\Ace\images\gallery\thumb-3.jpg" />
+    <Content Include="Content\Ace\images\gallery\thumb-4.jpg" />
+    <Content Include="Content\Ace\images\gallery\thumb-5.jpg" />
+    <Content Include="Content\Ace\images\gallery\thumb-6.jpg" />
+    <Content Include="Content\Ace\images\sort_asc.png" />
+    <Content Include="Content\Ace\images\sort_asc_disabled.png" />
+    <Content Include="Content\Ace\images\sort_both.png" />
+    <Content Include="Content\Ace\images\sort_desc.png" />
+    <Content Include="Content\Ace\images\sort_desc_disabled.png" />
+    <Content Include="Content\Ace\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\Ace\img\glyphicons-halflings.png" />
+    <Content Include="Content\kendo.compatibility.css" />
+    <Content Include="Content\KendoUI\Black\editor.png" />
+    <Content Include="Content\KendoUI\Black\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Black\loading-image.gif" />
+    <Content Include="Content\KendoUI\Black\loading.gif" />
+    <Content Include="Content\KendoUI\Black\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Black\slider-h.gif" />
+    <Content Include="Content\KendoUI\Black\slider-v.gif" />
+    <Content Include="Content\KendoUI\Black\sprite.png" />
+    <Content Include="Content\KendoUI\Black\sprite_2x.png" />
+    <Content Include="Content\KendoUI\BlueOpal\editor.png" />
+    <Content Include="Content\KendoUI\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\KendoUI\BlueOpal\loading-image.gif" />
+    <Content Include="Content\KendoUI\BlueOpal\loading.gif" />
+    <Content Include="Content\KendoUI\BlueOpal\loading_2x.gif" />
+    <Content Include="Content\KendoUI\BlueOpal\slider-h.gif" />
+    <Content Include="Content\KendoUI\BlueOpal\slider-v.gif" />
+    <Content Include="Content\KendoUI\BlueOpal\sprite.png" />
+    <Content Include="Content\KendoUI\BlueOpal\sprite_2x.png" />
+    <Content Include="Content\KendoUI\Bootstrap\editor.png" />
+    <Content Include="Content\KendoUI\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Bootstrap\loading-image.gif" />
+    <Content Include="Content\KendoUI\Bootstrap\loading.gif" />
+    <Content Include="Content\KendoUI\Bootstrap\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Bootstrap\slider-h.gif" />
+    <Content Include="Content\KendoUI\Bootstrap\slider-v.gif" />
+    <Content Include="Content\KendoUI\Bootstrap\sprite.png" />
+    <Content Include="Content\KendoUI\Bootstrap\sprite_2x.png" />
+    <Content Include="Content\KendoUI\Default\editor.png" />
+    <Content Include="Content\KendoUI\Default\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Default\loading-image.gif" />
+    <Content Include="Content\KendoUI\Default\loading.gif" />
+    <Content Include="Content\KendoUI\Default\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Default\slider-h.gif" />
+    <Content Include="Content\KendoUI\Default\slider-v.gif" />
+    <Content Include="Content\KendoUI\Default\sprite.png" />
+    <Content Include="Content\KendoUI\Default\sprite_2x.png" />
+    <Content Include="Content\KendoUI\Flat\editor.png" />
+    <Content Include="Content\KendoUI\Flat\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Flat\loading-image.gif" />
+    <Content Include="Content\KendoUI\Flat\loading.gif" />
+    <Content Include="Content\KendoUI\Flat\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Flat\slider-h.gif" />
+    <Content Include="Content\KendoUI\Flat\slider-v.gif" />
+    <Content Include="Content\KendoUI\Flat\sprite.png" />
+    <Content Include="Content\KendoUI\Flat\sprite_2x.png" />
+    <Content Include="Content\KendoUI\HighContrast\editor.png" />
+    <Content Include="Content\KendoUI\HighContrast\imagebrowser.png" />
+    <Content Include="Content\KendoUI\HighContrast\loading-image.gif" />
+    <Content Include="Content\KendoUI\HighContrast\loading.gif" />
+    <Content Include="Content\KendoUI\HighContrast\loading_2x.gif" />
+    <Content Include="Content\KendoUI\HighContrast\slider-h.gif" />
+    <Content Include="Content\KendoUI\HighContrast\slider-v.gif" />
+    <Content Include="Content\KendoUI\HighContrast\sprite.png" />
+    <Content Include="Content\KendoUI\HighContrast\sprite_2x.png" />
+    <Content Include="Content\KendoUI\images\back.png" />
+    <Content Include="Content\KendoUI\images\wp8_icons.png" />
+    <Content Include="Content\KendoUI\images\wp8_inverseicons.png" />
+    <Content Include="Content\KendoUI\kendo.black.min.css" />
+    <Content Include="Content\KendoUI\kendo.blueopal.min.css" />
+    <Content Include="Content\KendoUI\kendo.bootstrap.min.css" />
+    <Content Include="Content\KendoUI\kendo.common.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.black.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.default.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.flat.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.metroblack.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\KendoUI\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\KendoUI\kendo.default.min.css" />
+    <Content Include="Content\KendoUI\kendo.flat.min.css" />
+    <Content Include="Content\KendoUI\kendo.highcontrast.min.css" />
+    <Content Include="Content\KendoUI\kendo.icenium.min.css" />
+    <Content Include="Content\KendoUI\kendo.metro.min.css" />
+    <Content Include="Content\KendoUI\kendo.metroblack.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.all.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.android4.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.blackberry.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.common.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.flat.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.icenium.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.ios.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.meego.min.css" />
+    <Content Include="Content\KendoUI\kendo.mobile.wp8.min.css" />
+    <Content Include="Content\KendoUI\kendo.moonlight.min.css" />
+    <Content Include="Content\KendoUI\kendo.rtl.min.css" />
+    <Content Include="Content\KendoUI\kendo.silver.min.css" />
+    <Content Include="Content\KendoUI\kendo.uniform.min.css" />
+    <Content Include="Content\KendoUI\MetroBlack\editor.png" />
+    <Content Include="Content\KendoUI\MetroBlack\imagebrowser.png" />
+    <Content Include="Content\KendoUI\MetroBlack\loading-image.gif" />
+    <Content Include="Content\KendoUI\MetroBlack\loading.gif" />
+    <Content Include="Content\KendoUI\MetroBlack\loading_2x.gif" />
+    <Content Include="Content\KendoUI\MetroBlack\slider-h.gif" />
+    <Content Include="Content\KendoUI\MetroBlack\slider-v.gif" />
+    <Content Include="Content\KendoUI\MetroBlack\sprite.png" />
+    <Content Include="Content\KendoUI\MetroBlack\sprite_2x.png" />
+    <Content Include="Content\KendoUI\Metro\editor.png" />
+    <Content Include="Content\KendoUI\Metro\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Metro\loading-image.gif" />
+    <Content Include="Content\KendoUI\Metro\loading.gif" />
+    <Content Include="Content\KendoUI\Metro\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Metro\slider-h.gif" />
+    <Content Include="Content\KendoUI\Metro\slider-v.gif" />
+    <Content Include="Content\KendoUI\Metro\sprite.png" />
+    <Content Include="Content\KendoUI\Metro\sprite_2x.png" />
+    <Content Include="Content\KendoUI\Moonlight\editor.png" />
+    <Content Include="Content\KendoUI\Moonlight\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Moonlight\loading-image.gif" />
+    <Content Include="Content\KendoUI\Moonlight\loading.gif" />
+    <Content Include="Content\KendoUI\Moonlight\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Moonlight\slider-h.gif" />
+    <Content Include="Content\KendoUI\Moonlight\slider-v.gif" />
+    <Content Include="Content\KendoUI\Moonlight\sprite.png" />
+    <Content Include="Content\KendoUI\Moonlight\sprite_2x.png" />
+    <Content Include="Content\KendoUI\Silver\editor.png" />
+    <Content Include="Content\KendoUI\Silver\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Silver\loading-image.gif" />
+    <Content Include="Content\KendoUI\Silver\loading.gif" />
+    <Content Include="Content\KendoUI\Silver\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Silver\slider-h.gif" />
+    <Content Include="Content\KendoUI\Silver\slider-v.gif" />
+    <Content Include="Content\KendoUI\Silver\sprite.png" />
+    <Content Include="Content\KendoUI\Silver\sprite_2x.png" />
+    <Content Include="Content\KendoUI\textures\brushed-metal.png" />
+    <Content Include="Content\KendoUI\textures\dots1.png" />
+    <Content Include="Content\KendoUI\textures\dots10.png" />
+    <Content Include="Content\KendoUI\textures\dots11.png" />
+    <Content Include="Content\KendoUI\textures\dots12.png" />
+    <Content Include="Content\KendoUI\textures\dots13.png" />
+    <Content Include="Content\KendoUI\textures\dots2.png" />
+    <Content Include="Content\KendoUI\textures\dots3.png" />
+    <Content Include="Content\KendoUI\textures\dots4.png" />
+    <Content Include="Content\KendoUI\textures\dots5.png" />
+    <Content Include="Content\KendoUI\textures\dots6.png" />
+    <Content Include="Content\KendoUI\textures\dots7.png" />
+    <Content Include="Content\KendoUI\textures\dots8.png" />
+    <Content Include="Content\KendoUI\textures\dots9.png" />
+    <Content Include="Content\KendoUI\textures\glass-lighter.png" />
+    <Content Include="Content\KendoUI\textures\glass.png" />
+    <Content Include="Content\KendoUI\textures\highlight.png" />
+    <Content Include="Content\KendoUI\textures\hsv-gradient.png" />
+    <Content Include="Content\KendoUI\textures\hue.png" />
+    <Content Include="Content\KendoUI\textures\leather1.png" />
+    <Content Include="Content\KendoUI\textures\leather2.png" />
+    <Content Include="Content\KendoUI\textures\noise.png" />
+    <Content Include="Content\KendoUI\textures\stripe1.png" />
+    <Content Include="Content\KendoUI\textures\stripe2.png" />
+    <Content Include="Content\KendoUI\textures\stripe3.png" />
+    <Content Include="Content\KendoUI\textures\stripe4.png" />
+    <Content Include="Content\KendoUI\textures\stripe5.png" />
+    <Content Include="Content\KendoUI\textures\stripe6.png" />
+    <Content Include="Content\KendoUI\textures\transparency.png" />
+    <Content Include="Content\KendoUI\textures\transtexture.png" />
+    <Content Include="Content\KendoUI\Uniform\editor.png" />
+    <Content Include="Content\KendoUI\Uniform\imagebrowser.png" />
+    <Content Include="Content\KendoUI\Uniform\loading-image.gif" />
+    <Content Include="Content\KendoUI\Uniform\loading.gif" />
+    <Content Include="Content\KendoUI\Uniform\loading_2x.gif" />
+    <Content Include="Content\KendoUI\Uniform\slider-h.gif" />
+    <Content Include="Content\KendoUI\Uniform\slider-v.gif" />
+    <Content Include="Content\KendoUI\Uniform\sprite.png" />
+    <Content Include="Content\KendoUI\Uniform\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Black\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Black\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Black\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Black\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Black\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Black\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Black\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Black\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Black\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\BlueOpal\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Bootstrap\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Default\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Default\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Default\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Default\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Default\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Default\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Default\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Default\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Default\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Flat\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Flat\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Flat\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Flat\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Flat\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Flat\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Flat\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Flat\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Flat\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\HighContrast\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\images\back.png" />
+    <Content Include="Content\kendo\2013.2.716\images\wp8_icons.png" />
+    <Content Include="Content\kendo\2013.2.716\images\wp8_inverseicons.png" />
+    <Content Include="Content\kendo\2013.2.716\kendo.black.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.blueopal.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.common.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.black.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.default.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.flat.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.metroblack.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.default.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.flat.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.highcontrast.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.icenium.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.metro.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.metroblack.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.all.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.android4.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.blackberry.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.common.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.flat.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.icenium.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.ios.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.meego.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.mobile.wp8.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.moonlight.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.rtl.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.silver.min.css" />
+    <Content Include="Content\kendo\2013.2.716\kendo.uniform.min.css" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\MetroBlack\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Metro\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Metro\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Metro\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Metro\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Metro\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Metro\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Metro\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Metro\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Metro\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Moonlight\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\Silver\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Silver\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Silver\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Silver\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Silver\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Silver\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Silver\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Silver\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Silver\sprite_2x.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\brushed-metal.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots1.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots10.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots11.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots12.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots13.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots2.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots3.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots4.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots5.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots6.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots7.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots8.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\dots9.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\glass-lighter.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\glass.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\highlight.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\hsv-gradient.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\hue.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\leather1.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\leather2.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\noise.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\stripe1.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\stripe2.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\stripe3.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\stripe4.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\stripe5.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\stripe6.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\transparency.png" />
+    <Content Include="Content\kendo\2013.2.716\textures\transtexture.png" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\editor.png" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\loading-image.gif" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\loading.gif" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\loading_2x.gif" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\slider-h.gif" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\slider-v.gif" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\sprite.png" />
+    <Content Include="Content\kendo\2013.2.716\Uniform\sprite_2x.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Ace\css\less\ace-nav.less" />
+    <Content Include="Content\Ace\css\less\ace.less" />
+    <Content Include="Content\Ace\css\less\basic.less" />
+    <Content Include="Content\Ace\css\less\bootstrap\variables.less" />
+    <Content Include="Content\Ace\css\less\breadcrumbs.less" />
+    <Content Include="Content\Ace\css\less\buttons.less" />
+    <Content Include="Content\Ace\css\less\dropdown.less" />
+    <Content Include="Content\Ace\css\less\ext\bootstrap-tag.less" />
+    <Content Include="Content\Ace\css\less\form-checkbox.less" />
+    <Content Include="Content\Ace\css\less\form-file.less" />
+    <Content Include="Content\Ace\css\less\form.less" />
+    <Content Include="Content\Ace\css\less\gallery.less" />
+    <Content Include="Content\Ace\css\less\general.less" />
+    <Content Include="Content\Ace\css\less\icon-animated.less" />
+    <Content Include="Content\Ace\css\less\infobox.less" />
+    <Content Include="Content\Ace\css\less\items.less" />
+    <Content Include="Content\Ace\css\less\label-badge.less" />
+    <Content Include="Content\Ace\css\less\mixins-css3.less" />
+    <Content Include="Content\Ace\css\less\mixins.less" />
+    <Content Include="Content\Ace\css\less\other.less" />
+    <Content Include="Content\Ace\css\less\page.error.less" />
+    <Content Include="Content\Ace\css\less\page.invoice.less" />
+    <Content Include="Content\Ace\css\less\page.login.less" />
+    <Content Include="Content\Ace\css\less\page.pricing.less" />
+    <Content Include="Content\Ace\css\less\page.profile.less" />
+    <Content Include="Content\Ace\css\less\progressbar.less" />
+    <Content Include="Content\Ace\css\less\rtl.less" />
+    <Content Include="Content\Ace\css\less\searchbox.less" />
+    <Content Include="Content\Ace\css\less\sidebar.less" />
+    <Content Include="Content\Ace\css\less\tab-accordion.less" />
+    <Content Include="Content\Ace\css\less\tables.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-calendar.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-chosen.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-colorbox.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-editable.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-fuelux.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-gritter.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-select2.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-slider.less" />
+    <Content Include="Content\Ace\css\less\thirdparty-wysiwyg.less" />
+    <Content Include="Content\Ace\css\less\tooltip-popover.less" />
+    <Content Include="Content\Ace\css\less\utility.less" />
+    <Content Include="Content\Ace\css\less\variables.less" />
+    <Content Include="Content\Ace\css\less\widget.less" />
+    <Content Include="Content\Ace\font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <Content Include="Content\Ace\font\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="Content\Ace\font\fontawesome-webfont.eot" />
+    <Content Include="Content\Ace\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\Ace\font\fontawesome-webfont.woff" />
+    <Content Include="Content\Ace\font\FontAwesome.otf" />
+    <Content Include="Content\KendoUI\images\KendoUI.ttf" />
+    <Content Include="Content\KendoUI\images\KendoUI.woff" />
+    <Content Include="Content\kendo\2013.2.716\images\KendoUI.ttf" />
+    <Content Include="Content\kendo\2013.2.716\images\KendoUI.woff" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\ace-elements.min.js" />
+    <Content Include="Scripts\ace.min.js" />
+    <Content Include="Scripts\additional-methods.min.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap-colorpicker.min.js" />
+    <Content Include="Scripts\bootstrap-tag.min.js" />
+    <Content Include="Scripts\bootstrap-wysiwyg.min.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\custom\add-placeholder.js" />
+    <Content Include="Scripts\custom\pr-date.js" />
+    <Content Include="Scripts\date-time\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\date-time\bootstrap-timepicker.min.js" />
+    <Content Include="Scripts\date-time\daterangepicker.min.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.da.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.de.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.el.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.he.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.hu.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.id.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.is.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.it.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.th.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.uk.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="Scripts\date-time\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="Scripts\date-time\moment.min.js" />
+    <Content Include="Scripts\excanvas.min.js" />
+    <Content Include="Scripts\flot\jquery.flot.min.js" />
+    <Content Include="Scripts\flot\jquery.flot.pie.min.js" />
+    <Content Include="Scripts\flot\jquery.flot.resize.min.js" />
+    <Content Include="Scripts\fuelux\data\fuelux.tree-sampledata.js" />
+    <Content Include="Scripts\fuelux\fuelux.spinner.min.js" />
+    <Content Include="Scripts\fuelux\fuelux.tree.min.js" />
+    <Content Include="Scripts\fuelux\fuelux.wizard.min.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.autosize-min.js" />
+    <Content Include="Scripts\jquery.colorbox-min.js" />
+    <Content Include="Scripts\jquery.dataTables.bootstrap.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.easy-pie-chart.min.js" />
+    <Content Include="Scripts\jquery.gritter.min.js" />
+    <Content Include="Scripts\jquery.hotkeys.min.js" />
+    <Content Include="Scripts\jquery.inputlimiter.1.3.1.min.js" />
+    <Content Include="Scripts\jquery.knob.min.js" />
+    <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.mobile.custom.min.js" />
+    <Content Include="Scripts\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\jquery.sparkline.min.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\kendo.modernizr.custom.js" />
+    <Content Include="Scripts\KendoUI\jquery.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.all.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.autocomplete.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.binder.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.calendar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.colorpicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.columnmenu.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.combobox.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.core.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.data.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.data.odata.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.data.xml.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.barcode.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.canvas.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.chart.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.chart.polar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.core.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.gauge.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.qrcode.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.sparkline.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.stock.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.svg.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.themes.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.vml.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.datepicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.datetimepicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.draganddrop.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dropdownlist.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.editable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.editor.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.filtermenu.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.fx.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.grid.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.groupable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.imagebrowser.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.list.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.listview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.menu.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.actionsheet.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.application.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.button.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.buttongroup.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.drawer.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.listview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.loader.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.modalview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.navbar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.pane.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.popover.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.scroller.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.scrollview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.shim.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.splitview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.switch.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.tabstrip.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.view.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.multiselect.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.numerictextbox.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.pager.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.panelbar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.popup.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.reorderable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.resizable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.router.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.scheduler.agendaview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.scheduler.dayview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.scheduler.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.scheduler.monthview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.scheduler.recurrence.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.scheduler.view.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.selectable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.slider.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.sortable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.splitter.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.tabstrip.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.timepicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.timezones.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.tooltip.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.touch.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.treeview.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.upload.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.userevents.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.validator.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.view.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.web.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.window.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\jquery.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.js</DependentUpon>
+    </Content>
+    <None Include="Scripts\kendo\2013.2.716\kendo.all-vsdoc.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.all.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.all.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.autocomplete.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.binder.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.calendar.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.colorpicker.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.columnmenu.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.combobox.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.core.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.data.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.data.odata.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.data.xml.min.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.dataviz-vsdoc.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.barcode.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.canvas.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.chart.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.chart.polar.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.core.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.gauge.min.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.dataviz.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.qrcode.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.sparkline.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.stock.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.svg.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.themes.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dataviz.vml.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.datepicker.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.datetimepicker.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.draganddrop.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.dropdownlist.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.editable.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.editor.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.filtermenu.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.fx.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.grid.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.groupable.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.imagebrowser.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.list.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.listview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.menu.min.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.mobile-vsdoc.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.actionsheet.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.application.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.button.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.buttongroup.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.drawer.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.listview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.loader.min.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.mobile.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.modalview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.navbar.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.pane.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.popover.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.scroller.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.scrollview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.shim.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.splitview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.switch.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.mobile.view.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.multiselect.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.numerictextbox.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.pager.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.panelbar.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.popup.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.reorderable.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.resizable.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.router.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.scheduler.agendaview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.scheduler.dayview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.scheduler.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.scheduler.monthview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.scheduler.recurrence.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.scheduler.view.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.selectable.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.slider.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.sortable.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.splitter.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.timepicker.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.timezones.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.tooltip.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.touch.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.treeview.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.upload.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.userevents.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.validator.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.view.min.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.web-vsdoc.js" />
+    <None Include="Scripts\kendo\2013.2.716\kendo.web.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.web.min.js" />
+    <Content Include="Scripts\kendo\2013.2.716\kendo.window.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\markdown\bootstrap-markdown.min.js" />
+    <Content Include="Scripts\markdown\markdown.min.js" />
+    <Content Include="Scripts\markdown\to-markdown.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\prettify.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\spin.min.js" />
+    <Content Include="Scripts\uncompressed\ace-elements.js" />
+    <Content Include="Scripts\uncompressed\ace.js" />
+    <Content Include="Scripts\uncompressed\additional-methods.js" />
+    <Content Include="Scripts\uncompressed\bootbox.js" />
+    <Content Include="Scripts\uncompressed\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\uncompressed\bootstrap-tag.js" />
+    <Content Include="Scripts\uncompressed\bootstrap-wysiwyg.js" />
+    <Content Include="Scripts\uncompressed\bootstrap.js" />
+    <Content Include="Scripts\uncompressed\chosen.jquery.js" />
+    <Content Include="Scripts\uncompressed\date-time\bootstrap-datepicker.js" />
+    <Content Include="Scripts\uncompressed\date-time\bootstrap-timepicker.js" />
+    <Content Include="Scripts\uncompressed\date-time\daterangepicker.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.da.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.de.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.el.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.he.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.hu.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.id.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.is.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.it.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.th.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.uk.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="Scripts\uncompressed\date-time\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="Scripts\uncompressed\date-time\moment.js" />
+    <Content Include="Scripts\uncompressed\excanvas.js" />
+    <Content Include="Scripts\uncompressed\flot\jquery.flot.js" />
+    <Content Include="Scripts\uncompressed\flot\jquery.flot.pie.js" />
+    <Content Include="Scripts\uncompressed\flot\jquery.flot.resize.js" />
+    <Content Include="Scripts\uncompressed\fuelux\data\fuelux.tree-sampledata.js" />
+    <Content Include="Scripts\uncompressed\fuelux\fuelux.spinner.js" />
+    <Content Include="Scripts\uncompressed\fuelux\fuelux.tree.js" />
+    <Content Include="Scripts\uncompressed\fuelux\fuelux.wizard.js" />
+    <Content Include="Scripts\uncompressed\fullcalendar.js" />
+    <Content Include="Scripts\uncompressed\jquery-1.10.2.js" />
+    <Content Include="Scripts\uncompressed\jquery-2.0.3.js" />
+    <Content Include="Scripts\uncompressed\jquery-ui-1.10.3.custom.js" />
+    <Content Include="Scripts\uncompressed\jquery.autosize.js" />
+    <Content Include="Scripts\uncompressed\jquery.colorbox.js" />
+    <Content Include="Scripts\uncompressed\jquery.dataTables.js" />
+    <Content Include="Scripts\uncompressed\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\uncompressed\jquery.gritter.js" />
+    <Content Include="Scripts\uncompressed\jquery.hotkeys.js" />
+    <Content Include="Scripts\uncompressed\jquery.inputlimiter.1.3.1.js" />
+    <Content Include="Scripts\uncompressed\jquery.knob.js" />
+    <Content Include="Scripts\uncompressed\jquery.maskedinput.js" />
+    <Content Include="Scripts\uncompressed\jquery.mobile.custom.js" />
+    <Content Include="Scripts\uncompressed\jquery.slimscroll.js" />
+    <Content Include="Scripts\uncompressed\jquery.sparkline.js" />
+    <Content Include="Scripts\uncompressed\jquery.ui.touch-punch.js" />
+    <Content Include="Scripts\uncompressed\jquery.validate.js" />
+    <Content Include="Scripts\uncompressed\markdown\bootstrap-markdown.js" />
+    <Content Include="Scripts\uncompressed\markdown\markdown.js" />
+    <Content Include="Scripts\uncompressed\markdown\to-markdown.js" />
+    <Content Include="Scripts\uncompressed\select2.js" />
+    <Content Include="Scripts\uncompressed\spin.js" />
+    <Content Include="Scripts\uncompressed\x-editable\ace-editable.js" />
+    <Content Include="Scripts\uncompressed\x-editable\bootstrap-editable.js" />
+    <Content Include="Scripts\x-editable\ace-editable.min.js" />
+    <Content Include="Scripts\x-editable\bootstrap-editable.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout_ORIG.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Person\Index.cshtml" />
+    <Content Include="Views\Person\Details.cshtml" />
+    <Content Include="Views\Person\Create.cshtml" />
+    <Content Include="Views\Person\Edit.cshtml" />
+    <Content Include="Views\Person\Delete.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Create_ORIG.cshtml" />
+    <Content Include="Views\Customer\Edit_OLD.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Customer\CustomerCreate.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Edit.cshtml" />
+    <Content Include="Views\Test\Delete.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlumRunDomain\PlumRunDomain.csproj">
+      <Project>{4c242ffc-6952-46aa-884f-38a4390cce9a}</Project>
+      <Name>PlumRunDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlumRunModel\PlumRunModel.csproj">
+      <Project>{44469801-4743-40f1-a758-7fff39436799}</Project>
+      <Name>PlumRunModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51735</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61476/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <UserProperties UseCdnSupport="False" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

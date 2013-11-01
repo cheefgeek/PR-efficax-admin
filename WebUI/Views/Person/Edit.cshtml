@@ -1,0 +1,94 @@
+﻿@model PRCoreModel.Person
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Person</legend>
+
+        @Html.HiddenFor(model => model.PersonID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CustomerID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CustomerID)
+            @Html.ValidationMessageFor(model => model.CustomerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MiddleName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MiddleName)
+            @Html.ValidationMessageFor(model => model.MiddleName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDateTime)
+            @Html.ValidationMessageFor(model => model.CreatedDateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedByPersonID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedByPersonID)
+            @Html.ValidationMessageFor(model => model.CreatedByPersonID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModifiedDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModifiedDateTime)
+            @Html.ValidationMessageFor(model => model.ModifiedDateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModifiedByPersonID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModifiedByPersonID)
+            @Html.ValidationMessageFor(model => model.ModifiedByPersonID)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

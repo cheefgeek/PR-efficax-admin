@@ -1,0 +1,1459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PRChurchModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PRChurchModelStoreContainer">
+          <EntitySet Name="Address" EntityType="PRChurchModel.Store.Address" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="Customer" EntityType="PRChurchModel.Store.Customer" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="CustomerPayment" EntityType="PRChurchModel.Store.CustomerPayment" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="Group" EntityType="PRChurchModel.Store.Group" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="GroupMember" EntityType="PRChurchModel.Store.GroupMember" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="Location" EntityType="PRChurchModel.Store.Location" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="Person" EntityType="PRChurchModel.Store.Person" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="PersonRole" EntityType="PRChurchModel.Store.PersonRole" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="Price" EntityType="PRChurchModel.Store.Price" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="PriceList" EntityType="PRChurchModel.Store.PriceList" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="Role" EntityType="PRChurchModel.Store.Role" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="RoleRight" EntityType="PRChurchModel.Store.RoleRight" store:Type="Tables" Schema="Core" />
+          <EntitySet Name="BillingInterval" EntityType="PRChurchModel.Store.BillingInterval" store:Type="Tables" Schema="List" />
+          <EntitySet Name="Country" EntityType="PRChurchModel.Store.Country" store:Type="Tables" Schema="List" />
+          <EntitySet Name="GroupMemberType" EntityType="PRChurchModel.Store.GroupMemberType" store:Type="Tables" Schema="List" />
+          <EntitySet Name="GroupType" EntityType="PRChurchModel.Store.GroupType" store:Type="Tables" Schema="List" />
+          <EntitySet Name="Right" EntityType="PRChurchModel.Store.Right" store:Type="Tables" Schema="List" />
+          <EntitySet Name="StateProvince" EntityType="PRChurchModel.Store.StateProvince" store:Type="Tables" Schema="List" />
+          <AssociationSet Name="FK_Address_Customer" Association="PRChurchModel.Store.FK_Address_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Price" Association="PRChurchModel.Store.FK_Customer_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_StateProvince" Association="PRChurchModel.Store.FK_Customer_StateProvince">
+            <End Role="StateProvince" EntitySet="StateProvince" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerPayment_Customer" Association="PRChurchModel.Store.FK_CustomerPayment_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerPayment" EntitySet="CustomerPayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerPayment_Price" Association="PRChurchModel.Store.FK_CustomerPayment_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="CustomerPayment" EntitySet="CustomerPayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Address" Association="PRChurchModel.Store.FK_Group_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Customer" Association="PRChurchModel.Store.FK_Group_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_GroupType" Association="PRChurchModel.Store.FK_Group_GroupType">
+            <End Role="GroupType" EntitySet="GroupType" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Customer" Association="PRChurchModel.Store.FK_GroupMember_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Group" Association="PRChurchModel.Store.FK_GroupMember_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_GroupMemberType" Association="PRChurchModel.Store.FK_GroupMember_GroupMemberType">
+            <End Role="GroupMemberType" EntitySet="GroupMemberType" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Person" Association="PRChurchModel.Store.FK_GroupMember_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Address" Association="PRChurchModel.Store.FK_Location_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Customer" Association="PRChurchModel.Store.FK_Location_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Customer" Association="PRChurchModel.Store.FK_Person_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRole_Person" Association="PRChurchModel.Store.FK_PersonRole_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonRole" EntitySet="PersonRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRole_Role" Association="PRChurchModel.Store.FK_PersonRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="PersonRole" EntitySet="PersonRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_BillingInterval" Association="PRChurchModel.Store.FK_Price_BillingInterval">
+            <End Role="BillingInterval" EntitySet="BillingInterval" />
+            <End Role="Price" EntitySet="Price" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_PriceList" Association="PRChurchModel.Store.FK_Price_PriceList">
+            <End Role="PriceList" EntitySet="PriceList" />
+            <End Role="Price" EntitySet="Price" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleRight_Right" Association="PRChurchModel.Store.FK_RoleRight_Right">
+            <End Role="Right" EntitySet="Right" />
+            <End Role="RoleRight" EntitySet="RoleRight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleRight_Role" Association="PRChurchModel.Store.FK_RoleRight_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleRight" EntitySet="RoleRight" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="80" />
+          <Property Name="Attention" Type="nvarchar" MaxLength="80" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="10" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="CreateDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" />
+          <Property Name="CreatedByPersonID" Type="int" />
+          <Property Name="ModifiedByPersonID" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AROrgName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ARAddress1" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ARAddress2" Type="varchar" MaxLength="200" />
+          <Property Name="ARAddress3" Type="varchar" MaxLength="200" />
+          <Property Name="ARCity" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ARStateProvID" Type="int" Nullable="false" />
+          <Property Name="ARPostalCode" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="PriceID" Type="int" Nullable="false" />
+          <Property Name="ActiveDate" Type="datetime" />
+          <Property Name="InactiveDate" Type="datetime" />
+          <Property Name="CardTypeID" Type="int" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CardSecurityCode" Type="varchar" MaxLength="5" />
+          <Property Name="CardExpMonth" Type="int" />
+          <Property Name="CardExpYear" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedByPersonID" Type="int" />
+        </EntityType>
+        <EntityType Name="CustomerPayment">
+          <Key>
+            <PropertyRef Name="CustomerPaymentID" />
+          </Key>
+          <Property Name="CustomerPaymentID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="PriceID" Type="int" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="ParentGroupID" Type="int" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="GroupTypeID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateByUserID" Type="int" />
+          <Property Name="ModifiedByUserID" Type="int" />
+        </EntityType>
+        <EntityType Name="GroupMember">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="GroupMemberTypeID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="LocationTypeID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="ParentLocationID" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="35" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="PersonCapacity" Type="int" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" />
+          <Property Name="CreatedByPersonID" Type="int" />
+          <Property Name="ModifiedByPersonID" Type="int" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="10" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="ImageThumbnail" Type="varchar" MaxLength="250" />
+          <Property Name="ImageHiRes" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDateTime" Type="datetime" />
+          <Property Name="ModifiedByDateTime" Type="datetime" />
+          <Property Name="CreatedByPersonID" Type="int" />
+          <Property Name="ModifiedByPersonID" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="PersonID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="PriceID" />
+          </Key>
+          <Property Name="PriceID" Type="int" Nullable="false" />
+          <Property Name="PriceListID" Type="int" Nullable="false" />
+          <Property Name="BillingIntervalID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PriceList">
+          <Key>
+            <PropertyRef Name="PriceListID" />
+          </Key>
+          <Property Name="PriceListID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByPersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="RoleRight">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="RightID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RightID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BillingInterval">
+          <Key>
+            <PropertyRef Name="BillingIntervalID" />
+          </Key>
+          <Property Name="BillingIntervalID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="Country" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Country_Abbr" Type="varchar" MaxLength="50" />
+          <Property Name="AiaCountry" Type="varchar" MaxLength="255" />
+          <Property Name="ISOCountryID" Type="varchar" MaxLength="50" />
+          <Property Name="ISOCountryName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="GroupMemberType">
+          <Key>
+            <PropertyRef Name="GroupMemberTypeID" />
+          </Key>
+          <Property Name="GroupMemberTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="GroupType">
+          <Key>
+            <PropertyRef Name="GroupTypeID" />
+          </Key>
+          <Property Name="GroupTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" />
+          <Property Name="CreateByPersonID" Type="int" />
+          <Property Name="ModifiedByPersonID" Type="int" />
+        </EntityType>
+        <EntityType Name="Right">
+          <Key>
+            <PropertyRef Name="RightID" />
+          </Key>
+          <Property Name="RightID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="StateProvince">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="abbreviation" Type="varchar" MaxLength="255" />
+          <Property Name="country" Type="varchar" MaxLength="255" />
+          <Property Name="type" Type="varchar" MaxLength="255" />
+          <Property Name="sort" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="255" />
+          <Property Name="occupied" Type="varchar" MaxLength="255" />
+          <Property Name="notes" Type="varchar" MaxLength="255" />
+          <Property Name="fips_state" Type="varchar" MaxLength="255" />
+          <Property Name="assoc_press" Type="varchar" MaxLength="255" />
+          <Property Name="standard_federal_region" Type="varchar" MaxLength="255" />
+          <Property Name="census_region" Type="varchar" MaxLength="255" />
+          <Property Name="census_region_name" Type="varchar" MaxLength="255" />
+          <Property Name="census_division" Type="varchar" MaxLength="255" />
+          <Property Name="census_devision_name" Type="varchar" MaxLength="255" />
+          <Property Name="circuit_court" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Address_Customer">
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Address" Type="PRChurchModel.Store.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Price">
+          <End Role="Price" Type="PRChurchModel.Store.Price" Multiplicity="1" />
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="PriceID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_StateProvince">
+          <End Role="StateProvince" Type="PRChurchModel.Store.StateProvince" Multiplicity="1" />
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateProvince">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="ARStateProvID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerPayment_Customer">
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerPayment" Type="PRChurchModel.Store.CustomerPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="CustomerPayment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerPayment_Price">
+          <End Role="Price" Type="PRChurchModel.Store.Price" Multiplicity="1" />
+          <End Role="CustomerPayment" Type="PRChurchModel.Store.CustomerPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="PriceID" />
+            </Principal>
+            <Dependent Role="CustomerPayment">
+              <PropertyRef Name="PriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Address">
+          <End Role="Address" Type="PRChurchModel.Store.Address" Multiplicity="0..1" />
+          <End Role="Group" Type="PRChurchModel.Store.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Customer">
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Group" Type="PRChurchModel.Store.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_GroupType">
+          <End Role="GroupType" Type="PRChurchModel.Store.GroupType" Multiplicity="1" />
+          <End Role="Group" Type="PRChurchModel.Store.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupType">
+              <PropertyRef Name="GroupTypeID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="GroupTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Customer">
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="1" />
+          <End Role="GroupMember" Type="PRChurchModel.Store.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Group">
+          <End Role="Group" Type="PRChurchModel.Store.Group" Multiplicity="1" />
+          <End Role="GroupMember" Type="PRChurchModel.Store.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_GroupMemberType">
+          <End Role="GroupMemberType" Type="PRChurchModel.Store.GroupMemberType" Multiplicity="1" />
+          <End Role="GroupMember" Type="PRChurchModel.Store.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupMemberType">
+              <PropertyRef Name="GroupMemberTypeID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="GroupMemberTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Person">
+          <End Role="Person" Type="PRChurchModel.Store.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupMember" Type="PRChurchModel.Store.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Address">
+          <End Role="Address" Type="PRChurchModel.Store.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="PRChurchModel.Store.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Customer">
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="1" />
+          <End Role="Location" Type="PRChurchModel.Store.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Customer">
+          <End Role="Customer" Type="PRChurchModel.Store.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Person" Type="PRChurchModel.Store.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRole_Person">
+          <End Role="Person" Type="PRChurchModel.Store.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PersonRole" Type="PRChurchModel.Store.PersonRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRole">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRole_Role">
+          <End Role="Role" Type="PRChurchModel.Store.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PersonRole" Type="PRChurchModel.Store.PersonRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="PersonRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_BillingInterval">
+          <End Role="BillingInterval" Type="PRChurchModel.Store.BillingInterval" Multiplicity="1" />
+          <End Role="Price" Type="PRChurchModel.Store.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingInterval">
+              <PropertyRef Name="BillingIntervalID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="BillingIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_PriceList">
+          <End Role="PriceList" Type="PRChurchModel.Store.PriceList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Price" Type="PRChurchModel.Store.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleRight_Right">
+          <End Role="Right" Type="PRChurchModel.Store.Right" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RoleRight" Type="PRChurchModel.Store.RoleRight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Right">
+              <PropertyRef Name="RightID" />
+            </Principal>
+            <Dependent Role="RoleRight">
+              <PropertyRef Name="RightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleRight_Role">
+          <End Role="Role" Type="PRChurchModel.Store.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RoleRight" Type="PRChurchModel.Store.RoleRight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="RoleRight">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PRChurchModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PREntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="PRChurchModel.Address" />
+          <EntitySet Name="CustomerPayments" EntityType="PRChurchModel.CustomerPayment" />
+          <EntitySet Name="Groups" EntityType="PRChurchModel.Group" />
+          <EntitySet Name="GroupMembers" EntityType="PRChurchModel.GroupMember" />
+          <EntitySet Name="Locations" EntityType="PRChurchModel.Location" />
+          <EntitySet Name="Prices" EntityType="PRChurchModel.Price" />
+          <EntitySet Name="PriceLists" EntityType="PRChurchModel.PriceList" />
+          <EntitySet Name="Roles" EntityType="PRChurchModel.Role" />
+          <EntitySet Name="BillingIntervals" EntityType="PRChurchModel.BillingInterval" />
+          <EntitySet Name="GroupMemberTypes" EntityType="PRChurchModel.GroupMemberType" />
+          <EntitySet Name="GroupTypes" EntityType="PRChurchModel.GroupType" />
+          <EntitySet Name="Rights" EntityType="PRChurchModel.Right" />
+          <AssociationSet Name="FK_Group_Address" Association="PRChurchModel.FK_Group_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Address" Association="PRChurchModel.FK_Location_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerPayment_Price" Association="PRChurchModel.FK_CustomerPayment_Price">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="CustomerPayment" EntitySet="CustomerPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_GroupType" Association="PRChurchModel.FK_Group_GroupType">
+            <End Role="GroupType" EntitySet="GroupTypes" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Group" Association="PRChurchModel.FK_GroupMember_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_GroupMemberType" Association="PRChurchModel.FK_GroupMember_GroupMemberType">
+            <End Role="GroupMemberType" EntitySet="GroupMemberTypes" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_BillingInterval" Association="PRChurchModel.FK_Price_BillingInterval">
+            <End Role="BillingInterval" EntitySet="BillingIntervals" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_PriceList" Association="PRChurchModel.FK_Price_PriceList">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="RoleRight" Association="PRChurchModel.RoleRight">
+            <End Role="Right" EntitySet="Rights" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="Countries" EntityType="PRChurchModel.Country" />
+          <EntitySet Name="StateProvinces" EntityType="PRChurchModel.StateProvince" />
+          <EntitySet Name="People" EntityType="PRChurchModel.Person" />
+          <AssociationSet Name="FK_GroupMember_Person" Association="PRChurchModel.FK_GroupMember_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="PersonRole" Association="PRChurchModel.PersonRole">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="Customers" EntityType="PRChurchModel.Customer" />
+          <AssociationSet Name="FK_Address_Customer" Association="PRChurchModel.FK_Address_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Price" Association="PRChurchModel.FK_Customer_Price">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerPayment_Customer" Association="PRChurchModel.FK_CustomerPayment_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerPayment" EntitySet="CustomerPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Customer" Association="PRChurchModel.FK_Group_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Customer" Association="PRChurchModel.FK_GroupMember_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Customer" Association="PRChurchModel.FK_Location_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Customer" Association="PRChurchModel.FK_Person_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_StateProvince" Association="PRChurchModel.FK_Customer_StateProvince">
+            <End Role="StateProvince" EntitySet="StateProvinces" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="80" Unicode="true" FixedLength="false" />
+          <Property Name="Attention" Type="String" MaxLength="80" Unicode="true" FixedLength="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address3" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="StateProvince" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="CreateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByPersonID" Type="Int32" />
+          <Property Name="ModifiedByPersonID" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_Address" FromRole="Address" ToRole="Group" />
+          <NavigationProperty Name="Locations" Relationship="PRChurchModel.FK_Location_Address" FromRole="Address" ToRole="Location" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Address_Customer" FromRole="Address" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="CustomerPayment">
+          <Key>
+            <PropertyRef Name="CustomerPaymentID" />
+          </Key>
+          <Property Name="CustomerPaymentID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="PriceID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="CustomerPayment" ToRole="Price" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="CustomerPayment" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="ParentGroupID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="GroupTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateByUserID" Type="Int32" />
+          <Property Name="ModifiedByUserID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="PRChurchModel.FK_Group_Address" FromRole="Group" ToRole="Address" />
+          <NavigationProperty Name="GroupType" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="Group" ToRole="GroupType" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Group" FromRole="Group" ToRole="GroupMember" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Group_Customer" FromRole="Group" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="GroupMember">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="PRChurchModel.FK_GroupMember_Group" FromRole="GroupMember" ToRole="Group" />
+          <NavigationProperty Name="GroupMemberType" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMember" ToRole="GroupMemberType" />
+          <NavigationProperty Name="Person" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="GroupMember" ToRole="Person" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_GroupMember_Customer" FromRole="GroupMember" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="LocationTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="ParentLocationID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="35" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PersonCapacity" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByPersonID" Type="Int32" />
+          <Property Name="ModifiedByPersonID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="PRChurchModel.FK_Location_Address" FromRole="Location" ToRole="Address" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Location_Customer" FromRole="Location" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="PriceID" />
+          </Key>
+          <Property Name="PriceID" Type="Int32" Nullable="false" />
+          <Property Name="PriceListID" Type="Int32" Nullable="false" />
+          <Property Name="BillingIntervalID" Type="Int32" Nullable="false" />
+          <Property Name="Price1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="Price" ToRole="CustomerPayment" />
+          <NavigationProperty Name="BillingInterval" Relationship="PRChurchModel.FK_Price_BillingInterval" FromRole="Price" ToRole="BillingInterval" />
+          <NavigationProperty Name="PriceList" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="Price" ToRole="PriceList" />
+          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Price" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="PriceList">
+          <Key>
+            <PropertyRef Name="PriceListID" />
+          </Key>
+          <Property Name="PriceListID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByPersonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Prices" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="PriceList" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Rights" Relationship="PRChurchModel.RoleRight" FromRole="Role" ToRole="Right" />
+          <NavigationProperty Name="People" Relationship="PRChurchModel.PersonRole" FromRole="Role" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="BillingInterval">
+          <Key>
+            <PropertyRef Name="BillingIntervalID" />
+          </Key>
+          <Property Name="BillingIntervalID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Prices" Relationship="PRChurchModel.FK_Price_BillingInterval" FromRole="BillingInterval" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="GroupMemberType">
+          <Key>
+            <PropertyRef Name="GroupMemberTypeID" />
+          </Key>
+          <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMemberType" ToRole="GroupMember" />
+        </EntityType>
+        <EntityType Name="GroupType">
+          <Key>
+            <PropertyRef Name="GroupTypeID" />
+          </Key>
+          <Property Name="GroupTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateByPersonID" Type="Int32" />
+          <Property Name="ModifiedByPersonID" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="GroupType" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="Right">
+          <Key>
+            <PropertyRef Name="RightID" />
+          </Key>
+          <Property Name="RightID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Roles" Relationship="PRChurchModel.RoleRight" FromRole="Right" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Group_Address">
+          <End Role="Address" Type="PRChurchModel.Address" Multiplicity="0..1" />
+          <End Role="Group" Type="PRChurchModel.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Address">
+          <End Role="Address" Type="PRChurchModel.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="PRChurchModel.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerPayment_Price">
+          <End Role="Price" Type="PRChurchModel.Price" Multiplicity="1" />
+          <End Role="CustomerPayment" Type="PRChurchModel.CustomerPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="PriceID" />
+            </Principal>
+            <Dependent Role="CustomerPayment">
+              <PropertyRef Name="PriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_GroupType">
+          <End Role="GroupType" Type="PRChurchModel.GroupType" Multiplicity="1" />
+          <End Role="Group" Type="PRChurchModel.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupType">
+              <PropertyRef Name="GroupTypeID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="GroupTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Group">
+          <End Role="Group" Type="PRChurchModel.Group" Multiplicity="1" />
+          <End Role="GroupMember" Type="PRChurchModel.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_GroupMemberType">
+          <End Role="GroupMemberType" Type="PRChurchModel.GroupMemberType" Multiplicity="1" />
+          <End Role="GroupMember" Type="PRChurchModel.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupMemberType">
+              <PropertyRef Name="GroupMemberTypeID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="GroupMemberTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_BillingInterval">
+          <End Role="BillingInterval" Type="PRChurchModel.BillingInterval" Multiplicity="1" />
+          <End Role="Price" Type="PRChurchModel.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingInterval">
+              <PropertyRef Name="BillingIntervalID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="BillingIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_PriceList">
+          <End Role="PriceList" Type="PRChurchModel.PriceList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Price" Type="PRChurchModel.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoleRight">
+          <End Role="Right" Type="PRChurchModel.Right" Multiplicity="*" />
+          <End Role="Role" Type="PRChurchModel.Role" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Type="Int32" Name="CountryID" Nullable="false" />
+          <Property Type="String" Name="Country1" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Country_Abbr" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AiaCountry" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ISOCountryID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ISOCountryName" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="StateProvince">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="abbreviation" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="country" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="type" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sort" />
+          <Property Type="String" Name="status" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="occupied" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="notes" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="fips_state" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="assoc_press" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="standard_federal_region" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="census_region" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="census_region_name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="census_division" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="census_devision_name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="circuit_court" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_StateProvince" FromRole="StateProvince" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Type="Int32" Name="PersonID" Nullable="false" />
+          <Property Type="Int32" Name="AddressID" />
+          <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MiddleName" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="ImageThumbnail" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ImageHiRes" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDateTime" Precision="3" />
+          <Property Type="DateTime" Name="ModifiedByDateTime" Precision="3" />
+          <Property Type="Int32" Name="CreatedByPersonID" />
+          <Property Type="Int32" Name="ModifiedByPersonID" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="Person" ToRole="GroupMember" />
+          <NavigationProperty Name="Roles" Relationship="PRChurchModel.PersonRole" FromRole="Person" ToRole="Role" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Person_Customer" FromRole="Person" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_GroupMember_Person">
+          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.GroupMember" Role="GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonRole">
+          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
+          <End Type="PRChurchModel.Role" Role="Role" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="AROrgName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ARAddress1" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ARAddress2" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ARAddress3" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ARCity" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ARStateProvID" Nullable="false" />
+          <Property Type="String" Name="ARPostalCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CountryID" Nullable="false" />
+          <Property Type="Int32" Name="PriceID" Nullable="false" />
+          <Property Type="DateTime" Name="ActiveDate" Precision="3" />
+          <Property Type="DateTime" Name="InactiveDate" Precision="3" />
+          <Property Type="Int32" Name="CardTypeID" />
+          <Property Type="String" Name="CardNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CardSecurityCode" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CardExpMonth" />
+          <Property Type="Int32" Name="CardExpYear" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="ModifiedDate" Precision="3" />
+          <Property Type="Int32" Name="ModifiedByPersonID" />
+          <NavigationProperty Name="Addresses" Relationship="PRChurchModel.FK_Address_Customer" FromRole="Customer" ToRole="Address" />
+          <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Customer" ToRole="Price" />
+          <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="Customer" ToRole="CustomerPayment" />
+          <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_Customer" FromRole="Customer" ToRole="Group" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Customer" FromRole="Customer" ToRole="GroupMember" />
+          <NavigationProperty Name="Locations" Relationship="PRChurchModel.FK_Location_Customer" FromRole="Customer" ToRole="Location" />
+          <NavigationProperty Name="People" Relationship="PRChurchModel.FK_Person_Customer" FromRole="Customer" ToRole="Person" />
+          <NavigationProperty Name="StateProvince" Relationship="PRChurchModel.FK_Customer_StateProvince" FromRole="Customer" ToRole="StateProvince" />
+        </EntityType>
+        <Association Name="FK_Address_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Price">
+          <End Type="PRChurchModel.Price" Role="Price" Multiplicity="1" />
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="PriceID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerPayment_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.CustomerPayment" Role="CustomerPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="CustomerPayment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="PRChurchModel.GroupMember" Role="GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="PRChurchModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_StateProvince">
+          <End Type="PRChurchModel.StateProvince" Role="StateProvince" Multiplicity="1" />
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateProvince">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="ARStateProvID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PRChurchModelStoreContainer" CdmEntityContainer="PREntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="PRChurchModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Attention" ColumnName="Attention" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerPayments">
+            <EntityTypeMapping TypeName="PRChurchModel.CustomerPayment">
+              <MappingFragment StoreEntitySet="CustomerPayment">
+                <ScalarProperty Name="CustomerPaymentID" ColumnName="CustomerPaymentID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="PRChurchModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="ParentGroupID" ColumnName="ParentGroupID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreateByUserID" ColumnName="CreateByUserID" />
+                <ScalarProperty Name="ModifiedByUserID" ColumnName="ModifiedByUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupMembers">
+            <EntityTypeMapping TypeName="PRChurchModel.GroupMember">
+              <MappingFragment StoreEntitySet="GroupMember">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="GroupMemberTypeID" ColumnName="GroupMemberTypeID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="PRChurchModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="ParentLocationID" ColumnName="ParentLocationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PersonCapacity" ColumnName="PersonCapacity" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="PRChurchModel.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="BillingIntervalID" ColumnName="BillingIntervalID" />
+                <ScalarProperty Name="Price1" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceLists">
+            <EntityTypeMapping TypeName="PRChurchModel.PriceList">
+              <MappingFragment StoreEntitySet="PriceList">
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="PRChurchModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingIntervals">
+            <EntityTypeMapping TypeName="PRChurchModel.BillingInterval">
+              <MappingFragment StoreEntitySet="BillingInterval">
+                <ScalarProperty Name="BillingIntervalID" ColumnName="BillingIntervalID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupMemberTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.GroupMemberType">
+              <MappingFragment StoreEntitySet="GroupMemberType">
+                <ScalarProperty Name="GroupMemberTypeID" ColumnName="GroupMemberTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.GroupType">
+              <MappingFragment StoreEntitySet="GroupType">
+                <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreateByPersonID" ColumnName="CreateByPersonID" />
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rights">
+            <EntityTypeMapping TypeName="PRChurchModel.Right">
+              <MappingFragment StoreEntitySet="Right">
+                <ScalarProperty Name="RightID" ColumnName="RightID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RoleRight" TypeName="PRChurchModel.RoleRight" StoreEntitySet="RoleRight">
+            <EndProperty Name="Right">
+              <ScalarProperty Name="RightID" ColumnName="RightID" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="PRChurchModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="ISOCountryName" ColumnName="ISOCountryName" />
+                <ScalarProperty Name="ISOCountryID" ColumnName="ISOCountryID" />
+                <ScalarProperty Name="AiaCountry" ColumnName="AiaCountry" />
+                <ScalarProperty Name="Country_Abbr" ColumnName="Country_Abbr" />
+                <ScalarProperty Name="Country1" ColumnName="Country" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateProvinces">
+            <EntityTypeMapping TypeName="PRChurchModel.StateProvince">
+              <MappingFragment StoreEntitySet="StateProvince">
+                <ScalarProperty Name="circuit_court" ColumnName="circuit_court" />
+                <ScalarProperty Name="census_devision_name" ColumnName="census_devision_name" />
+                <ScalarProperty Name="census_division" ColumnName="census_division" />
+                <ScalarProperty Name="census_region_name" ColumnName="census_region_name" />
+                <ScalarProperty Name="census_region" ColumnName="census_region" />
+                <ScalarProperty Name="standard_federal_region" ColumnName="standard_federal_region" />
+                <ScalarProperty Name="assoc_press" ColumnName="assoc_press" />
+                <ScalarProperty Name="fips_state" ColumnName="fips_state" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="occupied" ColumnName="occupied" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="PRChurchModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="ModifiedByDateTime" ColumnName="ModifiedByDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ImageHiRes" ColumnName="ImageHiRes" />
+                <ScalarProperty Name="ImageThumbnail" ColumnName="ImageThumbnail" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PersonRole" TypeName="PRChurchModel.PersonRole" StoreEntitySet="PersonRole">
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            </EndProperty>
+            <EndProperty Name="Person">
+              <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PRChurchModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CardExpYear" ColumnName="CardExpYear" />
+                <ScalarProperty Name="CardExpMonth" ColumnName="CardExpMonth" />
+                <ScalarProperty Name="CardSecurityCode" ColumnName="CardSecurityCode" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CardTypeID" ColumnName="CardTypeID" />
+                <ScalarProperty Name="InactiveDate" ColumnName="InactiveDate" />
+                <ScalarProperty Name="ActiveDate" ColumnName="ActiveDate" />
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="ARPostalCode" ColumnName="ARPostalCode" />
+                <ScalarProperty Name="ARStateProvID" ColumnName="ARStateProvID" />
+                <ScalarProperty Name="ARCity" ColumnName="ARCity" />
+                <ScalarProperty Name="ARAddress3" ColumnName="ARAddress3" />
+                <ScalarProperty Name="ARAddress2" ColumnName="ARAddress2" />
+                <ScalarProperty Name="ARAddress1" ColumnName="ARAddress1" />
+                <ScalarProperty Name="AROrgName" ColumnName="AROrgName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

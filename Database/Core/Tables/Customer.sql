@@ -1,0 +1,26 @@
+﻿CREATE TABLE [Core].[Customer] (
+    [CustomerID]         INT           NOT NULL,
+    [AROrgName]          VARCHAR (200) NOT NULL,
+    [ARAddress1]         VARCHAR (100) NOT NULL,
+    [ARAddress2]         VARCHAR (200) NULL,
+    [ARAddress3]         VARCHAR (200) NULL,
+    [ARCity]             VARCHAR (100) NOT NULL,
+    [ARStateProvID]      INT           NOT NULL,
+    [ARPostalCode]       VARCHAR (10)  NOT NULL,
+    [CountryID]          INT           NOT NULL,
+    [PriceID]            INT           NOT NULL,
+    [ActiveDate]         DATETIME      NOT NULL,
+    [InactiveDate]       DATETIME      NULL,
+    [CardTypeID]         INT           NULL,
+    [CardNumber]         VARCHAR (20)  NULL,
+    [CardSecurityCode]   VARCHAR (5)   NULL,
+    [CardExpMonth]       INT           NULL,
+    [CardExpYear]        INT           NULL,
+    [CreatedDate]        DATETIME      NOT NULL,
+    [CreatedByPersonID]  INT           NOT NULL,
+    [ModifiedDate]       DATETIME      NULL,
+    [ModifiedByPersonID] INT           NULL,
+    CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED ([CustomerID] ASC),
+    CONSTRAINT [FK_Customer_Price] FOREIGN KEY ([PriceID]) REFERENCES [Core].[Price] ([PriceID])
+);
+

@@ -1,0 +1,313 @@
+﻿@model IEnumerable<PlumRunDomain.Person>
+
+@{
+	ViewBag.PersonName = "Jim Hill";
+}
+
+<h2>@ViewBag.PersonName</h2>
+
+
+
+
+
+
+
+
+
+<div class="span9">
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="myTab">
+			<li class="active">
+				<a data-toggle="tab" href="#home">
+					<i class="green icon-home bigger-110"></i>
+					Details
+				</a>
+			</li>
+
+			<li>
+				<a data-toggle="tab" href="#profile">
+					Household
+					<span class="badge badge-important">4</span>
+				</a>
+			</li>
+
+			<li>
+				<a data-toggle="tab" href="#profile">
+					Teams
+					<span class="badge badge-important">4</span>
+				</a>
+			</li>
+
+			<li>
+				<a data-toggle="tab" href="#profile">
+					Calendar
+					<span class="badge badge-important">4</span>
+				</a>
+			</li>
+
+			<li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+					More
+					<b class="caret"></b>
+				</a>
+
+				<ul class="dropdown-menu dropdown-info">
+					<li>
+						<a data-toggle="tab" href="#dropdown1">Message Settings</a>
+					</li>
+
+					<li>
+						<a data-toggle="tab" href="#dropdown2">Preferences</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+
+		@*TAB CONTENT*@
+		<div class="tab-content">
+			<div id="home" class="tab-pane in active">
+				
+				<div >
+					<div id="grid" ></div>
+				</div>
+
+@*				<div class="span4" >
+					<span ></span>
+				</div>*@
+
+
+
+
+				<script>
+					$(function ()
+					{
+						$("#grid").kendoGrid({
+							height: 450,
+							columns: [
+										{ field: "CustomerID", hidden: true },
+										{ field: "OrgName", title: "Customer Name", maxwidth: "20" },
+										{ field: "City", maxwidth: "40" },
+										{ field: "StateProv", title: "State", },
+										//{ field: "CreatedDateTime", title: "Start Date", width: "100", template: '#= formatDate(CreatedDateTime) #' },
+										{
+											command:
+												[
+													{ name: "destroy", text: "" },
+													{ name: "edit", text: "" }
+												]
+										}
+							],
+							editable: true, // enable editing
+							navigatable: true,
+							pageable: true,
+							sortable: true,
+							filterable: true,
+							toolbar: ["create", "save", "cancel"], // specify toolbar commands
+
+							dataSource: {
+								serverPaging: true,
+								serverFiltering: true,
+								serverSorting: true,
+								pageSize: 10,
+								schema: {
+									data: "Data",
+									total: "Total",
+
+									//model: { // define the model of the data source. Required for validation and property types.
+									//    id: "ProductID",
+									//    fields: {
+									//        ProductID: { editable: false, nullable: true },
+									//        ProductName: { validation: { required: true } },
+									//        UnitPrice: { type: "number", validation: { required: true, min: 1 } },
+									//        Discontinued: { type: "boolean" },
+									//        UnitsInStock: { type: "number", validation: { min: 0, required: true } }
+									//    }
+
+									model: { // define the model of the data source. Required for validation and property types.
+										id: "CustomerID",
+										fields: {
+											CustomerID: { editable: false, nullable: false },
+											OrgName: { type: "string", validation: { required: true } },
+											City: { type: "string", validation: { required: true } },
+											StateProv: { type: "string", validation: { required: true } },
+											CreatedDateTime: { editable: false, type: "datetime", nullable: true }
+										}
+									}
+								},
+
+
+								batch: true, // enable batch editing - changes will be saved when the user clicks the "Save changes" button
+								transport:
+									{
+										create:
+											{
+												url: "@Url.Action("Create", "Customer")", //specify the URL which should create new records. This is the Create method of the HomeController.
+												type: "POST", //use HTTP POST request as the default GET is not allowed for ASMX
+												contenttype: "application/json; charset=utf-8",
+												dataType: "json"
+											},
+										read:
+											{
+												url: "@Url.Action("Read", "Customer")", //specify the URL which should return the records. This is the Read method of the HomeController.
+												contentType: "application/json",
+												type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
+											},
+										update:
+											{
+												url: "@Url.Action("Update", "Customer")", //specify the URL which should update the records. This is the Update method of the HomeController.
+												type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
+											},
+										destroy:
+											{
+												url: "@Url.Action("Destroy", "Customer")", //specify the URL which should destroy the records. This is the Destroy method of the HomeController.
+												//contentType: "application/json",
+												type: "POST", //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
+												//dataType: "json"
+											},
+
+										parameterMap: function (data, operation)
+										{
+											if (operation != "read")
+											{
+												// post the products so the ASP.NET DefaultModelBinder will understand them:
+
+												//products[0].Name="name"
+												//products[0].ProductID =1
+												//products[1].Name="name"
+												//products[1].ProductID =1
+
+												var result = {};
+
+												for (var i = 0; i < data.models.length; i++)
+												{
+													var customer = data.models[i];
+
+													for (var member in customer)
+													{
+														result["customers[" + i + "]." + member] = customer[member];
+													}
+												}
+
+												return result;
+											}
+
+											else
+											{
+												return JSON.stringify(data)
+											}
+										}
+
+
+
+									}
+							}
+						});
+					});
+				</script>
+			</div>
+
+			<div id="profile" class="tab-pane">
+				<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+			</div>
+
+			<div id="dropdown1" class="tab-pane">
+				<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+			</div>
+
+			<div id="dropdown2" class="tab-pane">
+				<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
+			</div>
+		</div>
+	 </div>
+</div><!--/span-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*ORIGINAL GENERATED CODE BELOW*@
+@*<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+<table>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.CustomerID)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.FirstName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.MiddleName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.LastName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CreatedDateTime)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CreatedByPersonID)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ModifiedDateTime)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ModifiedByPersonID)
+		</th>
+		<th></th>
+	</tr>
+
+@foreach (var item in Model) {
+	<tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.CustomerID)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.FirstName)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.MiddleName)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.LastName)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.CreatedDateTime)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.CreatedByPersonID)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.ModifiedDateTime)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.ModifiedByPersonID)
+		</td>
+		<td>
+			@Html.ActionLink("Edit", "Edit", new { id=item.PersonID }) |
+			@Html.ActionLink("Details", "Details", new { id=item.PersonID }) |
+			@Html.ActionLink("Delete", "Delete", new { id=item.PersonID })
+		</td>
+	</tr>
+}
+
+</table>*@

@@ -1,0 +1,102 @@
+﻿@model PRCoreModel.Customer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Customer</legend>
+
+        @Html.HiddenFor(model => model.CustomerID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OrgName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OrgName)
+            @Html.ValidationMessageFor(model => model.OrgName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address1)
+            @Html.ValidationMessageFor(model => model.Address1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address2)
+            @Html.ValidationMessageFor(model => model.Address2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StateProv)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StateProv)
+            @Html.ValidationMessageFor(model => model.StateProv)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostalCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostalCode)
+            @Html.ValidationMessageFor(model => model.PostalCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentCustomerID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentCustomerID)
+            @Html.ValidationMessageFor(model => model.ParentCustomerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDateTime)
+            @Html.ValidationMessageFor(model => model.CreatedDateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModifiedDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModifiedDateTime)
+            @Html.ValidationMessageFor(model => model.ModifiedDateTime)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
