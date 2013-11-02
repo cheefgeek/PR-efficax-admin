@@ -44,20 +44,24 @@
 	<div id="grid"></div>
 
 @*<form method="post" action="Customer/CustomerCreate"> REPLACED BY LINE BELOW!!!??????    *@
-<form>
-    <button class="btn btn-app btn-grey btn-mini radius-4" name="button" value="add">
+@*<form>*@
+    <button class="btn btn-app btn-grey btn-mini radius-4" id="btnNew" name="button" value="add">
         <i class="icon-plus-sign"></i>
         New
     </button>
 
-    <input type="button" id="btnEdit" value="Edit" class="btn btn-app btn-success btn-mini radius-4" />
+    <button class="btn btn-app btn-primary btn-mini radius-4" id="btnEdit" name="button" value="Edit">
+        <i class="icon-edit bigger-230"></i>
+        Edit
+    </button>
+
 
     @*<button class="btn btn-app btn-success btn-mini radius-4" name="button" value="edit">
         <i class=" icon-edit">
         </i>
         Edit
     </button>*@
-</form>
+@*</form>*@
 
 </div>
 
@@ -173,7 +177,6 @@
         $("#btnEdit").attr("disabled", "disabled");
     }); // End DOM ready
 
-
     var customerSelectedID = null;
 
     function showDetails(e) {
@@ -197,9 +200,11 @@
         window.location.href = customerSelectedID;
     })
 
+    $("#btnNew").on("click", function () {
+        window.location.href = 'Customer/CustomerCreate';
+    })
+
 </script>
-
-
 
 @*RETURNS SELECTED ROW IN GRID - WHAT DO I DO WITH THIS??!!*@
 @*http://demos.kendoui.com/web/grid/custom-command.html*@
