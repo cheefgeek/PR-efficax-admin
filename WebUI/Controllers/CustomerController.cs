@@ -38,7 +38,6 @@ namespace WebUI.Controllers
                         State = c.StateProvince.name
                     })
                     .ToDataSourceResult(take, skip, sort, filter);
-
                 return Json(result);
             }
         }
@@ -47,10 +46,8 @@ namespace WebUI.Controllers
         {
             ViewBag.ARStateProvID = new SelectList(db.StateProvinces, "id", "name");
             ViewBag.CountryID = new SelectList(db.Countries, "CountryID", "Country1");
-
             //INSTANTIATE VIEWMODEL OBJECT
             ViewModels.CustomerCreateVM vm = new ViewModels.CustomerCreateVM();
-
             return View(vm);
         }
 
@@ -63,17 +60,14 @@ namespace WebUI.Controllers
             {
                 return RedirectToAction("CustomerCreate");
             }
-
             else if (button == "cancel")
             {
                 return RedirectToAction("Index");
             }
-
             else if (button == "add")
             {
                 return RedirectToAction("CustomerCreate");
             }
-
             else if (ModelState.IsValid)
             {
                 Customer customer = new Customer();
@@ -96,44 +90,26 @@ namespace WebUI.Controllers
         }
 
 
-        public ActionResult Destroy(IEnumerable<CustomerSearch> customers)
+        // POST: /Customer/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            {
-                //Iterate all destroyed products which are posted by the Kendo Grid
-                foreach (var CustomerSearch in customers)
-                {
-                    // Create a new Product entity and set its properties from productViewModel
-                    var customer = new Customer
-                    {
-                        CustomerID = (int)CustomerSearch.CustomerID,
-                    };
-
-                    // Attach the entity
-                    db.Customers.Attach(customer);
-                    // Delete the entity
-                    db.Customers.Remove(customer);
-                }
-
-                // Delete the products from the database
-                db.SaveChanges();
-
-                //Return emtpy result
-                return Json(null);
-            }
+            Customer customer = db.Customers.Find(id);
+            db.Customers.Remove(customer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-    //BELOW HERE ARE ORIGINAL ACTION METHODS PRIOR TO GRID
-        // GET: /Customer/Details/5
-        //public ActionResult Details(int id = 0)
-        //{
-        //    Customer customer = db.Customers.Find(id);
-        //    if (customer == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(customer);
-        //}
 
         // GET: /Customer/Edit/5 
         public ActionResult Edit(int id)
@@ -162,19 +138,19 @@ namespace WebUI.Controllers
                 VM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
 
                 return View(VM);
-
         }
-
-
-
-
 
 
         // POST: /Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CustomerEdit customerEdit, ViewModels.DropDownLists.StateDropDown stateDropDown, string button)
-
+        public ActionResult Edit (
+            int id,
+            CustomerEdit customerEdit,
+            ViewModels.DropDownLists.StateDropDown stateDropDown,
+            ViewModels.DropDownLists.CountryDropDown countryDropDown,
+            ViewModels.DropDownLists.PricesDropDown pricesDropDown,
+            string button)
         {
             if (button == "cancel")
             {
@@ -183,19 +159,26 @@ namespace WebUI.Controllers
 
             else if (button == "delete")
             {
-                
                 // TODO Implement Customer delete
-                
                 return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
             {
-                customerEdit.ARStateProvID = stateDropDown.SelectedID;
-                
-                db.Entry(customerEdit).State = EntityState.Modified;
+                Customer updatedCustomer = db.Customers.Find(id);
+
+                updatedCustomer.ModifiedDate = System.DateTime.Now;
+                updatedCustomer.ARStateProvID = stateDropDown.SelectedID;
+                updatedCustomer.CountryID = countryDropDown.SelectedID;
+                updatedCustomer.PriceID = pricesDropDown.SelectedID;
+                updatedCustomer.AROrgName = customerEdit.AROrgName;
+                updatedCustomer.ARAddress1 = customerEdit.ARAddress1;
+                updatedCustomer.ARAddress2 = customerEdit.ARAddress2;
+                updatedCustomer.ARAddress3 = customerEdit.ARAddress3;
+                updatedCustomer.ARCity = customerEdit.ARCity;
+                // TODO Populate ModifiedByPersonID in code
+                db.Entry(updatedCustomer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Read");
             }
             return RedirectToAction("Index");
         }
