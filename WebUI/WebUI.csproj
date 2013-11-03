@@ -216,7 +216,10 @@
     <Compile Include="ViewModels\CustomerCreateVM.cs" />
     <Compile Include="ViewModels\CustomerSearch.cs" />
     <Compile Include="ViewModels\Customer\CustomerEdit.cs" />
+    <Compile Include="ViewModels\Customer\CustomerEditVM.cs" />
+    <Compile Include="ViewModels\DropDownLists\CountryDropDown.cs" />
     <Compile Include="ViewModels\DropDownLists\PricesDropDown.cs" />
+    <Compile Include="ViewModels\DropDownLists\StateDropDown.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Ace\avatars\avatar.png" />

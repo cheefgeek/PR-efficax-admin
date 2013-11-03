@@ -43,32 +43,20 @@
 <div class="span6" >
 	<div id="grid"></div>
 
-@*<form method="post" action="Customer/CustomerCreate"> REPLACED BY LINE BELOW!!!??????    *@
-@*<form>*@
     <button class="btn btn-app btn-grey btn-mini radius-4" id="btnNew" name="button" value="add">
         <i class="icon-plus-sign"></i>
         New
     </button>
 
-    <button class="btn btn-app btn-primary btn-mini radius-4" id="btnEdit" name="button" value="Edit">
+    <button class="btn btn-app btn-primary btn-mini radius-4" id="btnEdit" name="button" value="edit">
         <i class="icon-edit bigger-230"></i>
         Edit
     </button>
-
-
-    @*<button class="btn btn-app btn-success btn-mini radius-4" name="button" value="edit">
-        <i class=" icon-edit">
-        </i>
-        Edit
-    </button>*@
-@*</form>*@
-
 </div>
 
 <div class="span4" >
 	<p class="lead">Widgets Here</p>
 </div>
-
 
 <script>
     $(function () {
@@ -80,7 +68,7 @@
         $("#grid").kendoGrid({
             height: 350,
             columns: [
-                        { field: "CustomerID", hidden: false },
+                        { field: "CustomerID", hidden: true },
                         { field: "AROrgName", title: "Customer Name", maxwidth: "20" },
                         { field: "ARCity", maxwidth: "40" },
                         { field: "State", title: "State" }
@@ -175,7 +163,7 @@
 
         // Disable edit button by default
         $("#btnEdit").attr("disabled", "disabled");
-    }); // End DOM ready
+    }); // End DOM ready //TELERIK GRID SCRIPT...
 
     var customerSelectedID = null;
 

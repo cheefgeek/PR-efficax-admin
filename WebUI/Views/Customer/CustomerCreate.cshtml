@@ -54,7 +54,7 @@
                 <div class="control-group">
                     <label class="control-label span4">Church Name</label>
                     <div class="controls span8">
-                        <input type="text" name="AROrgName" placeholder="Church Name" />
+                        <input type="text" name="CustomerCreate.AROrgName" placeholder="Church Name" />
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.AROrgName)
                 </div>
@@ -63,7 +63,7 @@
                 <div class="control-group ">
                     <label class="control-label span4">Address 1</label>
                     <div class="controls span8">
-                        <input type="text" name="ARAddress1" placeholder="Address 1" />
+                        <input type="text" name="CustomerCreate.ARAddress1" placeholder="Address 1" />
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.ARAddress1)
                 </div>
@@ -72,7 +72,7 @@
                 <div class="control-group ">
                     <label class="control-label span4">Address 2</label>
                     <div class="controls span8">
-                        <input type="text" name="ARAddress2" placeholder="Address 2" />
+                        <input type="text" name="CustomerCreate.ARAddress2" placeholder="Address 2" />
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.ARAddress2)
                 </div>
@@ -81,7 +81,7 @@
                 <div class="control-group ">
                     <label class="control-label span4">Address 3</label>
                     <div class="controls span8">
-                        <input type="text" name="ARAddress3" placeholder="Address 3" />
+                        <input type="text" name="CustomerCreate.ARAddress3" placeholder="Address 3" />
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.ARAddress3)
                 </div>
@@ -90,7 +90,7 @@
                 <div class="control-group ">
                     <label class="control-label span4">City</label>
                     <div class="controls span8">
-                        <input type="text" name="ARCity" placeholder="City" />
+                        <input type="text" name="CustomerCreate.ARCity" placeholder="City" />
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.ARCity)
                 </div>
@@ -99,7 +99,7 @@
                 <div class="control-group ">
                     <label class="control-label span4">State ID</label>
                     <div class="controls span8">
-                        @Html.DropDownList("ARStateProvID")
+                        @Html.DropDownListFor(m => m.stateDropDown.SelectedID, Model.stateDropDown.List)
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.ARStateProvID)
                 </div>
@@ -108,7 +108,7 @@
                 <div class="control-group ">
                     <label class="control-label span4">Postal Code</label>
                     <div class="controls span8">
-                        <input type="text" name="ARPostalCode" placeholder="Postal Code" />
+                        <input type="text" name="CustomerCreate.ARPostalCode" placeholder="Postal Code" />
                     </div>
                     @Html.ValidationMessageFor(model => model.CustomerCreate.ARPostalCode)
                 </div>
@@ -126,9 +126,9 @@
                 <div class="control-group ">
                     <label class="control-label span4">Price</label>
                     <div class="controls span8">
-                        @Html.DropDownListFor(m => m.pricesDropDown.PriceList, Model.pricesDropDown.PriceList)
+                        @Html.DropDownListFor(m => m.pricesDropDown.SelectedID, Model.pricesDropDown.List)
                     </div>
-                    @Html.ValidationMessageFor(model => model.CustomerCreate.PriceID)
+                    @*@Html.ValidationMessageFor(model => model.CustomerCreate.PriceID)*@
                 </div>
             </fieldset>
 

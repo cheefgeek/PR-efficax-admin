@@ -57,7 +57,7 @@ namespace WebUI.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult CustomerCreate(ViewModels.CustomerCreate newCustomer,string button)
+        public ActionResult CustomerCreate(ViewModels.CustomerCreateVM newCustomer,string button)
         {
             if (button == "clear")
             {
@@ -78,16 +78,16 @@ namespace WebUI.Controllers
             {
                 Customer customer = new Customer();
                 customer.ActiveDate = System.DateTime.Now;
-                customer.ARAddress1 = newCustomer.ARAddress1;
-                customer.ARAddress2 = newCustomer.ARAddress2;
-                customer.ARAddress3 = newCustomer.ARAddress3;
-                customer.ARCity = newCustomer.ARCity;
-                customer.AROrgName = newCustomer.AROrgName;
-                customer.ARPostalCode = newCustomer.ARPostalCode;
-                customer.ARStateProvID = newCustomer.ARStateProvID;
-                customer.CountryID = 169;
+                customer.ARAddress1 = newCustomer.CustomerCreate.ARAddress1;
+                customer.ARAddress2 = newCustomer.CustomerCreate.ARAddress2;
+                customer.ARAddress3 = newCustomer.CustomerCreate.ARAddress3;
+                customer.ARCity = newCustomer.CustomerCreate.ARCity;
+                customer.AROrgName = newCustomer.CustomerCreate.AROrgName;
+                customer.ARPostalCode = newCustomer.CustomerCreate.ARPostalCode;
+                customer.ARStateProvID = newCustomer.stateDropDown.SelectedID;
+                customer.CountryID = 169;                                       //TODO Get CountryID from model
                 customer.CreatedDate = System.DateTime.Now;
-                customer.PriceID = 9999999;
+                customer.PriceID = newCustomer.pricesDropDown.SelectedID;
 
                 db.Customers.Add(customer);
                 db.SaveChanges();
@@ -136,25 +136,48 @@ namespace WebUI.Controllers
         //}
 
         // GET: /Customer/Edit/5 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string button)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            if (button == "clear")
             {
-                return HttpNotFound();
+                return RedirectToAction("Edit");
             }
 
-            CustomerEdit editableCustomer = new CustomerEdit();
+            else if (button == "cancel")
+            {
+                return RedirectToAction("Index");
+            }
 
-            editableCustomer.ARAddress1 = customer.ARAddress1;
-            editableCustomer.ARAddress2 = customer.ARAddress2;
-            editableCustomer.ARAddress3 = customer.ARAddress3;
-            editableCustomer.ARCity = customer.ARCity;
-            editableCustomer.AROrgName = customer.AROrgName;
-            editableCustomer.ARPostalCode = customer.ARPostalCode;
+                Customer customer = db.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
 
-            return View(editableCustomer);
+                CustomerEditVM customerEditVM = new CustomerEditVM(customer.PriceID, customer.ARStateProvID, customer.CountryID);
+
+                customerEditVM.customerEdit.ARAddress1 = customer.ARAddress1;
+                customerEditVM.customerEdit.ARAddress2 = customer.ARAddress2;
+                customerEditVM.customerEdit.ARAddress3 = customer.ARAddress3;
+                customerEditVM.customerEdit.ARCity = customer.ARCity;
+                customerEditVM.customerEdit.ARStateProvID = customer.ARStateProvID;
+                customerEditVM.customerEdit.AROrgName = customer.AROrgName;
+                customerEditVM.customerEdit.ARPostalCode = customer.ARPostalCode;
+                customerEditVM.customerEdit.CountryID = customer.CountryID;
+                customerEditVM.customerEdit.CustomerID = customer.CustomerID;
+                customerEditVM.customerEdit.PriceID = customer.PriceID;
+                customerEditVM.customerEdit.ActiveDate = customer.ActiveDate;
+                customerEditVM.customerEdit.InactiveDate = customer.InactiveDate;
+                customerEditVM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
+
+                return View(customerEditVM);
+
         }
+
+
+
+
+
 
         // POST: /Customer/Edit/5
         [HttpPost]

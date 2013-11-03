@@ -5,19 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using PlumRunModel;
 
+
 namespace WebUI.ViewModels.DropDownLists
 {
-    public class PricesDropDown
+    public class CountryDropDown
     {
         public int SelectedID { get; set; }
         public IEnumerable<SelectListItem> List { get; set; }
 
-        public PricesDropDown()
+        public CountryDropDown()
         {   
             this.List = PopulateList();
         }
 
-        public PricesDropDown(int selectedID)
+        public CountryDropDown(int selectedID)
         { 
             this.SelectedID = selectedID;
             this.List = PopulateList();
@@ -26,14 +27,15 @@ namespace WebUI.ViewModels.DropDownLists
         private IEnumerable<SelectListItem> PopulateList()
         { 
             PREntities db = new PREntities();
-            IEnumerable<SelectListItem> l = new SelectList(db.Prices.OrderBy(x => x.Price1).ToList().Select(y =>
+            IEnumerable<SelectListItem> l = new SelectList(db.Countries.OrderBy(x => x.Country1).ToList().Select(y =>
                     new SelectListItem
                     {
-                        Value = y.PriceID.ToString(),
-                        Text = y.Price1.ToString()
+                        Value = y.CountryID.ToString(),
+                        Text = y.Country1.ToString()
                     }), "Value", "Text");
 
             return l;
         }
+
     }
 }

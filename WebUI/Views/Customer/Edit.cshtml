@@ -1,4 +1,4 @@
-﻿@model WebUI.ViewModels.Customer.CustomerEdit
+﻿@model WebUI.ViewModels.Customer.CustomerEditVM
 
 @{
     ViewBag.Title = "Edit";
@@ -8,167 +8,121 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Customer Edit</legend>
+    <div class="row-fluid">
 
-        @Html.HiddenFor(model => model.CustomerID)
+        <form method="post" action="Customer/Edit">
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AROrgName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AROrgName)
-            @Html.ValidationMessageFor(model => model.AROrgName)
-        </div>
+            <fieldset>
+                <legend>Customer Edit</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ARAddress1)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ARAddress1)
-            @Html.ValidationMessageFor(model => model.ARAddress1)
-        </div>
+                @*AROrgName*@
+                <div class="control-group">
+                    <label class="control-label span4">Church Name</label>
+                    <div class="controls span8">
+                        <input type="text" name="AROrgName" placeholder="Church Name" />
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.AROrgName)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ARAddress2)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ARAddress2)
-            @Html.ValidationMessageFor(model => model.ARAddress2)
-        </div>
+                @*ARAddress1*@
+                <div class="control-group ">
+                    <label class="control-label span4">Address 1</label>
+                    <div class="controls span8">
+                        <input type="text" name="ARAddress1" placeholder="Address 1" />
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.ARAddress1)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ARAddress3)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ARAddress3)
-            @Html.ValidationMessageFor(model => model.ARAddress3)
-        </div>
+                @*ARAddress2*@
+                <div class="control-group ">
+                    <label class="control-label span4">Address 2</label>
+                    <div class="controls span8">
+                        <input type="text" name="ARAddress2" placeholder="Address 2" />
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.ARAddress2)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ARCity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ARCity)
-            @Html.ValidationMessageFor(model => model.ARCity)
-        </div>
+                @*ARAddress3*@
+                <div class="control-group ">
+                    <label class="control-label span4">Address 3</label>
+                    <div class="controls span8">
+                        <input type="text" name="ARAddress3" placeholder="Address 3" />
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.ARAddress3)
+                </div>
 
-        @*<div class="editor-label">
-            @Html.LabelFor(model => model.ARStateProvID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ARStateProvID)
-            @Html.ValidationMessageFor(model => model.ARStateProvID)
-        </div>
+                @*ARCity*@
+                <div class="control-group ">
+                    <label class="control-label span4">City</label>
+                    <div class="controls span8">
+                        <input type="text" name="ARCity" placeholder="City" />
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.ARCity)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ARPostalCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ARPostalCode)
-            @Html.ValidationMessageFor(model => model.ARPostalCode)
-        </div>
+                @*ARStateProvID*@
+                <div class="control-group ">
+                    <label class="control-label span4">State ID</label>
+                    <div class="controls span8">
+                        @*@Html.DropDownList("ARStateProvID")*@
+                        @Html.DropDownListFor(m => m.stateDropDown.SelectedID, Model.stateDropDown.List)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.ARStateProvID)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CountryID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CountryID)
-            @Html.ValidationMessageFor(model => model.CountryID)
-        </div>
+                @*ARPostalCode*@
+                <div class="control-group ">
+                    <label class="control-label span4">Postal Code</label>
+                    <div class="controls span8">
+                        <input type="text" name="ARPostalCode" placeholder="Postal Code" />
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.ARPostalCode)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PriceID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PriceID)
-            @Html.ValidationMessageFor(model => model.PriceID)
-        </div>
+                @*CountryID*@
+                <div class="control-group ">
+                    <label class="control-label span4">Country</label>
+                    <div class="controls span8">
+                        @*@Html.DropDownList("CountryID")*@
+                        @Html.DropDownListFor(m => m.countryDropDown.SelectedID, Model.countryDropDown.List)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerEdit.CountryID)
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ActiveDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ActiveDate)
-            @Html.ValidationMessageFor(model => model.ActiveDate)
-        </div>
+                @*PriceID*@
+                <div class="control-group ">
+                    <label class="control-label span4">Price</label>
+                    <div class="controls span8">
+                        @Html.DropDownListFor(m => m.pricesDropDown.SelectedID, Model.pricesDropDown.List)
+                    </div>
+                    @*@Html.ValidationMessageFor(model => model.PriceID)*@
+                </div>
+            </fieldset>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InactiveDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InactiveDate)
-            @Html.ValidationMessageFor(model => model.InactiveDate)
-        </div>
+            <div>
+                <button class="btn btn-app btn-grey btn-mini radius-4" name="button" value="save">
+                    <i class="icon-save bigger-160"></i>
+                    Save
+                </button>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CardTypeID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CardTypeID)
-            @Html.ValidationMessageFor(model => model.CardTypeID)
-        </div>
+                @*<button class="btn btn-app btn-success btn-mini radius-4" name="button" value="clear">
+                    <i class="icon-refresh bigger-160"></i>
+                    Clear
+                </button>*@
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CardNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CardNumber)
-            @Html.ValidationMessageFor(model => model.CardNumber)
-        </div>
+                <button class="btn btn-app btn-warning btn-mini radius-4" name="button" value="cancel">
+                    <i class="icon-undo bigger-160"></i>
+                    Cancel
+                </button>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CardSecurityCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CardSecurityCode)
-            @Html.ValidationMessageFor(model => model.CardSecurityCode)
-        </div>
+                <button class="btn btn-app btn-danger btn-mini radius-4" name="button" value="delete">
+                    <i class="icon-trash bigger-160"></i>
+                    Delete
+                </button>
+            </div>
+        </form>  
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CardExpMonth)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CardExpMonth)
-            @Html.ValidationMessageFor(model => model.CardExpMonth)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CardExpYear)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CardExpYear)
-            @Html.ValidationMessageFor(model => model.CardExpYear)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreatedDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreatedDate)
-            @Html.ValidationMessageFor(model => model.CreatedDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ModifiedDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ModifiedDate)
-            @Html.ValidationMessageFor(model => model.ModifiedDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ModifiedByPersonID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ModifiedByPersonID)
-            @Html.ValidationMessageFor(model => model.ModifiedByPersonID)
-        </div>*@
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
 }
 
 <div>
