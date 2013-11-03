@@ -1,76 +1,141 @@
-﻿@model PRCoreModel.Customer
+﻿@model PlumRunDomain.Customer
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Customer</legend>
+    <legend>Delete Customer</legend>
+
+    <h3>Are you sure you want to delete this Customer?</h3>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.OrgName)
+         @Html.DisplayNameFor(model => model.AROrgName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.OrgName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Address1)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Address1)
+        @Html.DisplayFor(model => model.AROrgName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Address2)
+         @Html.DisplayNameFor(model => model.ARAddress1)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Address2)
+        @Html.DisplayFor(model => model.ARAddress1)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.City)
+         @Html.DisplayNameFor(model => model.ARAddress2)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.City)
+        @Html.DisplayFor(model => model.ARAddress2)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.StateProv)
+         @Html.DisplayNameFor(model => model.ARAddress3)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.StateProv)
+        @Html.DisplayFor(model => model.ARAddress3)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.PostalCode)
+         @Html.DisplayNameFor(model => model.ARCity)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.PostalCode)
+        @Html.DisplayFor(model => model.ARCity)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ParentCustomerID)
+         @Html.DisplayNameFor(model => model.ARStateProvID)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ParentCustomerID)
+        @Html.DisplayFor(model => model.ARStateProvID)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedDateTime)
+         @Html.DisplayNameFor(model => model.ARPostalCode)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedDateTime)
+        @Html.DisplayFor(model => model.ARPostalCode)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ModifiedDateTime)
+         @Html.DisplayNameFor(model => model.CountryID)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ModifiedDateTime)
+        @Html.DisplayFor(model => model.CountryID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PriceID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PriceID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ActiveDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActiveDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InactiveDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InactiveDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CardTypeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardTypeID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CardNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CardSecurityCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardSecurityCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CardExpMonth)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardExpMonth)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CardExpYear)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardExpYear)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ModifiedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifiedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ModifiedByPersonID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifiedByPersonID)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

@@ -7,6 +7,7 @@ using Kendo.Mvc.Grid.CRUD.Models;
 using PlumRunDomain;
 using PlumRunModel;
 using WebUI.ViewModels.Customer;
+using System.Net;
 //using Omu;
 
 namespace WebUI.Controllers
@@ -15,10 +16,9 @@ namespace WebUI.Controllers
     {
         private PREntities db = new PREntities();
 
-
         public ActionResult Index()
         {
-            ViewBag.SelectedCustomerID = 0;
+            //ViewBag.SelectedCustomerID = 0;
             return View();
         }
 
@@ -90,6 +90,21 @@ namespace WebUI.Controllers
         }
 
 
+        // GET: /Customer/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+
         // POST: /Customer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -114,32 +129,28 @@ namespace WebUI.Controllers
         // GET: /Customer/Edit/5 
         public ActionResult Edit(int id)
         {
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            CustomerEditVM VM = new CustomerEditVM(customer.PriceID, customer.ARStateProvID, customer.CountryID);
 
-                Customer customer = db.Customers.Find(id);
-                if (customer == null)
-                {
-                    return HttpNotFound();
-                }
-
-                CustomerEditVM VM = new CustomerEditVM(customer.PriceID, customer.ARStateProvID, customer.CountryID);
-
-                VM.customerEdit.ARAddress1 = customer.ARAddress1;
-                VM.customerEdit.ARAddress2 = customer.ARAddress2;
-                VM.customerEdit.ARAddress3 = customer.ARAddress3;
-                VM.customerEdit.ARCity = customer.ARCity;
-                VM.customerEdit.ARStateProvID = customer.ARStateProvID;
-                VM.customerEdit.AROrgName = customer.AROrgName;
-                VM.customerEdit.ARPostalCode = customer.ARPostalCode;
-                VM.customerEdit.CountryID = customer.CountryID;
-                VM.customerEdit.CustomerID = customer.CustomerID;
-                VM.customerEdit.PriceID = customer.PriceID;
-                VM.customerEdit.ActiveDate = customer.ActiveDate;
-                VM.customerEdit.InactiveDate = customer.InactiveDate;
-                VM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
-
-                return View(VM);
+            VM.customerEdit.ARAddress1 = customer.ARAddress1;
+            VM.customerEdit.ARAddress2 = customer.ARAddress2;
+            VM.customerEdit.ARAddress3 = customer.ARAddress3;
+            VM.customerEdit.ARCity = customer.ARCity;
+            VM.customerEdit.ARStateProvID = customer.ARStateProvID;
+            VM.customerEdit.AROrgName = customer.AROrgName;
+            VM.customerEdit.ARPostalCode = customer.ARPostalCode;
+            VM.customerEdit.CountryID = customer.CountryID;
+            VM.customerEdit.CustomerID = customer.CustomerID;
+            VM.customerEdit.PriceID = customer.PriceID;
+            VM.customerEdit.ActiveDate = customer.ActiveDate;
+            VM.customerEdit.InactiveDate = customer.InactiveDate;
+            VM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
+            return View(VM);
         }
-
 
         // POST: /Customer/Edit/5
         [HttpPost]
@@ -154,13 +165,12 @@ namespace WebUI.Controllers
         {
             if (button == "cancel")
             {
-                return RedirectToAction("cancel");
+                return RedirectToAction("Index");
             }
 
             else if (button == "delete")
             {
-                // TODO Implement Customer delete
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete", new { id = id });
             }
 
             if (ModelState.IsValid)
@@ -176,17 +186,13 @@ namespace WebUI.Controllers
                 updatedCustomer.ARAddress2 = customerEdit.ARAddress2;
                 updatedCustomer.ARAddress3 = customerEdit.ARAddress3;
                 updatedCustomer.ARCity = customerEdit.ARCity;
-                // TODO Populate ModifiedByPersonID in code
+                updatedCustomer.ARPostalCode = customerEdit.ARPostalCode;
                 db.Entry(updatedCustomer).State = EntityState.Modified;
-                db.SaveChanges();
+                // TODO Populate ModifiedByPersonID in code
+               db.SaveChanges();
             }
             return RedirectToAction("Index");
         }
 
     }
 }
-
-
-
-
-
