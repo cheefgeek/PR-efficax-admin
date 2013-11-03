@@ -136,17 +136,8 @@ namespace WebUI.Controllers
         //}
 
         // GET: /Customer/Edit/5 
-        public ActionResult Edit(int id, string button)
+        public ActionResult Edit(int id)
         {
-            if (button == "clear")
-            {
-                return RedirectToAction("Edit");
-            }
-
-            else if (button == "cancel")
-            {
-                return RedirectToAction("Index");
-            }
 
                 Customer customer = db.Customers.Find(id);
                 if (customer == null)
@@ -154,23 +145,23 @@ namespace WebUI.Controllers
                     return HttpNotFound();
                 }
 
-                CustomerEditVM customerEditVM = new CustomerEditVM(customer.PriceID, customer.ARStateProvID, customer.CountryID);
+                CustomerEditVM VM = new CustomerEditVM(customer.PriceID, customer.ARStateProvID, customer.CountryID);
 
-                customerEditVM.customerEdit.ARAddress1 = customer.ARAddress1;
-                customerEditVM.customerEdit.ARAddress2 = customer.ARAddress2;
-                customerEditVM.customerEdit.ARAddress3 = customer.ARAddress3;
-                customerEditVM.customerEdit.ARCity = customer.ARCity;
-                customerEditVM.customerEdit.ARStateProvID = customer.ARStateProvID;
-                customerEditVM.customerEdit.AROrgName = customer.AROrgName;
-                customerEditVM.customerEdit.ARPostalCode = customer.ARPostalCode;
-                customerEditVM.customerEdit.CountryID = customer.CountryID;
-                customerEditVM.customerEdit.CustomerID = customer.CustomerID;
-                customerEditVM.customerEdit.PriceID = customer.PriceID;
-                customerEditVM.customerEdit.ActiveDate = customer.ActiveDate;
-                customerEditVM.customerEdit.InactiveDate = customer.InactiveDate;
-                customerEditVM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
+                VM.customerEdit.ARAddress1 = customer.ARAddress1;
+                VM.customerEdit.ARAddress2 = customer.ARAddress2;
+                VM.customerEdit.ARAddress3 = customer.ARAddress3;
+                VM.customerEdit.ARCity = customer.ARCity;
+                VM.customerEdit.ARStateProvID = customer.ARStateProvID;
+                VM.customerEdit.AROrgName = customer.AROrgName;
+                VM.customerEdit.ARPostalCode = customer.ARPostalCode;
+                VM.customerEdit.CountryID = customer.CountryID;
+                VM.customerEdit.CustomerID = customer.CustomerID;
+                VM.customerEdit.PriceID = customer.PriceID;
+                VM.customerEdit.ActiveDate = customer.ActiveDate;
+                VM.customerEdit.InactiveDate = customer.InactiveDate;
+                VM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
 
-                return View(customerEditVM);
+                return View(VM);
 
         }
 
@@ -182,15 +173,31 @@ namespace WebUI.Controllers
         // POST: /Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
+        public ActionResult Edit(CustomerEdit customerEdit, ViewModels.DropDownLists.StateDropDown stateDropDown, string button)
+
         {
+            if (button == "cancel")
+            {
+                return RedirectToAction("cancel");
+            }
+
+            else if (button == "delete")
+            {
+                
+                // TODO Implement Customer delete
+                
+                return RedirectToAction("Index");
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                customerEdit.ARStateProvID = stateDropDown.SelectedID;
+                
+                db.Entry(customerEdit).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Read");
             }
-            return View(customer);
+            return RedirectToAction("Index");
         }
 
     }
