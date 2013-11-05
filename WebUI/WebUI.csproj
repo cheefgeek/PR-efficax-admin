@@ -197,13 +197,10 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DateHelpers.cs" />
-    <Compile Include="Helpers\DropDownHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="KendoHelpers\DataSourceResult.cs" />
     <Compile Include="KendoHelpers\Dynamic.cs" />
