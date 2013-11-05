@@ -755,6 +755,7 @@
     <Content Include="Content\KendoUI\images\KendoUI.woff" />
     <Content Include="Content\kendo\2013.2.716\images\KendoUI.ttf" />
     <Content Include="Content\kendo\2013.2.716\images\KendoUI.woff" />
+    <None Include="Properties\PublishProfiles\prchurch.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\ace-elements.min.js" />
     <Content Include="Scripts\ace.min.js" />
@@ -1178,8 +1179,6 @@
     <Content Include="Views\Person\Delete.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
-    <Content Include="Views\Customer\Create_ORIG.cshtml" />
-    <Content Include="Views\Customer\Edit_OLD.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
@@ -1189,11 +1188,6 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Customer\CustomerCreate.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Test\Details.cshtml" />
-    <Content Include="Views\Test\Create.cshtml" />
-    <Content Include="Views\Test\Edit.cshtml" />
-    <Content Include="Views\Test\Delete.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
   </ItemGroup>
