@@ -209,8 +209,8 @@
     <Compile Include="KendoHelpers\Sort.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\CustomerCreate.cs" />
-    <Compile Include="ViewModels\CustomerCreateVM.cs" />
+    <Compile Include="ViewModels\Customer\CustomerCreate.cs" />
+    <Compile Include="ViewModels\Customer\CustomerCreateVM.cs" />
     <Compile Include="ViewModels\CustomerSearch.cs" />
     <Compile Include="ViewModels\Customer\CustomerEdit.cs" />
     <Compile Include="ViewModels\Customer\CustomerEditVM.cs" />
