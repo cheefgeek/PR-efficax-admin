@@ -8,6 +8,7 @@ using PlumRunDomain;
 using PlumRunModel;
 using WebUI.ViewModels.Customer;
 using System.Net;
+using System.Data.Entity;
 //using Omu;
 
 namespace WebUI.Controllers
