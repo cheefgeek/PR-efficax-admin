@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JustCodeSettings Version="0.0" Timestamp="471abb55-2128-4aa8-a4a2-154ecf391c9f">
+  <IgnoredErrorsAndWarningsSettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <IgnoredErrorsAndWarnings Version="2">
+      <FilePath>
+        <FileRelativePath>WebUI/Controllers/CustomerController.cs</FileRelativePath>
+        <ProjectRelativePath>WebUI/WebUI.csproj</ProjectRelativePath>
+        <IgnoredElement>
+          <TextualIdentifier>13919354969865622645</TextualIdentifier>
+        </IgnoredElement>
+      </FilePath>
+    </IgnoredErrorsAndWarnings>
+  </IgnoredErrorsAndWarningsSettings>
+</JustCodeSettings>
