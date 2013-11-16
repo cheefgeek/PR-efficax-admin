@@ -92,6 +92,9 @@ DocProject/Help/html
 # Click-Once directory
 publish/
 
+# JustCode directory (JIM)
+.JustCode/
+
 # Publish Web Output
 *.Publish.xml
 
