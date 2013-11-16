@@ -19,6 +19,23 @@
           <TextualIdentifier>12113173305804177372</TextualIdentifier>
         </IgnoredElement>
       </FilePath>
+      <FilePath>
+        <FileRelativePath>WebUI/App_Start/Startup.Auth.cs</FileRelativePath>
+        <ProjectRelativePath>WebUI/WebUI.csproj</ProjectRelativePath>
+        <IgnoredElement>
+          <TextualIdentifier>15431116354491934968</TextualIdentifier>
+        </IgnoredElement>
+      </FilePath>
+      <FilePath>
+        <FileRelativePath>WebUI/Startup.cs</FileRelativePath>
+        <ProjectRelativePath>WebUI/WebUI.csproj</ProjectRelativePath>
+        <IgnoredElement>
+          <TextualIdentifier>15431116354491934968</TextualIdentifier>
+        </IgnoredElement>
+        <IgnoredElement>
+          <TextualIdentifier>14372547292077246510</TextualIdentifier>
+        </IgnoredElement>
+      </FilePath>
     </IgnoredErrorsAndWarnings>
   </IgnoredErrorsAndWarningsSettings>
 </JustCodeSettings>
