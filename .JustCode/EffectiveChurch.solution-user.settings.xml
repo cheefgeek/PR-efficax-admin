@@ -9,6 +9,16 @@
           <TextualIdentifier>13919354969865622645</TextualIdentifier>
         </IgnoredElement>
       </FilePath>
+      <FilePath>
+        <FileRelativePath>WebUI/Models/IdentityModels.cs</FileRelativePath>
+        <ProjectRelativePath>WebUI/WebUI.csproj</ProjectRelativePath>
+        <IgnoredElement>
+          <TextualIdentifier>17619470163459975946</TextualIdentifier>
+        </IgnoredElement>
+        <IgnoredElement>
+          <TextualIdentifier>12113173305804177372</TextualIdentifier>
+        </IgnoredElement>
+      </FilePath>
     </IgnoredErrorsAndWarnings>
   </IgnoredErrorsAndWarningsSettings>
 </JustCodeSettings>
