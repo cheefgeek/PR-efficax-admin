@@ -242,6 +242,7 @@
     <Compile Include="KendoHelpers\Filter.cs" />
     <Compile Include="KendoHelpers\QueryableExtensions.cs" />
     <Compile Include="KendoHelpers\Sort.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using WebUI.Models;
+using PlumRunModel;
 
 namespace WebUI.Models
 {
@@ -11,7 +11,7 @@ namespace WebUI.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+            : base("PRIdentities")
         {
         }
     }
