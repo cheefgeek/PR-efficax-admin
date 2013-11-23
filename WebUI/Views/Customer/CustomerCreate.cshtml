@@ -116,9 +116,8 @@
                 <div class="control-group ">
                     <label class="control-label span4">Country</label>
                     <div class="controls span8">
-                        @Html.DropDownList("CountryID")
+                        @Html.DropDownListFor(m => m.countryDropDown.SelectedID, Model.countryDropDown.List)
                     </div>
-                    @Html.ValidationMessageFor(model => model.CustomerCreate.CountryID)
                 </div>
 
                 @*PriceID*@
@@ -127,10 +126,9 @@
                     <div class="controls span8">
                         @Html.DropDownListFor(m => m.pricesDropDown.SelectedID, Model.pricesDropDown.List)
                     </div>
-                    @*@Html.ValidationMessageFor(model => model.CustomerCreate.PriceID)*@
                 </div>
             </fieldset>
-
+            
             <div>
                 <button class="btn btn-app btn-grey btn-mini radius-4" name="button" value="save">
                     <i class="icon-save bigger-160"></i>

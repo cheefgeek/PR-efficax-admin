@@ -45,9 +45,6 @@ namespace WebUI.Controllers
 
         public ActionResult CustomerCreate()
         {
-            ViewBag.ARStateProvID = new SelectList(db.StateProvinces, "id", "name");
-            ViewBag.CountryID = new SelectList(db.Countries, "CountryID", "Country1");
-            //INSTANTIATE VIEWMODEL OBJECT
             ViewModels.CustomerCreateVM vm = new ViewModels.CustomerCreateVM();
             return View(vm);
         }

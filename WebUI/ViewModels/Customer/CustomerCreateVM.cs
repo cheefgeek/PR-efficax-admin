@@ -10,12 +10,14 @@ namespace WebUI.ViewModels
         public CustomerCreate CustomerCreate { get; set; }
         public DropDownLists.PricesDropDown pricesDropDown { get; set; }
         public DropDownLists.StateDropDown stateDropDown { get; set; }
+        public DropDownLists.CountryDropDown countryDropDown { get; set; }
 
 
         public CustomerCreateVM()
         {
             pricesDropDown = new DropDownLists.PricesDropDown();
             stateDropDown = new DropDownLists.StateDropDown();
+            countryDropDown = new DropDownLists.CountryDropDown();
         }
 
     }
