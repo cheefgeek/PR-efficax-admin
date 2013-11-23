@@ -2,7 +2,7 @@
 
 @model IEnumerable<CustomerSearch>
 
-<legend>Customer</legend>
+<legend>Customers</legend>
 
 @section Breadcrumb
 {
@@ -17,17 +17,9 @@
 			</span>
 		</li>
 
-		@*<li>
-			<a href="#">Other Pages</a>
-
-			<span class="divider">
-				<i class="icon-angle-right arrow-icon"></i>
-			</span>
-		</li>*@
-
 		<li class="active">Customers</li>
 
-	</ul><!--.breadcrumb-->
+	</ul>
 
 	<div class="nav-search" id="nav-search">
 		<form class="form-search">
@@ -36,7 +28,7 @@
 				<i class="icon-search nav-search-icon"></i>
 			</span>
 		</form>
-	</div><!--#nav-search-->
+	</div>
 </div>
 }
 
@@ -59,12 +51,8 @@
 </div>
 
 <script>
-    $(function () {
-        //$(".k-grid-add").click(function () {
-        //    //window.location.href = "/customer/customercreate";
-        //    alert("anything");
-        //});
-
+    $(function ()
+    {
         $("#grid").kendoGrid({
             height: 350,
             columns: [
@@ -80,8 +68,6 @@
             filterable: true,
             selectable: "row",
             change: showDetails,
-            //toolbar: [{ name: "create", text: "Add New" }, { name: "edit", text: "Edit Selected" }], // standard toolbar commands code
-            //toolbar: kendo.template($("#template").html()), //custom toolbar
 
             dataSource: {
                 serverPaging: true,
@@ -112,40 +98,19 @@
                                 contentType: "application/json",
                                 type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
                             },
-                        @*create:
-                            {
-                                url: "@Url.Action("CustomerCreate", "Customer")", //specify the URL which should create new records. This is the Create method of the HomeController.
-                                type: "GET", //use HTTP POST request as the default GET is not allowed for ASMX
-                                //contenttype: "application/json; charset=utf-8",
-                                //dataType: "json"
-                            },
-                        update:
-                            {
-                                url: "@Url.Action("Update", "Customer")", //specify the URL which should update the records. This is the Update method of the HomeController.
-                                type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
-                            },
-                        destroy:
-                            {
-                                url: "@Url.Action("Destroy", "Customer")", //specify the URL which should destroy the records. This is the Destroy method of the HomeController.
-                                //contentType: "application/json",
-                                type: "POST", //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
-                                //dataType: "json"
-                            },*@
 
-                        parameterMap: function (data, operation) {
-                            if (operation != "read") {
-                                // post the products so the ASP.NET DefaultModelBinder will understand them:
-                                //products[0].Name="name"
-                                //products[0].ProductID =1
-                                //products[1].Name="name"
-                                //products[1].ProductID =1
-
+                        parameterMap: function (data, operation)
+                        {
+                            if (operation != "read")
+                            {
                                 var result = {};
 
-                                for (var i = 0; i < data.models.length; i++) {
+                                for (var i = 0; i < data.models.length; i++)
+                                {
                                     var customer = data.models[i];
 
-                                    for (var member in customer) {
+                                    for (var member in customer)
+                                    {
                                         result["customers[" + i + "]." + member] = customer[member];
                                     }
                                 }
@@ -153,7 +118,8 @@
                                 return result;
                             }
 
-                            else {
+                            else
+                            {
                                 return JSON.stringify(data)
                             }
                         }
@@ -165,82 +131,40 @@
         $("#btnEdit").attr("disabled", "disabled");
     }); // End DOM ready //TELERIK GRID SCRIPT...
 
+
     var customerSelectedID = null;
 
-    function showDetails(e) {
+    function showDetails(e)
+    {
         grid = e.sender;
 
         // Get selected row 
         var currentDataItem = grid.dataItem(this.select());
 
         //Enable/Disable button
-        if (currentDataItem != null && currentDataItem.CustomerID.toString().length > 0) {
+        if (currentDataItem != null && currentDataItem.CustomerID.toString().length > 0)
+        {
             $("#btnEdit").removeAttr("disabled");
             customerSelectedID = 'Customer/Edit/' + currentDataItem.CustomerID;
         }
-        else { // Message to user
+        else
+        { // Message to user
             $("#btnEdit").attr("disabled", "disabled");
             customerSelectedID = null;
         }
     }
 
-    $("#btnEdit").on("click", function () {
-        window.location.href = customerSelectedID;
-    })
-
-    $("#btnNew").on("click", function () {
-        window.location.href = 'Customer/CustomerCreate';
-    })
-
-</script>
-
-@*RETURNS SELECTED ROW IN GRID - WHAT DO I DO WITH THIS??!!*@
-@*http://demos.kendoui.com/web/grid/custom-command.html*@
-@*<script type="text/javascript">
-
-
-    var customerSelectedID = function showDetails(e) {
-        grid = e.sender;
-        var currentDataItem = grid.dataItem(this.select());
-        var selectedCustomerID = currentDataItem.CustomerID;
-        console.log('Customer/Edit/' + selectedCustomerID);
-        return 'Customer/Edit/' + selectedCustomerID;
-    }
-
-
-    $("#btnEdit").on("click", function() 
+    $("#btnEdit").on("click", function ()
     {
         window.location.href = customerSelectedID;
     })
 
-</script>*@
+    $("#btnNew").on("click", function ()
+    {
+        window.location.href = 'Customer/Create';
+    })
 
-
-
-
-
-
-
-
-
-@*TEMPLATE FOR CUSTOM GRID TOOLBAR - USE FOR NON-BUTTON ITEMS, IF DEEMED NECESSARY*@        
-@*<script type="text/x-kendo-template" id="template">
-    <div class="toolbar">
-        @*<form method="post" action="Customer/CustomerCreate"> REPLACED BY LINE BELOW!!!??????    *@
-        @*<form>
-                <button class="btn btn-app btn-grey btn-mini radius-4" name="button" value="add">
-                    <i class="icon-plus-sign"></i>
-                    New
-                </button>
-
-                <button class="btn btn-app btn-success btn-mini radius-4" name="button" value="edit" onclick="showDetails(grid)">
-                    <i class=" icon-edit">
-                    </i>
-                    Edit
-                </button>
-        </form>
-    </div>
-</script>*@
+</script>
 
 @section Scripts
 {

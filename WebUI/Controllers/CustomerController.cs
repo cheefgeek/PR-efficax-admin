@@ -43,7 +43,7 @@ namespace WebUI.Controllers
             }
         }
 
-        public ActionResult CustomerCreate()
+        public ActionResult Create()
         {
             ViewModels.CustomerCreateVM vm = new ViewModels.CustomerCreateVM();
             return View(vm);
@@ -52,7 +52,7 @@ namespace WebUI.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult CustomerCreate(ViewModels.CustomerCreateVM newCustomer,string button)
+        public ActionResult Create(ViewModels.CustomerCreateVM newCustomer,string button)
         {
             if (button == "clear")
             {
