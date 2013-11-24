@@ -84,6 +84,9 @@
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurringPayment.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Right.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>

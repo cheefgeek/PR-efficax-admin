@@ -6,12 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="39e56d97693d4dbba8b3816ad13ba808" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="PRChurchModel.Address" Width="1.5" PointX="1.1874227436200822" PointY="3.953545706324999" />
-        <EntityTypeShape EntityType="PRChurchModel.CustomerPayment" Width="1.5" PointX="6.625" PointY="14.25" />
+        <EntityTypeShape EntityType="PRChurchModel.CustomerPayment" Width="1.5" PointX="3" PointY="13.75" />
         <EntityTypeShape EntityType="PRChurchModel.Group" Width="1.5" PointX="10.75" PointY="4.5" />
         <EntityTypeShape EntityType="PRChurchModel.GroupMember" Width="1.5" PointX="7.75" PointY="8" />
         <EntityTypeShape EntityType="PRChurchModel.Location" Width="1.5" PointX="3.5774077305465042" PointY="3.9550633746921382" />
         <EntityTypeShape EntityType="PRChurchModel.Price" Width="1.5" PointX="10.75" PointY="9" />
-        <EntityTypeShape EntityType="PRChurchModel.PriceList" Width="1.5" PointX="11.726453544444617" PointY="31.07058191256159" />
+        <EntityTypeShape EntityType="PRChurchModel.PriceList" Width="1.5" PointX="10" PointY="16.125" />
         <EntityTypeShape EntityType="PRChurchModel.Role" Width="1.5" PointX="6.125" PointY="9" />
         <EntityTypeShape EntityType="PRChurchModel.BillingInterval" Width="1.5" PointX="3.55559922547806" PointY="5.257073851887637" />
         <EntityTypeShape EntityType="PRChurchModel.Country" Width="1.5" PointX="8.9748964556375981" PointY="2.8475894047168966" />
@@ -40,6 +40,7 @@
         <AssociationConnector Association="PRChurchModel.FK_Person_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_GroupMember_Person" />
         <AssociationConnector Association="PRChurchModel.PersonRole" />
+        <EntityTypeShape EntityType="PRChurchModel.RecurringPayment" Width="1.5" PointX="3.375" PointY="8.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

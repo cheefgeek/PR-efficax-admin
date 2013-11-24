@@ -38,9 +38,6 @@
           <Property Name="ARPostalCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="CountryID" Type="int" Nullable="false" />
           <Property Name="PriceID" Type="int" Nullable="false" />
-          <Property Name="PymtSubscriptionActiveDate" Type="datetime" />
-          <Property Name="PymtSubscriptionID" Type="varchar" MaxLength="100" />
-          <Property Name="PymtSubscriptionExpireDate" Type="datetime" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedByPersonID" Type="int" />
@@ -143,6 +140,24 @@
           <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedByPersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecurringPayment">
+          <Key>
+            <PropertyRef Name="RecurringPaymentID" />
+          </Key>
+          <Property Name="RecurringPaymentID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="SubscriptionID" Type="int" Nullable="false" />
+          <Property Name="SubscriptionStartDate" Type="datetime" Nullable="false" />
+          <Property Name="SubscriptionExpireDate" Type="datetime" Nullable="false" />
+          <Property Name="SubscriptionCancelDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="IntervalLength" Type="decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="IntervalUnit" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="TotalOccurences" Type="decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="TrialOccurences" Type="decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="TrialAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -514,6 +529,7 @@
           <EntitySet Name="PersonRole" EntityType="Self.PersonRole" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Price" EntityType="Self.Price" Schema="Core" store:Type="Tables" />
           <EntitySet Name="PriceList" EntityType="Self.PriceList" Schema="Core" store:Type="Tables" />
+          <EntitySet Name="RecurringPayment" EntityType="Self.RecurringPayment" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="Core" store:Type="Tables" />
           <EntitySet Name="RoleRight" EntityType="Self.RoleRight" Schema="Core" store:Type="Tables" />
           <EntitySet Name="BillingInterval" EntityType="Self.BillingInterval" Schema="List" store:Type="Tables" />
@@ -704,6 +720,7 @@
             <End Role="Person" EntitySet="People" />
             <End Role="Role" EntitySet="Roles" />
           </AssociationSet>
+          <EntitySet Name="RecurringPayments" EntityType="PRChurchModel.RecurringPayment" />
           </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -1177,6 +1194,24 @@
           <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
           <End Type="PRChurchModel.Role" Role="Role" Multiplicity="*" />
         </Association>
+        <EntityType Name="RecurringPayment">
+          <Key>
+            <PropertyRef Name="RecurringPaymentID" />
+          </Key>
+          <Property Name="RecurringPaymentID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubscriptionExpireDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubscriptionCancelDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="IntervalLength" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="IntervalUnit" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TotalOccurences" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="TrialOccurences" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="TrialAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1379,9 +1414,6 @@
                 <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PymtSubscriptionExpireDate" ColumnName="PymtSubscriptionExpireDate" />
-                <ScalarProperty Name="PymtSubscriptionID" ColumnName="PymtSubscriptionID" />
-                <ScalarProperty Name="PymtSubscriptionActiveDate" ColumnName="PymtSubscriptionActiveDate" />
                 <ScalarProperty Name="PriceID" ColumnName="PriceID" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="ARPostalCode" ColumnName="ARPostalCode" />
@@ -1422,6 +1454,25 @@
               <ScalarProperty Name="PersonID" ColumnName="PersonID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="RecurringPayments">
+            <EntityTypeMapping TypeName="PRChurchModel.RecurringPayment">
+              <MappingFragment StoreEntitySet="RecurringPayment">
+                <ScalarProperty Name="TrialAmount" ColumnName="TrialAmount" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="TrialOccurences" ColumnName="TrialOccurences" />
+                <ScalarProperty Name="TotalOccurences" ColumnName="TotalOccurences" />
+                <ScalarProperty Name="IntervalUnit" ColumnName="IntervalUnit" />
+                <ScalarProperty Name="IntervalLength" ColumnName="IntervalLength" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SubscriptionCancelDate" ColumnName="SubscriptionCancelDate" />
+                <ScalarProperty Name="SubscriptionExpireDate" ColumnName="SubscriptionExpireDate" />
+                <ScalarProperty Name="SubscriptionStartDate" ColumnName="SubscriptionStartDate" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="RecurringPaymentID" ColumnName="RecurringPaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
