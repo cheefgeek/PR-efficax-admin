@@ -1,4 +1,4 @@
-﻿@model PlumRunDomain.Customer
+﻿@model WebUI.ViewModels.Customer.CustomerDelete
 
 <fieldset>
     <legend>Delete Customer</legend>
@@ -15,7 +15,7 @@
             <h5>@Html.DisplayTextFor(model => model.ARAddress1)</h5>
             <h5>@Html.DisplayTextFor(model => model.ARAddress2)</h5>
             <h5>@Html.DisplayTextFor(model => model.ARAddress3)</h5>
-            <h5>@Html.DisplayTextFor(model => model.ARCity), @Html.DisplayTextFor(model => model.ARStateProvID) &nbsp;&nbsp;&nbsp; @Html.DisplayTextFor(model => model.ARPostalCode)</h5>
+            <h5>@Html.DisplayTextFor(model => model.ARCity), @Html.DisplayTextFor(model => model.StateProvName) &nbsp;&nbsp;&nbsp; @Html.DisplayTextFor(model => model.ARPostalCode)</h5>
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

@@ -34,9 +34,6 @@ namespace PlumRunDomain
         public string ARPostalCode { get; set; }
         public int CountryID { get; set; }
         public int PriceID { get; set; }
-        public Nullable<System.DateTime> PymtSubscriptionActiveDate { get; set; }
-        public string PymtSubscriptionID { get; set; }
-        public Nullable<System.DateTime> PymtSubscriptionExpireDate { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedByPersonID { get; set; }

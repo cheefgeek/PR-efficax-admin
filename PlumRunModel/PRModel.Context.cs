@@ -41,8 +41,8 @@ namespace PlumRunModel
         public DbSet<Right> Rights { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<StateProvince> StateProvinces { get; set; }
-        public DbSet<Customer> Customers { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<RecurringPayment> RecurringPayments { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }

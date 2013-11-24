@@ -65,7 +65,6 @@ namespace WebUI.Controllers
             else if (ModelState.IsValid)
             {
                 Customer customer = new Customer();
-                customer.PymtSubscriptionActiveDate = System.DateTime.Now;
                 customer.ARAddress1 = newCustomer.CustomerCreate.ARAddress1;
                 customer.ARAddress2 = newCustomer.CustomerCreate.ARAddress2;
                 customer.ARAddress3 = newCustomer.CustomerCreate.ARAddress3;
@@ -90,12 +89,26 @@ namespace WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Customer customer = db.Customers.Find(id);
+
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+
+            CustomerDelete VM = new CustomerDelete();
+
+            VM.CustomerID = customer.CustomerID;
+            VM.AROrgName = customer.AROrgName;
+            VM.ARAddress1 = customer.ARAddress1;
+            VM.ARAddress2 = customer.ARAddress2;
+            VM.ARAddress3 = customer.ARAddress3;
+            VM.ARCity = customer.ARCity;
+            VM.StateProvName = customer.StateProvince.name;
+            VM.ARPostalCode = customer.ARPostalCode;
+
+            return View(VM);
         }
 
         // POST: /Customer/Delete/5
@@ -143,8 +156,6 @@ namespace WebUI.Controllers
             VM.customerEdit.CountryID = customer.CountryID;
             VM.customerEdit.CustomerID = customer.CustomerID;
             VM.customerEdit.PriceID = customer.PriceID;
-            VM.customerEdit.PymtSubscriptionActiveDate = customer.PymtSubscriptionActiveDate;
-            VM.customerEdit.PymtSubscriptionExpireDate = customer.PymtSubscriptionExpireDate;
             VM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
             return View(VM);
         }
