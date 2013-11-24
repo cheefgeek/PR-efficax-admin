@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using Kendo.Mvc.Grid.CRUD.Models;
@@ -9,7 +8,6 @@ using PlumRunModel;
 using WebUI.ViewModels.Customer;
 using System.Net;
 using System.Data.Entity;
-//using Omu;
 
 namespace WebUI.Controllers
 {
