@@ -44,6 +44,15 @@
         <i class="icon-edit bigger-230"></i>
         Edit
     </button>
+
+    <form id="deleteForm" class="inline">
+        @Html.AntiForgeryToken()
+        <button class="btn btn-app btn-danger btn-mini radius-4 move_to" id="btnDelete" name="button" value="delete">
+            <i class="icon-trash bigger-160"></i>
+            Delete
+        </button>
+    </form>
+
 </div>
 
 <div class="span4" >
@@ -129,10 +138,15 @@
 
         // Disable edit button by default
         $("#btnEdit").attr("disabled", "disabled");
+
+        // Disable delete button by default
+        $("#btnDelete").attr("disabled", "disabled");
+
     }); // End DOM ready //TELERIK GRID SCRIPT...
 
 
-    var customerSelectedID = null;
+    var editCustomerUrl = null;
+    var deleteCustomerUrl = null;
 
     function showDetails(e)
     {
@@ -145,24 +159,37 @@
         if (currentDataItem != null && currentDataItem.CustomerID.toString().length > 0)
         {
             $("#btnEdit").removeAttr("disabled");
-            customerSelectedID = 'Customer/Edit/' + currentDataItem.CustomerID;
+            $("#btnDelete").removeAttr("disabled");
+            editCustomerUrl = 'Customer/Edit/' + currentDataItem.CustomerID;
+            deleteCustomerUrl = 'Customer/Delete/' + currentDataItem.CustomerID;
         }
         else
         { // Message to user
             $("#btnEdit").attr("disabled", "disabled");
-            customerSelectedID = null;
+            $("#btnDelete").attr("disabled", "disabled");
+            editCustomerUrl = null;
+            deleteCustomerUrl = null;
         }
     }
 
     $("#btnEdit").on("click", function ()
     {
-        window.location.href = customerSelectedID;
+        window.location.href = editCustomerUrl;
     })
 
     $("#btnNew").on("click", function ()
     {
         window.location.href = 'Customer/Create';
     })
+
+    $(".move_to").on("click", function (e)
+    {
+        e.preventDefault();
+        $("#deleteForm").attr("action", deleteCustomerUrl);
+        $("#deleteForm").submit();
+    });
+
+
 
 </script>
 

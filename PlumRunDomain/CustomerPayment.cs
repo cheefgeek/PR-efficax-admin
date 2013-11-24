@@ -18,6 +18,7 @@ namespace PlumRunDomain
         public int CustomerID { get; set; }
         public int PriceID { get; set; }
         public System.DateTime PaymentDate { get; set; }
+        public string PaymentSubscriptionID { get; set; }
     
         public virtual Price Price { get; set; }
         public virtual Customer Customer { get; set; }

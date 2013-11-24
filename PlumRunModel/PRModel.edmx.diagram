@@ -28,19 +28,19 @@
         <AssociationConnector Association="PRChurchModel.FK_Price_BillingInterval" />
         <AssociationConnector Association="PRChurchModel.FK_Price_PriceList" />
         <AssociationConnector Association="PRChurchModel.RoleRight" />
-        <EntityTypeShape EntityType="PRChurchModel.Person" Width="1.5" PointX="3.25" PointY="11" />
-        <AssociationConnector Association="PRChurchModel.FK_GroupMember_Person" />
-        <AssociationConnector Association="PRChurchModel.PersonRole" />
-        <EntityTypeShape EntityType="PRChurchModel.Customer" Width="1.5" PointX="2.5269441616381259" PointY="30.57983718746334" />
+        <EntityTypeShape EntityType="PRChurchModel.Customer" Width="1.5" PointX="13" PointY="12.25" />
         <AssociationConnector Association="PRChurchModel.FK_Address_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_Customer_Price" />
+        <AssociationConnector Association="PRChurchModel.FK_Customer_StateProvince" />
         <AssociationConnector Association="PRChurchModel.FK_CustomerPayment_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_Group_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_GroupMember_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_Location_Customer" />
+        <EntityTypeShape EntityType="PRChurchModel.Person" Width="1.5" PointX="15.25" PointY="13" />
         <AssociationConnector Association="PRChurchModel.FK_Person_Customer" />
-        <AssociationConnector Association="PRChurchModel.FK_Customer_StateProvince" />
-      </Diagram>
+        <AssociationConnector Association="PRChurchModel.FK_GroupMember_Person" />
+        <AssociationConnector Association="PRChurchModel.PersonRole" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -19,7 +19,6 @@ namespace WebUI.Controllers
 
         public ActionResult Index()
         {
-            //ViewBag.SelectedCustomerID = 0;
             return View();
         }
 
@@ -49,7 +48,6 @@ namespace WebUI.Controllers
             return View(vm);
         }
 
-
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Create(ViewModels.CustomerCreateVM newCustomer,string button)
@@ -69,7 +67,7 @@ namespace WebUI.Controllers
             else if (ModelState.IsValid)
             {
                 Customer customer = new Customer();
-                customer.ActiveDate = System.DateTime.Now;
+                customer.PymtSubscriptionActiveDate = System.DateTime.Now;
                 customer.ARAddress1 = newCustomer.CustomerCreate.ARAddress1;
                 customer.ARAddress2 = newCustomer.CustomerCreate.ARAddress2;
                 customer.ARAddress3 = newCustomer.CustomerCreate.ARAddress3;
@@ -86,7 +84,6 @@ namespace WebUI.Controllers
             }                
             return RedirectToAction("Index");
         }
-
 
         // GET: /Customer/Delete/5
         public ActionResult Delete(int? id)
@@ -106,8 +103,13 @@ namespace WebUI.Controllers
         // POST: /Customer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string button)
         {
+            if (button == "cancel")
+            {
+                return RedirectToAction("Index");
+            }
+            
             Customer customer = db.Customers.Find(id);
             db.Customers.Remove(customer);
             db.SaveChanges();
@@ -123,9 +125,8 @@ namespace WebUI.Controllers
             base.Dispose(disposing);
         }
 
-
         // GET: /Customer/Edit/5 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string button)
         {
             Customer customer = db.Customers.Find(id);
             if (customer == null)
@@ -144,15 +145,15 @@ namespace WebUI.Controllers
             VM.customerEdit.CountryID = customer.CountryID;
             VM.customerEdit.CustomerID = customer.CustomerID;
             VM.customerEdit.PriceID = customer.PriceID;
-            VM.customerEdit.ActiveDate = customer.ActiveDate;
-            VM.customerEdit.InactiveDate = customer.InactiveDate;
+            VM.customerEdit.PymtSubscriptionActiveDate = customer.PymtSubscriptionActiveDate;
+            VM.customerEdit.PymtSubscriptionExpireDate = customer.PymtSubscriptionExpireDate;
             VM.customerEdit.ModifiedByPersonID = 0;                //TODO Get PersonID from code
             return View(VM);
         }
 
         // POST: /Customer/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]                        //********** REMOVED BECAUSE DELETE BUTTON THREW ERROR. NEED TO GET DELETE POST TO SEND VALIDATION TOKEN????? **********
         public ActionResult Edit (
             int id,
             CustomerEdit customerEdit,

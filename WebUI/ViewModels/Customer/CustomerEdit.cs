@@ -17,8 +17,8 @@ namespace WebUI.ViewModels.Customer
         public string ARPostalCode { get; set; }
         public int CountryID { get; set; }
         public int PriceID { get; set; }
-        public Nullable<System.DateTime> ActiveDate { get; set; }
-        public Nullable<System.DateTime> InactiveDate { get; set; }
+        public Nullable<System.DateTime> PymtSubscriptionActiveDate { get; set; }
+        public Nullable<System.DateTime> PymtSubscriptionExpireDate { get; set; }
         public Nullable<int> ModifiedByPersonID { get; set; }
     }
 }

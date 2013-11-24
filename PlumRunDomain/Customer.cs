@@ -34,24 +34,20 @@ namespace PlumRunDomain
         public string ARPostalCode { get; set; }
         public int CountryID { get; set; }
         public int PriceID { get; set; }
-        public Nullable<System.DateTime> ActiveDate { get; set; }
-        public Nullable<System.DateTime> InactiveDate { get; set; }
-        public Nullable<int> CardTypeID { get; set; }
-        public string CardNumber { get; set; }
-        public string CardSecurityCode { get; set; }
-        public Nullable<int> CardExpMonth { get; set; }
-        public Nullable<int> CardExpYear { get; set; }
+        public Nullable<System.DateTime> PymtSubscriptionActiveDate { get; set; }
+        public string PymtSubscriptionID { get; set; }
+        public Nullable<System.DateTime> PymtSubscriptionExpireDate { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedByPersonID { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual Price Price { get; set; }
+        public virtual StateProvince StateProvince { get; set; }
         public virtual ICollection<CustomerPayment> CustomerPayments { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ICollection<Person> People { get; set; }
-        public virtual StateProvince StateProvince { get; set; }
     }
 }

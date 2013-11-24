@@ -21,13 +21,12 @@ namespace PlumRunDomain
         }
     
         public int PersonID { get; set; }
+        public int CustomerID { get; set; }
         public Nullable<int> AddressID { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public int CustomerID { get; set; }
         public string ImageThumbnail { get; set; }
         public string ImageHiRes { get; set; }
         public Nullable<System.DateTime> CreatedDateTime { get; set; }
@@ -35,8 +34,8 @@ namespace PlumRunDomain
         public Nullable<int> CreatedByPersonID { get; set; }
         public Nullable<int> ModifiedByPersonID { get; set; }
     
+        public virtual Customer Customer { get; set; }
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace PlumRunDomain
     
         public virtual Group Group { get; set; }
         public virtual GroupMemberType GroupMemberType { get; set; }
-        public virtual Person Person { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

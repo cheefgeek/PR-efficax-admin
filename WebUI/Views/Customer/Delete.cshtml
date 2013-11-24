@@ -3,145 +3,36 @@
 <fieldset>
     <legend>Delete Customer</legend>
 
-    <h3>Are you sure you want to delete this Customer?</h3>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AROrgName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AROrgName)
+    <div class="alert alert-error" >
+        <strong>
+            Hold The Phone!
+        </strong>
+        Deleting a Customer Can Not be Undone!
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ARAddress1)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ARAddress1)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ARAddress2)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ARAddress2)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ARAddress3)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ARAddress3)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ARCity)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ARCity)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ARStateProvID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ARStateProvID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ARPostalCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ARPostalCode)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CountryID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CountryID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.PriceID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PriceID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ActiveDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ActiveDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.InactiveDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.InactiveDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CardTypeID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CardTypeID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CardNumber)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CardNumber)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CardSecurityCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CardSecurityCode)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CardExpMonth)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CardExpMonth)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CardExpYear)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CardExpYear)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ModifiedDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ModifiedDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ModifiedByPersonID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ModifiedByPersonID)
+    <div class="row-fluid">
+            <h5>@Html.DisplayTextFor(model => model.AROrgName)</h5>
+            <h5>@Html.DisplayTextFor(model => model.ARAddress1)</h5>
+            <h5>@Html.DisplayTextFor(model => model.ARAddress2)</h5>
+            <h5>@Html.DisplayTextFor(model => model.ARAddress3)</h5>
+            <h5>@Html.DisplayTextFor(model => model.ARCity), @Html.DisplayTextFor(model => model.ARStateProvID) &nbsp;&nbsp;&nbsp; @Html.DisplayTextFor(model => model.ARPostalCode)</h5>
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        @*<input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")*@
+
+
+        <button class="btn btn-app btn-warning btn-mini radius-4" name="button" value="cancel">
+            <i class="icon-undo bigger-160"></i>
+            Cancel
+        </button>
+
+        <button class="btn btn-app btn-danger btn-mini radius-4" id="btnDelete" name="button" value="delete">
+            <i class="icon-trash bigger-160"></i>
+            Delete
+        </button>
     </p>
 }
