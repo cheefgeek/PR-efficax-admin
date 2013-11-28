@@ -52,7 +52,7 @@ namespace WebUI.Controllers
         {
             if (button == "clear")
             {
-                return RedirectToAction("CustomerCreate");
+                return RedirectToAction("Create");
             }
             else if (button == "cancel")
             {
@@ -60,7 +60,7 @@ namespace WebUI.Controllers
             }
             else if (button == "add")
             {
-                return RedirectToAction("CustomerCreate");
+                return RedirectToAction("Create");
             }
             else if (ModelState.IsValid)
             {
