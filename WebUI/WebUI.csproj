@@ -318,7 +318,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Customer\CustomerCreate.cs" />
     <Compile Include="ViewModels\Customer\CustomerCreateVM.cs" />
-    <Compile Include="ViewModels\CustomerSearch.cs" />
+    <Compile Include="ViewModels\Customer\CustomerSearch.cs" />
     <Compile Include="ViewModels\Customer\CustomerDelete.cs" />
     <Compile Include="ViewModels\Customer\CustomerEdit.cs" />
     <Compile Include="ViewModels\Customer\CustomerEditVM.cs" />
