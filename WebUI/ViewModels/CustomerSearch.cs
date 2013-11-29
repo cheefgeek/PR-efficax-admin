@@ -10,13 +10,8 @@ namespace Kendo.Mvc.Grid.CRUD.Models
         public int CustomerID { get; set; }
         public string AROrgName { get; set; }
         public string ARCity { get; set; }
-        public int ARStateProvID { get; set; }
-        public DateTime CreatedDate { get; set; }
+        //public int ARStateProvID { get; set; }
+        //public DateTime CreatedDate { get; set; }
         public string State { get; set; }  
     }          
- 
-
-
-
-
 }

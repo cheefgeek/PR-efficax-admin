@@ -31,8 +31,8 @@ namespace WebUI.Controllers
                         CustomerID = c.CustomerID,
                         AROrgName = c.AROrgName,
                         ARCity = c.ARCity,
-                        ARStateProvID = c.ARStateProvID,
-                        CreatedDate = c.CreatedDate ,
+                        //ARStateProvID = c.ARStateProvID,
+                        //CreatedDate = c.CreatedDate ,
                         State = c.StateProvince.name
                     })
                     .ToDataSourceResult(take, skip, sort, filter);
