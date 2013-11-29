@@ -16,7 +16,7 @@ namespace PlumRunDomain
     {
         public Role()
         {
-            this.Rights = new HashSet<Right>();
+            this.RoleRights = new HashSet<RoleRight>();
             this.People = new HashSet<Person>();
         }
     
@@ -25,7 +25,7 @@ namespace PlumRunDomain
         public string Name { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<Right> Rights { get; set; }
+        public virtual ICollection<RoleRight> RoleRights { get; set; }
         public virtual ICollection<Person> People { get; set; }
     }
 }

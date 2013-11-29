@@ -34,8 +34,8 @@ namespace PlumRunDomain
         public Nullable<int> CreatedByPersonID { get; set; }
         public Nullable<int> ModifiedByPersonID { get; set; }
     
+        public virtual Customer Customer { get; set; }
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

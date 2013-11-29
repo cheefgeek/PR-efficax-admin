@@ -12,16 +12,11 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class BillingInterval
+    public partial class RoleRight
     {
-        public BillingInterval()
-        {
-            this.Prices = new HashSet<Price>();
-        }
+        public int RoleID { get; set; }
+        public int RightID { get; set; }
     
-        public int BillingIntervalID { get; set; }
-        public string Name { get; set; }
-    
-        public virtual ICollection<Price> Prices { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

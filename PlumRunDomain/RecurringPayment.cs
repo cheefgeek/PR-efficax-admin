@@ -27,5 +27,7 @@ namespace PlumRunDomain
         public decimal TrialOccurences { get; set; }
         public decimal PaymentAmount { get; set; }
         public decimal TrialAmount { get; set; }
+    
+        public virtual Customer Customer { get; set; }
     }
 }

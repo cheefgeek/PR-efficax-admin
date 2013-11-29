@@ -16,8 +16,8 @@ namespace PlumRunDomain
     {
         public Price()
         {
-            this.CustomerPayments = new HashSet<CustomerPayment>();
             this.Customers = new HashSet<Customer>();
+            this.CustomerPayments = new HashSet<CustomerPayment>();
         }
     
         public int PriceID { get; set; }
@@ -25,9 +25,8 @@ namespace PlumRunDomain
         public int BillingIntervalID { get; set; }
         public decimal Price1 { get; set; }
     
-        public virtual ICollection<CustomerPayment> CustomerPayments { get; set; }
-        public virtual BillingInterval BillingInterval { get; set; }
-        public virtual PriceList PriceList { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<CustomerPayment> CustomerPayments { get; set; }
+        public virtual PriceList PriceList { get; set; }
     }
 }

@@ -50,16 +50,17 @@
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="PriceID" Type="int" Nullable="false" />
           <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-          <Property Name="PaymentSubscriptionID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RecurringPaymentID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
           <Property Name="GroupID" Type="int" Nullable="false" />
-          <Property Name="ParentGroupID" Type="int" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="GroupTypeID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="ParentGroupID" Type="int" />
           <Property Name="AddressID" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
@@ -73,8 +74,8 @@
             <PropertyRef Name="GroupID" />
             <PropertyRef Name="PersonID" />
           </Key>
-          <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="GroupMemberTypeID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
         </EntityType>
@@ -176,13 +177,6 @@
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="RightID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="BillingInterval">
-          <Key>
-            <PropertyRef Name="BillingIntervalID" />
-          </Key>
-          <Property Name="BillingIntervalID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryID" />
@@ -209,18 +203,10 @@
           <Property Name="GroupTypeID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
-          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedDateTime" Type="datetime" />
           <Property Name="CreateByPersonID" Type="int" />
           <Property Name="ModifiedByPersonID" Type="int" />
-        </EntityType>
-        <EntityType Name="Right">
-          <Key>
-            <PropertyRef Name="RightID" />
-          </Key>
-          <Property Name="RightID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="StateProvince">
           <Key>
@@ -255,6 +241,18 @@
             </Principal>
             <Dependent Role="Address">
               <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CountryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -331,6 +329,18 @@
             </Principal>
             <Dependent Role="Group">
               <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Group1" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Group1">
+              <PropertyRef Name="ParentGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -464,18 +474,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Price_BillingInterval">
-          <End Role="BillingInterval" Type="Self.BillingInterval" Multiplicity="1" />
-          <End Role="Price" Type="Self.Price" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingInterval">
-              <PropertyRef Name="BillingIntervalID" />
-            </Principal>
-            <Dependent Role="Price">
-              <PropertyRef Name="BillingIntervalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Price_PriceList">
           <End Role="PriceList" Type="Self.PriceList" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -490,17 +488,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RoleRight_Right">
-          <End Role="Right" Type="Self.Right" Multiplicity="1">
+        <Association Name="FK_RecurringPayment_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RoleRight" Type="Self.RoleRight" Multiplicity="*" />
+          <End Role="RecurringPayment" Type="Self.RecurringPayment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Right">
-              <PropertyRef Name="RightID" />
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
             </Principal>
-            <Dependent Role="RoleRight">
-              <PropertyRef Name="RightID" />
+            <Dependent Role="RecurringPayment">
+              <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -532,15 +530,17 @@
           <EntitySet Name="RecurringPayment" EntityType="Self.RecurringPayment" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="Core" store:Type="Tables" />
           <EntitySet Name="RoleRight" EntityType="Self.RoleRight" Schema="Core" store:Type="Tables" />
-          <EntitySet Name="BillingInterval" EntityType="Self.BillingInterval" Schema="List" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="List" store:Type="Tables" />
           <EntitySet Name="GroupMemberType" EntityType="Self.GroupMemberType" Schema="List" store:Type="Tables" />
           <EntitySet Name="GroupType" EntityType="Self.GroupType" Schema="List" store:Type="Tables" />
-          <EntitySet Name="Right" EntityType="Self.Right" Schema="List" store:Type="Tables" />
           <EntitySet Name="StateProvince" EntityType="Self.StateProvince" Schema="List" store:Type="Tables" />
           <AssociationSet Name="FK_Address_Customer" Association="Self.FK_Address_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Country" Association="Self.FK_Customer_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Customer" EntitySet="Customer" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Price" Association="Self.FK_Customer_Price">
             <End Role="Price" EntitySet="Price" />
@@ -565,6 +565,10 @@
           <AssociationSet Name="FK_Group_Customer" Association="Self.FK_Group_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Group" Association="Self.FK_Group_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Group1" EntitySet="Group" />
           </AssociationSet>
           <AssociationSet Name="FK_Group_GroupType" Association="Self.FK_Group_GroupType">
             <End Role="GroupType" EntitySet="GroupType" />
@@ -606,17 +610,13 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="PersonRole" EntitySet="PersonRole" />
           </AssociationSet>
-          <AssociationSet Name="FK_Price_BillingInterval" Association="Self.FK_Price_BillingInterval">
-            <End Role="BillingInterval" EntitySet="BillingInterval" />
-            <End Role="Price" EntitySet="Price" />
-          </AssociationSet>
           <AssociationSet Name="FK_Price_PriceList" Association="Self.FK_Price_PriceList">
             <End Role="PriceList" EntitySet="PriceList" />
             <End Role="Price" EntitySet="Price" />
           </AssociationSet>
-          <AssociationSet Name="FK_RoleRight_Right" Association="Self.FK_RoleRight_Right">
-            <End Role="Right" EntitySet="Right" />
-            <End Role="RoleRight" EntitySet="RoleRight" />
+          <AssociationSet Name="FK_RecurringPayment_Customer" Association="Self.FK_RecurringPayment_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="RecurringPayment" EntitySet="RecurringPayment" />
           </AssociationSet>
           <AssociationSet Name="FK_RoleRight_Role" Association="Self.FK_RoleRight_Role">
             <End Role="Role" EntitySet="Role" />
@@ -629,17 +629,25 @@
       <Schema Namespace="PRChurchModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PREntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="PRChurchModel.Address" />
+          <EntitySet Name="Customers" EntityType="PRChurchModel.Customer" />
           <EntitySet Name="CustomerPayments" EntityType="PRChurchModel.CustomerPayment" />
           <EntitySet Name="Groups" EntityType="PRChurchModel.Group" />
           <EntitySet Name="GroupMembers" EntityType="PRChurchModel.GroupMember" />
           <EntitySet Name="Locations" EntityType="PRChurchModel.Location" />
+          <EntitySet Name="People" EntityType="PRChurchModel.Person" />
           <EntitySet Name="Prices" EntityType="PRChurchModel.Price" />
           <EntitySet Name="PriceLists" EntityType="PRChurchModel.PriceList" />
+          <EntitySet Name="RecurringPayments" EntityType="PRChurchModel.RecurringPayment" />
           <EntitySet Name="Roles" EntityType="PRChurchModel.Role" />
-          <EntitySet Name="BillingIntervals" EntityType="PRChurchModel.BillingInterval" />
+          <EntitySet Name="RoleRights" EntityType="PRChurchModel.RoleRight" />
+          <EntitySet Name="Countries" EntityType="PRChurchModel.Country" />
           <EntitySet Name="GroupMemberTypes" EntityType="PRChurchModel.GroupMemberType" />
           <EntitySet Name="GroupTypes" EntityType="PRChurchModel.GroupType" />
-          <EntitySet Name="Rights" EntityType="PRChurchModel.Right" />
+          <EntitySet Name="StateProvinces" EntityType="PRChurchModel.StateProvince" />
+          <AssociationSet Name="FK_Address_Customer" Association="PRChurchModel.FK_Address_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Group_Address" Association="PRChurchModel.FK_Group_Address">
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Group" EntitySet="Groups" />
@@ -648,50 +656,9 @@
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Location" EntitySet="Locations" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerPayment_Price" Association="PRChurchModel.FK_CustomerPayment_Price">
-            <End Role="Price" EntitySet="Prices" />
-            <End Role="CustomerPayment" EntitySet="CustomerPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Group_GroupType" Association="PRChurchModel.FK_Group_GroupType">
-            <End Role="GroupType" EntitySet="GroupTypes" />
-            <End Role="Group" EntitySet="Groups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupMember_Group" Association="PRChurchModel.FK_GroupMember_Group">
-            <End Role="Group" EntitySet="Groups" />
-            <End Role="GroupMember" EntitySet="GroupMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupMember_GroupMemberType" Association="PRChurchModel.FK_GroupMember_GroupMemberType">
-            <End Role="GroupMemberType" EntitySet="GroupMemberTypes" />
-            <End Role="GroupMember" EntitySet="GroupMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Price_BillingInterval" Association="PRChurchModel.FK_Price_BillingInterval">
-            <End Role="BillingInterval" EntitySet="BillingIntervals" />
-            <End Role="Price" EntitySet="Prices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Price_PriceList" Association="PRChurchModel.FK_Price_PriceList">
-            <End Role="PriceList" EntitySet="PriceLists" />
-            <End Role="Price" EntitySet="Prices" />
-          </AssociationSet>
-          <AssociationSet Name="RoleRight" Association="PRChurchModel.RoleRight">
-            <End Role="Right" EntitySet="Rights" />
-            <End Role="Role" EntitySet="Roles" />
-          </AssociationSet>
-          <EntitySet Name="Countries" EntityType="PRChurchModel.Country" />
-          <EntitySet Name="StateProvinces" EntityType="PRChurchModel.StateProvince" />
-          <EntitySet Name="People" EntityType="PRChurchModel.Person" />
-          <AssociationSet Name="FK_GroupMember_Person" Association="PRChurchModel.FK_GroupMember_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="GroupMember" EntitySet="GroupMembers" />
-          </AssociationSet>
-          <AssociationSet Name="PersonRole" Association="PRChurchModel.PersonRole">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Role" EntitySet="Roles" />
-          </AssociationSet>
-          <EntitySet Name="RecurringPayments" EntityType="PRChurchModel.RecurringPayment" />
-          <EntitySet Name="Customers" EntityType="PRChurchModel.Customer" />
-          <AssociationSet Name="FK_Address_Customer" Association="PRChurchModel.FK_Address_Customer">
+          <AssociationSet Name="FK_Customer_Country" Association="PRChurchModel.FK_Customer_Country">
+            <End Role="Country" EntitySet="Countries" />
             <End Role="Customer" EntitySet="Customers" />
-            <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Price" Association="PRChurchModel.FK_Customer_Price">
             <End Role="Price" EntitySet="Prices" />
@@ -721,363 +688,68 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Person" EntitySet="People" />
           </AssociationSet>
-          </EntityContainer>
+          <AssociationSet Name="FK_RecurringPayment_Customer" Association="PRChurchModel.FK_RecurringPayment_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="RecurringPayment" EntitySet="RecurringPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerPayment_Price" Association="PRChurchModel.FK_CustomerPayment_Price">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="CustomerPayment" EntitySet="CustomerPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Group" Association="PRChurchModel.FK_Group_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Group1" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_GroupType" Association="PRChurchModel.FK_Group_GroupType">
+            <End Role="GroupType" EntitySet="GroupTypes" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Group" Association="PRChurchModel.FK_GroupMember_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_GroupMemberType" Association="PRChurchModel.FK_GroupMember_GroupMemberType">
+            <End Role="GroupMemberType" EntitySet="GroupMemberTypes" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupMember_Person" Association="PRChurchModel.FK_GroupMember_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="GroupMember" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_PriceList" Association="PRChurchModel.FK_Price_PriceList">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleRight_Role" Association="PRChurchModel.FK_RoleRight_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RoleRight" EntitySet="RoleRights" />
+          </AssociationSet>
+          <AssociationSet Name="PersonRole" Association="PRChurchModel.PersonRole">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressID" />
           </Key>
           <Property Name="AddressID" Type="Int32" Nullable="false" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="80" Unicode="true" FixedLength="false" />
-          <Property Name="Attention" Type="String" MaxLength="80" Unicode="true" FixedLength="false" />
-          <Property Name="Address1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Address2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Address3" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="StateProvince" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
-          <Property Name="PostalCode" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Attention" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateProvince" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CreateDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
           <Property Name="CreatedByPersonID" Type="Int32" />
           <Property Name="ModifiedByPersonID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Address_Customer" FromRole="Address" ToRole="Customer" />
           <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_Address" FromRole="Address" ToRole="Group" />
           <NavigationProperty Name="Locations" Relationship="PRChurchModel.FK_Location_Address" FromRole="Address" ToRole="Location" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Address_Customer" FromRole="Address" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="CustomerPayment">
-          <Key>
-            <PropertyRef Name="CustomerPaymentID" />
-          </Key>
-          <Property Name="CustomerPaymentID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="PriceID" Type="Int32" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="CustomerPayment" ToRole="Price" />
-          <Property Name="PaymentSubscriptionID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="CustomerPayment" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="Group">
-          <Key>
-            <PropertyRef Name="GroupID" />
-          </Key>
-          <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <Property Name="ParentGroupID" Type="Int32" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="GroupTypeID" Type="Int32" Nullable="false" />
-          <Property Name="AddressID" Type="Int32" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateByUserID" Type="Int32" />
-          <Property Name="ModifiedByUserID" Type="Int32" />
-          <NavigationProperty Name="Address" Relationship="PRChurchModel.FK_Group_Address" FromRole="Group" ToRole="Address" />
-          <NavigationProperty Name="GroupType" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="Group" ToRole="GroupType" />
-          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Group" FromRole="Group" ToRole="GroupMember" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Group_Customer" FromRole="Group" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="GroupMember">
-          <Key>
-            <PropertyRef Name="GroupID" />
-            <PropertyRef Name="PersonID" />
-          </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
-          <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <Property Name="PersonID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Group" Relationship="PRChurchModel.FK_GroupMember_Group" FromRole="GroupMember" ToRole="Group" />
-          <NavigationProperty Name="GroupMemberType" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMember" ToRole="GroupMemberType" />
-          <NavigationProperty Name="Person" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="GroupMember" ToRole="Person" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_GroupMember_Customer" FromRole="GroupMember" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="Location">
-          <Key>
-            <PropertyRef Name="LocationID" />
-          </Key>
-          <Property Name="LocationID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="LocationTypeID" Type="Int32" Nullable="false" />
-          <Property Name="AddressID" Type="Int32" Nullable="false" />
-          <Property Name="ParentLocationID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="35" Unicode="true" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="PersonCapacity" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
-          <Property Name="CreatedByPersonID" Type="Int32" />
-          <Property Name="ModifiedByPersonID" Type="Int32" />
-          <NavigationProperty Name="Address" Relationship="PRChurchModel.FK_Location_Address" FromRole="Location" ToRole="Address" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Location_Customer" FromRole="Location" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="Price">
-          <Key>
-            <PropertyRef Name="PriceID" />
-          </Key>
-          <Property Name="PriceID" Type="Int32" Nullable="false" />
-          <Property Name="PriceListID" Type="Int32" Nullable="false" />
-          <Property Name="BillingIntervalID" Type="Int32" Nullable="false" />
-          <Property Name="Price1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="Price" ToRole="CustomerPayment" />
-          <NavigationProperty Name="BillingInterval" Relationship="PRChurchModel.FK_Price_BillingInterval" FromRole="Price" ToRole="BillingInterval" />
-          <NavigationProperty Name="PriceList" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="Price" ToRole="PriceList" />
-          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Price" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="PriceList">
-          <Key>
-            <PropertyRef Name="PriceListID" />
-          </Key>
-          <Property Name="PriceListID" Type="Int32" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedByPersonID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Prices" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="PriceList" ToRole="Price" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleID" />
-          </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Rights" Relationship="PRChurchModel.RoleRight" FromRole="Role" ToRole="Right" />
-          <NavigationProperty Name="People" Relationship="PRChurchModel.PersonRole" FromRole="Role" ToRole="Person" />
-        </EntityType>
-        <EntityType Name="BillingInterval">
-          <Key>
-            <PropertyRef Name="BillingIntervalID" />
-          </Key>
-          <Property Name="BillingIntervalID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Prices" Relationship="PRChurchModel.FK_Price_BillingInterval" FromRole="BillingInterval" ToRole="Price" />
-        </EntityType>
-        <EntityType Name="GroupMemberType">
-          <Key>
-            <PropertyRef Name="GroupMemberTypeID" />
-          </Key>
-          <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMemberType" ToRole="GroupMember" />
-        </EntityType>
-        <EntityType Name="GroupType">
-          <Key>
-            <PropertyRef Name="GroupTypeID" />
-          </Key>
-          <Property Name="GroupTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateByPersonID" Type="Int32" />
-          <Property Name="ModifiedByPersonID" Type="Int32" />
-          <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="GroupType" ToRole="Group" />
-        </EntityType>
-        <EntityType Name="Right">
-          <Key>
-            <PropertyRef Name="RightID" />
-          </Key>
-          <Property Name="RightID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Roles" Relationship="PRChurchModel.RoleRight" FromRole="Right" ToRole="Role" />
-        </EntityType>
-        <Association Name="FK_Group_Address">
-          <End Role="Address" Type="PRChurchModel.Address" Multiplicity="0..1" />
-          <End Role="Group" Type="PRChurchModel.Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="AddressID" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="AddressID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Location_Address">
-          <End Role="Address" Type="PRChurchModel.Address" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Location" Type="PRChurchModel.Location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="AddressID" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="AddressID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerPayment_Price">
-          <End Role="Price" Type="PRChurchModel.Price" Multiplicity="1" />
-          <End Role="CustomerPayment" Type="PRChurchModel.CustomerPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Price">
-              <PropertyRef Name="PriceID" />
-            </Principal>
-            <Dependent Role="CustomerPayment">
-              <PropertyRef Name="PriceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Group_GroupType">
-          <End Role="GroupType" Type="PRChurchModel.GroupType" Multiplicity="1" />
-          <End Role="Group" Type="PRChurchModel.Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupType">
-              <PropertyRef Name="GroupTypeID" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="GroupTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupMember_Group">
-          <End Role="Group" Type="PRChurchModel.Group" Multiplicity="1" />
-          <End Role="GroupMember" Type="PRChurchModel.GroupMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Group">
-              <PropertyRef Name="GroupID" />
-            </Principal>
-            <Dependent Role="GroupMember">
-              <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupMember_GroupMemberType">
-          <End Role="GroupMemberType" Type="PRChurchModel.GroupMemberType" Multiplicity="1" />
-          <End Role="GroupMember" Type="PRChurchModel.GroupMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupMemberType">
-              <PropertyRef Name="GroupMemberTypeID" />
-            </Principal>
-            <Dependent Role="GroupMember">
-              <PropertyRef Name="GroupMemberTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Price_BillingInterval">
-          <End Role="BillingInterval" Type="PRChurchModel.BillingInterval" Multiplicity="1" />
-          <End Role="Price" Type="PRChurchModel.Price" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingInterval">
-              <PropertyRef Name="BillingIntervalID" />
-            </Principal>
-            <Dependent Role="Price">
-              <PropertyRef Name="BillingIntervalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Price_PriceList">
-          <End Role="PriceList" Type="PRChurchModel.PriceList" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Price" Type="PRChurchModel.Price" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PriceList">
-              <PropertyRef Name="PriceListID" />
-            </Principal>
-            <Dependent Role="Price">
-              <PropertyRef Name="PriceListID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RoleRight">
-          <End Role="Right" Type="PRChurchModel.Right" Multiplicity="*" />
-          <End Role="Role" Type="PRChurchModel.Role" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Country">
-          <Key>
-            <PropertyRef Name="CountryID" />
-          </Key>
-          <Property Type="Int32" Name="CountryID" Nullable="false" />
-          <Property Type="String" Name="Country1" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Country_Abbr" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="AiaCountry" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ISOCountryID" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ISOCountryName" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="StateProvince">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="abbreviation" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="country" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="type" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="sort" />
-          <Property Type="String" Name="status" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="occupied" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="notes" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="fips_state" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="assoc_press" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="standard_federal_region" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="census_region" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="census_region_name" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="census_division" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="census_devision_name" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="circuit_court" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_StateProvince" FromRole="StateProvince" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="PersonID" />
-          </Key>
-          <Property Name="PersonID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="AddressID" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ImageThumbnail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ImageHiRes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedByDateTime" Type="DateTime" Precision="3" />
-          <Property Name="CreatedByPersonID" Type="Int32" />
-          <Property Name="ModifiedByPersonID" Type="Int32" />
-          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="Person" ToRole="GroupMember" />
-          <NavigationProperty Name="Roles" Relationship="PRChurchModel.PersonRole" FromRole="Person" ToRole="Role" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Person_Customer" FromRole="Person" ToRole="Customer" />
-        </EntityType>
-        <Association Name="FK_GroupMember_Person">
-          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="PRChurchModel.GroupMember" Role="GroupMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonID" />
-            </Principal>
-            <Dependent Role="GroupMember">
-              <PropertyRef Name="PersonID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PersonRole">
-          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
-          <End Type="PRChurchModel.Role" Role="Role" Multiplicity="*" />
-        </Association>
-        <EntityType Name="RecurringPayment">
-          <Key>
-            <PropertyRef Name="RecurringPaymentID" />
-          </Key>
-          <Property Name="RecurringPaymentID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="SubscriptionID" Type="Int32" Nullable="false" />
-          <Property Name="SubscriptionStartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubscriptionExpireDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubscriptionCancelDate" Type="DateTime" Precision="3" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="IntervalLength" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
-          <Property Name="IntervalUnit" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="TotalOccurences" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
-          <Property Name="TrialOccurences" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
-          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
-          <Property Name="TrialAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -1097,6 +769,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedByPersonID" Type="Int32" />
           <NavigationProperty Name="Addresses" Relationship="PRChurchModel.FK_Address_Customer" FromRole="Customer" ToRole="Address" />
+          <NavigationProperty Name="Country" Relationship="PRChurchModel.FK_Customer_Country" FromRole="Customer" ToRole="Country" />
           <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Customer" ToRole="Price" />
           <NavigationProperty Name="StateProvince" Relationship="PRChurchModel.FK_Customer_StateProvince" FromRole="Customer" ToRole="StateProvince" />
           <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="Customer" ToRole="CustomerPayment" />
@@ -1104,6 +777,216 @@
           <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Customer" FromRole="Customer" ToRole="GroupMember" />
           <NavigationProperty Name="Locations" Relationship="PRChurchModel.FK_Location_Customer" FromRole="Customer" ToRole="Location" />
           <NavigationProperty Name="People" Relationship="PRChurchModel.FK_Person_Customer" FromRole="Customer" ToRole="Person" />
+          <NavigationProperty Name="RecurringPayments" Relationship="PRChurchModel.FK_RecurringPayment_Customer" FromRole="Customer" ToRole="RecurringPayment" />
+        </EntityType>
+        <EntityType Name="CustomerPayment">
+          <Key>
+            <PropertyRef Name="CustomerPaymentID" />
+          </Key>
+          <Property Name="CustomerPaymentID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="PriceID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RecurringPaymentID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="CustomerPayment" ToRole="Customer" />
+          <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="CustomerPayment" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="GroupTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="ParentGroupID" Type="Int32" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateByUserID" Type="Int32" />
+          <Property Name="ModifiedByUserID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="PRChurchModel.FK_Group_Address" FromRole="Group" ToRole="Address" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Group_Customer" FromRole="Group" ToRole="Customer" />
+          <NavigationProperty Name="Group1" Relationship="PRChurchModel.FK_Group_Group" FromRole="Group" ToRole="Group1" />
+          <NavigationProperty Name="Group2" Relationship="PRChurchModel.FK_Group_Group" FromRole="Group1" ToRole="Group" />
+          <NavigationProperty Name="GroupType" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="Group" ToRole="GroupType" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Group" FromRole="Group" ToRole="GroupMember" />
+        </EntityType>
+        <EntityType Name="GroupMember">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_GroupMember_Customer" FromRole="GroupMember" ToRole="Customer" />
+          <NavigationProperty Name="Group" Relationship="PRChurchModel.FK_GroupMember_Group" FromRole="GroupMember" ToRole="Group" />
+          <NavigationProperty Name="GroupMemberType" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMember" ToRole="GroupMemberType" />
+          <NavigationProperty Name="Person" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="GroupMember" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="LocationTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="ParentLocationID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PersonCapacity" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByPersonID" Type="Int32" />
+          <Property Name="ModifiedByPersonID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="PRChurchModel.FK_Location_Address" FromRole="Location" ToRole="Address" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Location_Customer" FromRole="Location" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageThumbnail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ImageHiRes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedByDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByPersonID" Type="Int32" />
+          <Property Name="ModifiedByPersonID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_Person_Customer" FromRole="Person" ToRole="Customer" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="Person" ToRole="GroupMember" />
+          <NavigationProperty Name="Roles" Relationship="PRChurchModel.PersonRole" FromRole="Person" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="PriceID" />
+          </Key>
+          <Property Name="PriceID" Type="Int32" Nullable="false" />
+          <Property Name="PriceListID" Type="Int32" Nullable="false" />
+          <Property Name="BillingIntervalID" Type="Int32" Nullable="false" />
+          <Property Name="Price1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Price" ToRole="Customer" />
+          <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="Price" ToRole="CustomerPayment" />
+          <NavigationProperty Name="PriceList" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="Price" ToRole="PriceList" />
+        </EntityType>
+        <EntityType Name="PriceList">
+          <Key>
+            <PropertyRef Name="PriceListID" />
+          </Key>
+          <Property Name="PriceListID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByPersonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Prices" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="PriceList" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="RecurringPayment">
+          <Key>
+            <PropertyRef Name="RecurringPaymentID" />
+          </Key>
+          <Property Name="RecurringPaymentID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubscriptionExpireDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubscriptionCancelDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="IntervalLength" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="IntervalUnit" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TotalOccurences" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="TrialOccurences" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="TrialAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_RecurringPayment_Customer" FromRole="RecurringPayment" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoleRights" Relationship="PRChurchModel.FK_RoleRight_Role" FromRole="Role" ToRole="RoleRight" />
+          <NavigationProperty Name="People" Relationship="PRChurchModel.PersonRole" FromRole="Role" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="RoleRight">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="RightID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RightID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="PRChurchModel.FK_RoleRight_Role" FromRole="RoleRight" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="Country1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Country_Abbr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AiaCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ISOCountryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISOCountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Country" FromRole="Country" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="GroupMemberType">
+          <Key>
+            <PropertyRef Name="GroupMemberTypeID" />
+          </Key>
+          <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMemberType" ToRole="GroupMember" />
+        </EntityType>
+        <EntityType Name="GroupType">
+          <Key>
+            <PropertyRef Name="GroupTypeID" />
+          </Key>
+          <Property Name="GroupTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreateByPersonID" Type="Int32" />
+          <Property Name="ModifiedByPersonID" Type="Int32" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="GroupType" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="StateProvince">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="abbreviation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sort" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="occupied" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fips_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="assoc_press" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="standard_federal_region" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="census_region" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="census_region_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="census_division" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="census_devision_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="circuit_court" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_StateProvince" FromRole="StateProvince" ToRole="Customer" />
         </EntityType>
         <Association Name="FK_Address_Customer">
           <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
@@ -1116,6 +999,44 @@
             </Principal>
             <Dependent Role="Address">
               <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Address">
+          <End Type="PRChurchModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="PRChurchModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Address">
+          <End Type="PRChurchModel.Address" Role="Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Country">
+          <End Type="PRChurchModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CountryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1209,6 +1130,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecurringPayment_Customer">
+          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.RecurringPayment" Role="RecurringPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="RecurringPayment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerPayment_Price">
+          <End Type="PRChurchModel.Price" Role="Price" Multiplicity="1" />
+          <End Type="PRChurchModel.CustomerPayment" Role="CustomerPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="PriceID" />
+            </Principal>
+            <Dependent Role="CustomerPayment">
+              <PropertyRef Name="PriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Group">
+          <End Type="PRChurchModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="PRChurchModel.Group" Role="Group1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Group1">
+              <PropertyRef Name="ParentGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_GroupType">
+          <End Type="PRChurchModel.GroupType" Role="GroupType" Multiplicity="1" />
+          <End Type="PRChurchModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupType">
+              <PropertyRef Name="GroupTypeID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="GroupTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Group">
+          <End Type="PRChurchModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="PRChurchModel.GroupMember" Role="GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_GroupMemberType">
+          <End Type="PRChurchModel.GroupMemberType" Role="GroupMemberType" Multiplicity="1" />
+          <End Type="PRChurchModel.GroupMember" Role="GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupMemberType">
+              <PropertyRef Name="GroupMemberTypeID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="GroupMemberTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupMember_Person">
+          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.GroupMember" Role="GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_PriceList">
+          <End Type="PRChurchModel.PriceList" Role="PriceList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.Price" Role="Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleRight_Role">
+          <End Type="PRChurchModel.Role" Role="Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PRChurchModel.RoleRight" Role="RoleRight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="RoleRight">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonRole">
+          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
+          <End Type="PRChurchModel.Role" Role="Role" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1218,158 +1259,177 @@
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="PRChurchModel.Address">
               <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Attention" ColumnName="Attention" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
-                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
-                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
                 <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Attention" ColumnName="Attention" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PRChurchModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="ARPostalCode" ColumnName="ARPostalCode" />
+                <ScalarProperty Name="ARStateProvID" ColumnName="ARStateProvID" />
+                <ScalarProperty Name="ARCity" ColumnName="ARCity" />
+                <ScalarProperty Name="ARAddress3" ColumnName="ARAddress3" />
+                <ScalarProperty Name="ARAddress2" ColumnName="ARAddress2" />
+                <ScalarProperty Name="ARAddress1" ColumnName="ARAddress1" />
+                <ScalarProperty Name="AROrgName" ColumnName="AROrgName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustomerPayments">
             <EntityTypeMapping TypeName="PRChurchModel.CustomerPayment">
               <MappingFragment StoreEntitySet="CustomerPayment">
-                <ScalarProperty Name="PaymentSubscriptionID" ColumnName="PaymentSubscriptionID" />
-                <ScalarProperty Name="CustomerPaymentID" ColumnName="CustomerPaymentID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="RecurringPaymentID" ColumnName="RecurringPaymentID" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerPaymentID" ColumnName="CustomerPaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="PRChurchModel.Group">
               <MappingFragment StoreEntitySet="Group">
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="ModifiedByUserID" ColumnName="ModifiedByUserID" />
+                <ScalarProperty Name="CreateByUserID" ColumnName="CreateByUserID" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
                 <ScalarProperty Name="ParentGroupID" ColumnName="ParentGroupID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
-                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
-                <ScalarProperty Name="CreateByUserID" ColumnName="CreateByUserID" />
-                <ScalarProperty Name="ModifiedByUserID" ColumnName="ModifiedByUserID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GroupMembers">
             <EntityTypeMapping TypeName="PRChurchModel.GroupMember">
               <MappingFragment StoreEntitySet="GroupMember">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="GroupMemberTypeID" ColumnName="GroupMemberTypeID" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="PRChurchModel.Location">
               <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="ParentLocationID" ColumnName="ParentLocationID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PersonCapacity" ColumnName="PersonCapacity" />
-                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
-                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
-                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
                 <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="PersonCapacity" ColumnName="PersonCapacity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentLocationID" ColumnName="ParentLocationID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="PRChurchModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="ModifiedByDateTime" ColumnName="ModifiedByDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ImageHiRes" ColumnName="ImageHiRes" />
+                <ScalarProperty Name="ImageThumbnail" ColumnName="ImageThumbnail" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Prices">
             <EntityTypeMapping TypeName="PRChurchModel.Price">
               <MappingFragment StoreEntitySet="Price">
-                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
-                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
-                <ScalarProperty Name="BillingIntervalID" ColumnName="BillingIntervalID" />
                 <ScalarProperty Name="Price1" ColumnName="Price" />
+                <ScalarProperty Name="BillingIntervalID" ColumnName="BillingIntervalID" />
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PriceLists">
             <EntityTypeMapping TypeName="PRChurchModel.PriceList">
               <MappingFragment StoreEntitySet="PriceList">
-                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecurringPayments">
+            <EntityTypeMapping TypeName="PRChurchModel.RecurringPayment">
+              <MappingFragment StoreEntitySet="RecurringPayment">
+                <ScalarProperty Name="TrialAmount" ColumnName="TrialAmount" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="TrialOccurences" ColumnName="TrialOccurences" />
+                <ScalarProperty Name="TotalOccurences" ColumnName="TotalOccurences" />
+                <ScalarProperty Name="IntervalUnit" ColumnName="IntervalUnit" />
+                <ScalarProperty Name="IntervalLength" ColumnName="IntervalLength" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SubscriptionCancelDate" ColumnName="SubscriptionCancelDate" />
+                <ScalarProperty Name="SubscriptionExpireDate" ColumnName="SubscriptionExpireDate" />
+                <ScalarProperty Name="SubscriptionStartDate" ColumnName="SubscriptionStartDate" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="RecurringPaymentID" ColumnName="RecurringPaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="PRChurchModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BillingIntervals">
-            <EntityTypeMapping TypeName="PRChurchModel.BillingInterval">
-              <MappingFragment StoreEntitySet="BillingInterval">
-                <ScalarProperty Name="BillingIntervalID" ColumnName="BillingIntervalID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GroupMemberTypes">
-            <EntityTypeMapping TypeName="PRChurchModel.GroupMemberType">
-              <MappingFragment StoreEntitySet="GroupMemberType">
-                <ScalarProperty Name="GroupMemberTypeID" ColumnName="GroupMemberTypeID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GroupTypes">
-            <EntityTypeMapping TypeName="PRChurchModel.GroupType">
-              <MappingFragment StoreEntitySet="GroupType">
-                <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
-                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
-                <ScalarProperty Name="CreateByPersonID" ColumnName="CreateByPersonID" />
-                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rights">
-            <EntityTypeMapping TypeName="PRChurchModel.Right">
-              <MappingFragment StoreEntitySet="Right">
+          <EntitySetMapping Name="RoleRights">
+            <EntityTypeMapping TypeName="PRChurchModel.RoleRight">
+              <MappingFragment StoreEntitySet="RoleRight">
                 <ScalarProperty Name="RightID" ColumnName="RightID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="RoleRight" TypeName="PRChurchModel.RoleRight" StoreEntitySet="RoleRight">
-            <EndProperty Name="Right">
-              <ScalarProperty Name="RightID" ColumnName="RightID" />
-            </EndProperty>
-            <EndProperty Name="Role">
-              <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="PRChurchModel.Country">
               <MappingFragment StoreEntitySet="Country">
@@ -1379,6 +1439,28 @@
                 <ScalarProperty Name="Country_Abbr" ColumnName="Country_Abbr" />
                 <ScalarProperty Name="Country1" ColumnName="Country" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupMemberTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.GroupMemberType">
+              <MappingFragment StoreEntitySet="GroupMemberType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GroupMemberTypeID" ColumnName="GroupMemberTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.GroupType">
+              <MappingFragment StoreEntitySet="GroupType">
+                <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
+                <ScalarProperty Name="CreateByPersonID" ColumnName="CreateByPersonID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1405,25 +1487,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="PRChurchModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
-                <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
-                <ScalarProperty Name="ModifiedByDateTime" ColumnName="ModifiedByDateTime" />
-                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
-                <ScalarProperty Name="ImageHiRes" ColumnName="ImageHiRes" />
-                <ScalarProperty Name="ImageThumbnail" ColumnName="ImageThumbnail" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="PersonRole" TypeName="PRChurchModel.PersonRole" StoreEntitySet="PersonRole">
             <EndProperty Name="Role">
               <ScalarProperty Name="RoleID" ColumnName="RoleID" />
@@ -1432,44 +1495,6 @@
               <ScalarProperty Name="PersonID" ColumnName="PersonID" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="RecurringPayments">
-            <EntityTypeMapping TypeName="PRChurchModel.RecurringPayment">
-              <MappingFragment StoreEntitySet="RecurringPayment">
-                <ScalarProperty Name="TrialAmount" ColumnName="TrialAmount" />
-                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
-                <ScalarProperty Name="TrialOccurences" ColumnName="TrialOccurences" />
-                <ScalarProperty Name="TotalOccurences" ColumnName="TotalOccurences" />
-                <ScalarProperty Name="IntervalUnit" ColumnName="IntervalUnit" />
-                <ScalarProperty Name="IntervalLength" ColumnName="IntervalLength" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="SubscriptionCancelDate" ColumnName="SubscriptionCancelDate" />
-                <ScalarProperty Name="SubscriptionExpireDate" ColumnName="SubscriptionExpireDate" />
-                <ScalarProperty Name="SubscriptionStartDate" ColumnName="SubscriptionStartDate" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="RecurringPaymentID" ColumnName="RecurringPaymentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="PRChurchModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="ModifiedByPersonID" ColumnName="ModifiedByPersonID" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="ARPostalCode" ColumnName="ARPostalCode" />
-                <ScalarProperty Name="ARStateProvID" ColumnName="ARStateProvID" />
-                <ScalarProperty Name="ARCity" ColumnName="ARCity" />
-                <ScalarProperty Name="ARAddress3" ColumnName="ARAddress3" />
-                <ScalarProperty Name="ARAddress2" ColumnName="ARAddress2" />
-                <ScalarProperty Name="ARAddress1" ColumnName="ARAddress1" />
-                <ScalarProperty Name="AROrgName" ColumnName="AROrgName" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

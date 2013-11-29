@@ -14,11 +14,18 @@ namespace PlumRunDomain
     
     public partial class Country
     {
+        public Country()
+        {
+            this.Customers = new HashSet<Customer>();
+        }
+    
         public int CountryID { get; set; }
         public string Country1 { get; set; }
         public string Country_Abbr { get; set; }
         public string AiaCountry { get; set; }
         public string ISOCountryID { get; set; }
         public string ISOCountryName { get; set; }
+    
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

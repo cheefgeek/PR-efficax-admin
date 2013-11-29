@@ -42,9 +42,6 @@
     <Compile Include="Address.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BillingInterval.cs">
-      <DependentUpon>PRModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Country.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
@@ -87,10 +84,10 @@
     <Compile Include="RecurringPayment.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Right.cs">
+    <Compile Include="Role.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Role.cs">
+    <Compile Include="RoleRight.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StateProvince.cs">

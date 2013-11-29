@@ -22,6 +22,7 @@ namespace PlumRunDomain
             this.GroupMembers = new HashSet<GroupMember>();
             this.Locations = new HashSet<Location>();
             this.People = new HashSet<Person>();
+            this.RecurringPayments = new HashSet<RecurringPayment>();
         }
     
         public int CustomerID { get; set; }
@@ -39,6 +40,7 @@ namespace PlumRunDomain
         public Nullable<int> ModifiedByPersonID { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual Country Country { get; set; }
         public virtual Price Price { get; set; }
         public virtual StateProvince StateProvince { get; set; }
         public virtual ICollection<CustomerPayment> CustomerPayments { get; set; }
@@ -46,5 +48,6 @@ namespace PlumRunDomain
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ICollection<Person> People { get; set; }
+        public virtual ICollection<RecurringPayment> RecurringPayments { get; set; }
     }
 }
