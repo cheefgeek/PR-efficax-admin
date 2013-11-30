@@ -1,16 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.Grid.CRUD.Models;
+using PlumRunDomain;
+using PlumRunModel;
+using System.Net;
+using System.Data.Entity;
 
 namespace WebUI.Controllers
 {
     public class HouseholdController : Controller
     {
+        private PREntities db = new PREntities();
+
         public ActionResult Index()
         {
-            return View();
+            var result = new PREntities().Groups
+                .OrderBy(x => x.Name)
+                .Select(x => new GroupSearch
+                {
+                    GroupID = x.GroupID,
+                    Name = x.Name,
+                    Description = x.Description
+                })
+                ;
+            return View(result);
         }
 
         //

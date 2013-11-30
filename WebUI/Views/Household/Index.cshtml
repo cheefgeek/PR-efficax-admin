@@ -1,0 +1,86 @@
+﻿@using Kendo.Mvc.Grid.CRUD.Models;
+@model IEnumerable<GroupSearch>
+
+<legend>Households</legend>
+
+@section Breadcrumb
+{
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="/Home">Home</a>
+
+            <span class="divider">
+                <i class="icon-angle-right arrow-icon"></i>
+            </span>
+        </li>
+
+        <li class="active">Households</li>
+
+    </ul>
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+</div>
+}
+
+
+<div class="span6">
+    @(Html.Kendo().Grid<Kendo.Mvc.Grid.CRUD.Models.GroupSearch>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.GroupID).Filterable(false).Visible(false);
+            columns.Bound(p => p.Name).Filterable(true).Width(100);
+            columns.Bound(p => p.Description).Width(140);
+        })
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Selectable()
+        .HtmlAttributes(new { style = "height:430px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(10)
+            .Read(read => read.Action("Household","Index"))
+            //.Read(read => read.Action("Orders_Read", "Grid"))
+         )
+    )
+
+    <button class="btn btn-app btn-grey btn-mini radius-4" id="btnNew" name="button" value="add">
+        <i class="icon-plus-sign"></i>
+        New
+    </button>
+
+    <button class="btn btn-app btn-primary btn-mini radius-4" id="btnEdit" name="button" value="edit">
+        <i class="icon-edit bigger-230"></i>
+        Edit
+    </button>
+
+    <form id="deleteForm" class="inline">
+        @Html.AntiForgeryToken()
+        <button class="btn btn-app btn-danger btn-mini radius-4 move_to" id="btnDelete" name="button" value="delete">
+            <i class="icon-trash bigger-160"></i>
+            Delete
+        </button>
+    </form>
+</div>
+
+<div class="span4">
+    <p class="lead">Widgets Here</p>
+</div>
+
+
+
+
+
+
+
