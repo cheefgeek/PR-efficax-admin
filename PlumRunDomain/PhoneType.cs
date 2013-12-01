@@ -12,19 +12,10 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class Price
+    public partial class PhoneType
     {
-        public Price()
-        {
-            this.Customers = new HashSet<Customer>();
-        }
-    
-        public int PriceID { get; set; }
-        public int PriceListID { get; set; }
-        public int BillingIntervalID { get; set; }
-        public decimal Price1 { get; set; }
-    
-        public virtual ICollection<Customer> Customers { get; set; }
-        public virtual PriceList PriceList { get; set; }
+        public int PhoneTypeID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

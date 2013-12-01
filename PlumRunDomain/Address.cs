@@ -28,8 +28,10 @@ namespace PlumRunDomain
         public string Address2 { get; set; }
         public string Address3 { get; set; }
         public string City { get; set; }
-        public string StateProvince { get; set; }
+        public Nullable<int> StateProvinceID { get; set; }
         public string PostalCode { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public string AddressPhone { get; set; }
         public System.DateTime CreateDateTime { get; set; }
         public Nullable<System.DateTime> ModifiedDateTime { get; set; }
         public Nullable<int> CreatedByPersonID { get; set; }

@@ -326,6 +326,7 @@
     <Compile Include="ViewModels\DropDownLists\CountryDropDown.cs" />
     <Compile Include="ViewModels\DropDownLists\PricesDropDown.cs" />
     <Compile Include="ViewModels\DropDownLists\StateDropDown.cs" />
+    <Content Include="Scripts\custom\handle-grid-btn-events.js" />
     <Content Include="Views\Household\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

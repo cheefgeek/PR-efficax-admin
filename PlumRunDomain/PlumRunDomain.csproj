@@ -48,7 +48,7 @@
     <Compile Include="Customer.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CustomerPayment.cs">
+    <Compile Include="EmailType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Group.cs">
@@ -67,6 +67,15 @@
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonEmail.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonPhone.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhoneType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Price.cs">

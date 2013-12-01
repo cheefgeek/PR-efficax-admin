@@ -17,7 +17,6 @@ namespace PlumRunDomain
         public Customer()
         {
             this.Addresses = new HashSet<Address>();
-            this.CustomerPayments = new HashSet<CustomerPayment>();
             this.Groups = new HashSet<Group>();
             this.GroupMembers = new HashSet<GroupMember>();
             this.Locations = new HashSet<Location>();
@@ -34,6 +33,7 @@ namespace PlumRunDomain
         public int ARStateProvID { get; set; }
         public string ARPostalCode { get; set; }
         public int CountryID { get; set; }
+        public string ARPhone { get; set; }
         public int PriceID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
@@ -43,7 +43,6 @@ namespace PlumRunDomain
         public virtual Country Country { get; set; }
         public virtual Price Price { get; set; }
         public virtual StateProvince StateProvince { get; set; }
-        public virtual ICollection<CustomerPayment> CustomerPayments { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         public virtual ICollection<Location> Locations { get; set; }

@@ -31,29 +31,8 @@
 </div>
 }
 
-
 <div class="span6">
-    @(Html.Kendo().Grid<Kendo.Mvc.Grid.CRUD.Models.GroupSearch>()
-        .Name("grid")
-        .Columns(columns =>
-        {
-            columns.Bound(p => p.GroupID).Filterable(false).Visible(false);
-            columns.Bound(p => p.Name).Filterable(true).Width(100);
-            columns.Bound(p => p.Description).Width(140);
-        })
-        .Pageable()
-        .Sortable()
-        .Scrollable()
-        .Filterable()
-        .Selectable()
-        .HtmlAttributes(new { style = "height:430px;" })
-        .DataSource(dataSource => dataSource
-            .Ajax()
-            .PageSize(10)
-            .Read(read => read.Action("Household","Index"))
-            //.Read(read => read.Action("Orders_Read", "Grid"))
-         )
-    )
+    <div id="grid"></div>
 
     <button class="btn btn-app btn-grey btn-mini radius-4" id="btnNew" name="button" value="add">
         <i class="icon-plus-sign"></i>
@@ -72,11 +51,104 @@
             Delete
         </button>
     </form>
-</div>
+
+</div>   @*Grid and Buttons*@
 
 <div class="span4">
     <p class="lead">Widgets Here</p>
-</div>
+</div>   @*Widgets*@
+
+<script>
+    $(function ()
+    {
+        $("#grid").kendoGrid({
+            height: 350,
+            columns:    [
+                        { field: "GroupID", hidden: true },
+                        { field: "Name", title: "Household Name", maxwidth: "20" },
+                        { field: "Description" }
+                        ],
+            editable: false,
+            navigatable: true,
+            pageable: true,
+            sortable: true,
+            filterable: true,
+            selectable: "row",
+            change: showDetails,
+
+            dataSource: {
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+                pageSize: 10,
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    model: { // define the model of the data source. Required for validation and property types.
+                        id: "GroupID",
+                        fields:{
+                            GroupID: { editable: false, nullable: false },
+                            Name: { type: "string", validation: { required: true } },
+                            Description: { type: "string", validation: { required: true } }
+                        }
+                    }
+                },
+
+                batch: false, // enable batch editing - changes will be saved when the user clicks the "Save changes" button
+                transport:
+                    {
+                        read:
+                            {
+                                url: "@Url.Action("Read", "Household")", //specify the URL which should return the records. This is the Read method of the HomeController.
+                                contentType: "application/json",
+                                type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
+                            },
+
+                        parameterMap: function (data, operation)
+                        {
+                            if (operation != "read")
+                            {
+                                var result = {};
+
+                                for (var i = 0; i < data.models.length; i++)
+                                {
+                                    var household = data.models[i];
+
+                                    for (var member in household)
+                                    {
+                                        result["household[" + i + "]." + member] = household[member];
+                                    }
+                                }
+
+                                return result;
+                            }
+
+                            else
+                            {
+                                return JSON.stringify(data)
+                            }
+                        }
+                    }
+            }
+        });
+
+    }); // End DOM ready //TELERIK GRID SCRIPT...
+
+
+    //Set controller name for use by handle-grid-btn-events.js
+    var controller = 'Household';
+
+</script>           @*Grid Script*@
+
+@section Scripts
+{
+    <script src="~/Scripts/date-time/moment.min.js"></script>
+    <script src="~/Scripts/custom/pr-date.js"></script>
+    <script src="~/Scripts/custom/handle-grid-btn-events.js"></script>
+}
+
+
+
 
 
 

@@ -64,7 +64,7 @@
         $("#grid").kendoGrid({
             height: 350,
             columns: [
-                        { field: "CustomerID", hidden: true },
+                        { field: "CustomerID", hidden: true },  
                         { field: "AROrgName", title: "Customer Name", maxwidth: "20" },
                         { field: "ARCity", maxwidth: "40" },
                         { field: "State", title: "State" }
@@ -86,7 +86,7 @@
                     data: "Data",
                     total: "Total",
                     model: { // define the model of the data source. Required for validation and property types.
-                        //uid: "CustomerID",
+                        id: "CustomerID" ,
                         fields: {
                             CustomerID: { editable: false, nullable: false },
                             AROrgName: { type: "string", validation: { required: true } },
@@ -135,60 +135,11 @@
             }
         });
 
-        // Disable edit button by default
-        $("#btnEdit").attr("disabled", "disabled");
-
-        // Disable delete button by default
-        $("#btnDelete").attr("disabled", "disabled");
-
     }); // End DOM ready //TELERIK GRID SCRIPT...
 
 
-    var editCustomerUrl = null;
-    var deleteCustomerUrl = null;
-
-    function showDetails(e)
-    {
-        grid = e.sender;
-
-        // Get selected row 
-        var currentDataItem = grid.dataItem(this.select());
-
-        //Enable/Disable button
-        if (currentDataItem != null && currentDataItem.CustomerID.toString().length > 0)
-        {
-            $("#btnEdit").removeAttr("disabled");
-            $("#btnDelete").removeAttr("disabled");
-            editCustomerUrl = 'Customer/Edit/' + currentDataItem.CustomerID;
-            deleteCustomerUrl = 'Customer/Delete/' + currentDataItem.CustomerID;
-        }
-        else
-        { // Message to user
-            $("#btnEdit").attr("disabled", "disabled");
-            $("#btnDelete").attr("disabled", "disabled");
-            editCustomerUrl = null;
-            deleteCustomerUrl = null;
-        }
-    }
-
-    $("#btnEdit").on("click", function ()
-    {
-        window.location.href = editCustomerUrl;
-    })
-
-    $("#btnNew").on("click", function ()
-    {
-        window.location.href = 'Customer/Create';
-    })
-
-    $(".move_to").on("click", function (e)
-    {
-        e.preventDefault();
-        $("#deleteForm").attr("action", deleteCustomerUrl);
-        $("#deleteForm").submit();
-    });
-
-
+    //Set controller name for use by handle-grid-btn-events.js
+    var controller = 'Customer';
 
 </script>
 
@@ -196,6 +147,7 @@
 {
     <script src="~/Scripts/date-time/moment.min.js"></script>
     <script src="~/Scripts/custom/pr-date.js"></script>
+    <script src="~/Scripts/custom/handle-grid-btn-events.js"></script>
 }
 
 

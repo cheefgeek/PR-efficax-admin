@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="AddressID" />
           </Key>
-          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="80" />
           <Property Name="Attention" Type="nvarchar" MaxLength="80" />
@@ -17,8 +17,10 @@
           <Property Name="Address2" Type="nvarchar" MaxLength="50" />
           <Property Name="Address3" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="StateProvince" Type="nvarchar" MaxLength="10" />
+          <Property Name="StateProvinceID" Type="int" />
           <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="AddressPhone" Type="varchar" MaxLength="25" />
           <Property Name="CreateDateTime" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDateTime" Type="datetime" />
           <Property Name="CreatedByPersonID" Type="int" />
@@ -37,21 +39,11 @@
           <Property Name="ARStateProvID" Type="int" Nullable="false" />
           <Property Name="ARPostalCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="ARPhone" Type="varchar" MaxLength="12" />
           <Property Name="PriceID" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedByPersonID" Type="int" />
-        </EntityType>
-        <EntityType Name="CustomerPayment">
-          <Key>
-            <PropertyRef Name="CustomerPaymentID" />
-          </Key>
-          <Property Name="CustomerPaymentID" Type="int" Nullable="false" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="PriceID" Type="int" Nullable="false" />
-          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-          <Property Name="RecurringPaymentID" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="PaymentAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -113,6 +105,27 @@
           <Property Name="ModifiedByDateTime" Type="datetime" />
           <Property Name="CreatedByPersonID" Type="int" />
           <Property Name="ModifiedByPersonID" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonEmail">
+          <Key>
+            <PropertyRef Name="PersonEmailID" />
+          </Key>
+          <Property Name="PersonEmailID" Type="bigint" Nullable="false" />
+          <Property Name="PersonID" Type="bigint" Nullable="false" />
+          <Property Name="EmailTypeID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="PersonPhone">
+          <Key>
+            <PropertyRef Name="PersonPhoneID" />
+          </Key>
+          <Property Name="PersonPhoneID" Type="bigint" Nullable="false" />
+          <Property Name="PersonID" Type="bigint" Nullable="false" />
+          <Property Name="PhoneTypeID" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Extension" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PersonRole">
           <Key>
@@ -188,6 +201,14 @@
           <Property Name="ISOCountryID" Type="varchar" MaxLength="50" />
           <Property Name="ISOCountryName" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="EmailType">
+          <Key>
+            <PropertyRef Name="EmailTypeID" />
+          </Key>
+          <Property Name="EmailTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="GroupMemberType">
           <Key>
             <PropertyRef Name="GroupMemberTypeID" />
@@ -207,6 +228,14 @@
           <Property Name="ModifiedByPersonID" Type="int" />
           <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="PhoneTypeID" />
+          </Key>
+          <Property Name="PhoneTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="StateProvince">
           <Key>
@@ -277,32 +306,6 @@
             </Principal>
             <Dependent Role="Customer">
               <PropertyRef Name="ARStateProvID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerPayment_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CustomerPayment" Type="Self.CustomerPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="CustomerPayment">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerPayment_Price">
-          <End Role="Price" Type="Self.Price" Multiplicity="1" />
-          <End Role="CustomerPayment" Type="Self.CustomerPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Price">
-              <PropertyRef Name="PriceID" />
-            </Principal>
-            <Dependent Role="CustomerPayment">
-              <PropertyRef Name="PriceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -519,11 +522,12 @@
         <EntityContainer Name="PRChurchModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="Core" store:Type="Tables" />
-          <EntitySet Name="CustomerPayment" EntityType="Self.CustomerPayment" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="Core" store:Type="Tables" />
           <EntitySet Name="GroupMember" EntityType="Self.GroupMember" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="Core" store:Type="Tables" />
+          <EntitySet Name="PersonEmail" EntityType="Self.PersonEmail" Schema="Core" store:Type="Tables" />
+          <EntitySet Name="PersonPhone" EntityType="Self.PersonPhone" Schema="Core" store:Type="Tables" />
           <EntitySet Name="PersonRole" EntityType="Self.PersonRole" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Price" EntityType="Self.Price" Schema="Core" store:Type="Tables" />
           <EntitySet Name="PriceList" EntityType="Self.PriceList" Schema="Core" store:Type="Tables" />
@@ -531,8 +535,10 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="Core" store:Type="Tables" />
           <EntitySet Name="RoleRight" EntityType="Self.RoleRight" Schema="Core" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="List" store:Type="Tables" />
+          <EntitySet Name="EmailType" EntityType="Self.EmailType" Schema="List" store:Type="Tables" />
           <EntitySet Name="GroupMemberType" EntityType="Self.GroupMemberType" Schema="List" store:Type="Tables" />
           <EntitySet Name="GroupType" EntityType="Self.GroupType" Schema="List" store:Type="Tables" />
+          <EntitySet Name="PhoneType" EntityType="Self.PhoneType" Schema="List" store:Type="Tables" />
           <EntitySet Name="StateProvince" EntityType="Self.StateProvince" Schema="List" store:Type="Tables" />
           <AssociationSet Name="FK_Address_Customer" Association="Self.FK_Address_Customer">
             <End Role="Customer" EntitySet="Customer" />
@@ -549,14 +555,6 @@
           <AssociationSet Name="FK_Customer_StateProvince" Association="Self.FK_Customer_StateProvince">
             <End Role="StateProvince" EntitySet="StateProvince" />
             <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerPayment_Customer" Association="Self.FK_CustomerPayment_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="CustomerPayment" EntitySet="CustomerPayment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerPayment_Price" Association="Self.FK_CustomerPayment_Price">
-            <End Role="Price" EntitySet="Price" />
-            <End Role="CustomerPayment" EntitySet="CustomerPayment" />
           </AssociationSet>
           <AssociationSet Name="FK_Group_Address" Association="Self.FK_Group_Address">
             <End Role="Address" EntitySet="Address" />
@@ -630,19 +628,22 @@
         <EntityContainer Name="PREntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="PRChurchModel.Address" />
           <EntitySet Name="Customers" EntityType="PRChurchModel.Customer" />
-          <EntitySet Name="CustomerPayments" EntityType="PRChurchModel.CustomerPayment" />
           <EntitySet Name="Groups" EntityType="PRChurchModel.Group" />
           <EntitySet Name="GroupMembers" EntityType="PRChurchModel.GroupMember" />
           <EntitySet Name="Locations" EntityType="PRChurchModel.Location" />
           <EntitySet Name="People" EntityType="PRChurchModel.Person" />
+          <EntitySet Name="PersonEmails" EntityType="PRChurchModel.PersonEmail" />
+          <EntitySet Name="PersonPhones" EntityType="PRChurchModel.PersonPhone" />
           <EntitySet Name="Prices" EntityType="PRChurchModel.Price" />
           <EntitySet Name="PriceLists" EntityType="PRChurchModel.PriceList" />
           <EntitySet Name="RecurringPayments" EntityType="PRChurchModel.RecurringPayment" />
           <EntitySet Name="Roles" EntityType="PRChurchModel.Role" />
           <EntitySet Name="RoleRights" EntityType="PRChurchModel.RoleRight" />
           <EntitySet Name="Countries" EntityType="PRChurchModel.Country" />
+          <EntitySet Name="EmailTypes" EntityType="PRChurchModel.EmailType" />
           <EntitySet Name="GroupMemberTypes" EntityType="PRChurchModel.GroupMemberType" />
           <EntitySet Name="GroupTypes" EntityType="PRChurchModel.GroupType" />
+          <EntitySet Name="PhoneTypes" EntityType="PRChurchModel.PhoneType" />
           <EntitySet Name="StateProvinces" EntityType="PRChurchModel.StateProvince" />
           <AssociationSet Name="FK_Address_Customer" Association="PRChurchModel.FK_Address_Customer">
             <End Role="Customer" EntitySet="Customers" />
@@ -668,10 +669,6 @@
             <End Role="StateProvince" EntitySet="StateProvinces" />
             <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerPayment_Customer" Association="PRChurchModel.FK_CustomerPayment_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerPayment" EntitySet="CustomerPayments" />
-          </AssociationSet>
           <AssociationSet Name="FK_Group_Customer" Association="PRChurchModel.FK_Group_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Group" EntitySet="Groups" />
@@ -691,10 +688,6 @@
           <AssociationSet Name="FK_RecurringPayment_Customer" Association="PRChurchModel.FK_RecurringPayment_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="RecurringPayment" EntitySet="RecurringPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerPayment_Price" Association="PRChurchModel.FK_CustomerPayment_Price">
-            <End Role="Price" EntitySet="Prices" />
-            <End Role="CustomerPayment" EntitySet="CustomerPayments" />
           </AssociationSet>
           <AssociationSet Name="FK_Group_Group" Association="PRChurchModel.FK_Group_Group">
             <End Role="Group" EntitySet="Groups" />
@@ -733,7 +726,7 @@
           <Key>
             <PropertyRef Name="AddressID" />
           </Key>
-          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Attention" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
@@ -741,8 +734,10 @@
           <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StateProvince" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StateProvinceID" Type="Int32" />
           <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CountryID" Type="Int32" />
+          <Property Name="AddressPhone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="CreateDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
           <Property Name="CreatedByPersonID" Type="Int32" />
@@ -764,6 +759,7 @@
           <Property Name="ARStateProvID" Type="Int32" Nullable="false" />
           <Property Name="ARPostalCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="ARPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="PriceID" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
@@ -772,25 +768,11 @@
           <NavigationProperty Name="Country" Relationship="PRChurchModel.FK_Customer_Country" FromRole="Customer" ToRole="Country" />
           <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Customer" ToRole="Price" />
           <NavigationProperty Name="StateProvince" Relationship="PRChurchModel.FK_Customer_StateProvince" FromRole="Customer" ToRole="StateProvince" />
-          <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="Customer" ToRole="CustomerPayment" />
           <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_Customer" FromRole="Customer" ToRole="Group" />
           <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Customer" FromRole="Customer" ToRole="GroupMember" />
           <NavigationProperty Name="Locations" Relationship="PRChurchModel.FK_Location_Customer" FromRole="Customer" ToRole="Location" />
           <NavigationProperty Name="People" Relationship="PRChurchModel.FK_Person_Customer" FromRole="Customer" ToRole="Person" />
           <NavigationProperty Name="RecurringPayments" Relationship="PRChurchModel.FK_RecurringPayment_Customer" FromRole="Customer" ToRole="RecurringPayment" />
-        </EntityType>
-        <EntityType Name="CustomerPayment">
-          <Key>
-            <PropertyRef Name="CustomerPaymentID" />
-          </Key>
-          <Property Name="CustomerPaymentID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="PriceID" Type="Int32" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RecurringPaymentID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
-          <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_CustomerPayment_Customer" FromRole="CustomerPayment" ToRole="Customer" />
-          <NavigationProperty Name="Price" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="CustomerPayment" ToRole="Price" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -868,6 +850,27 @@
           <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_Person" FromRole="Person" ToRole="GroupMember" />
           <NavigationProperty Name="Roles" Relationship="PRChurchModel.PersonRole" FromRole="Person" ToRole="Role" />
         </EntityType>
+        <EntityType Name="PersonEmail">
+          <Key>
+            <PropertyRef Name="PersonEmailID" />
+          </Key>
+          <Property Name="PersonEmailID" Type="Int64" Nullable="false" />
+          <Property Name="PersonID" Type="Int64" Nullable="false" />
+          <Property Name="EmailTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PersonPhone">
+          <Key>
+            <PropertyRef Name="PersonPhoneID" />
+          </Key>
+          <Property Name="PersonPhoneID" Type="Int64" Nullable="false" />
+          <Property Name="PersonID" Type="Int64" Nullable="false" />
+          <Property Name="PhoneTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Price">
           <Key>
             <PropertyRef Name="PriceID" />
@@ -877,7 +880,6 @@
           <Property Name="BillingIntervalID" Type="Int32" Nullable="false" />
           <Property Name="Price1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Price" FromRole="Price" ToRole="Customer" />
-          <NavigationProperty Name="CustomerPayments" Relationship="PRChurchModel.FK_CustomerPayment_Price" FromRole="Price" ToRole="CustomerPayment" />
           <NavigationProperty Name="PriceList" Relationship="PRChurchModel.FK_Price_PriceList" FromRole="Price" ToRole="PriceList" />
         </EntityType>
         <EntityType Name="PriceList">
@@ -943,6 +945,14 @@
           <Property Name="ISOCountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Country" FromRole="Country" ToRole="Customer" />
         </EntityType>
+        <EntityType Name="EmailType">
+          <Key>
+            <PropertyRef Name="EmailTypeID" />
+          </Key>
+          <Property Name="EmailTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="GroupMemberType">
           <Key>
             <PropertyRef Name="GroupMemberTypeID" />
@@ -964,6 +974,14 @@
           <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Groups" Relationship="PRChurchModel.FK_Group_GroupType" FromRole="GroupType" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="PhoneTypeID" />
+          </Key>
+          <Property Name="PhoneTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="StateProvince">
           <Key>
@@ -1064,20 +1082,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerPayment_Customer">
-          <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="PRChurchModel.CustomerPayment" Role="CustomerPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="CustomerPayment">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Group_Customer">
           <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1141,18 +1145,6 @@
             </Principal>
             <Dependent Role="RecurringPayment">
               <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerPayment_Price">
-          <End Type="PRChurchModel.Price" Role="Price" Multiplicity="1" />
-          <End Type="PRChurchModel.CustomerPayment" Role="CustomerPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Price">
-              <PropertyRef Name="PriceID" />
-            </Principal>
-            <Dependent Role="CustomerPayment">
-              <PropertyRef Name="PriceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1263,8 +1255,10 @@
                 <ScalarProperty Name="CreatedByPersonID" ColumnName="CreatedByPersonID" />
                 <ScalarProperty Name="ModifiedDateTime" ColumnName="ModifiedDateTime" />
                 <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="AddressPhone" ColumnName="AddressPhone" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="StateProvinceID" ColumnName="StateProvinceID" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Address3" ColumnName="Address3" />
                 <ScalarProperty Name="Address2" ColumnName="Address2" />
@@ -1283,6 +1277,7 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="ARPhone" ColumnName="ARPhone" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="ARPostalCode" ColumnName="ARPostalCode" />
                 <ScalarProperty Name="ARStateProvID" ColumnName="ARStateProvID" />
@@ -1292,18 +1287,6 @@
                 <ScalarProperty Name="ARAddress1" ColumnName="ARAddress1" />
                 <ScalarProperty Name="AROrgName" ColumnName="AROrgName" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerPayments">
-            <EntityTypeMapping TypeName="PRChurchModel.CustomerPayment">
-              <MappingFragment StoreEntitySet="CustomerPayment">
-                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
-                <ScalarProperty Name="RecurringPaymentID" ColumnName="RecurringPaymentID" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="CustomerPaymentID" ColumnName="CustomerPaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1368,6 +1351,29 @@
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonEmails">
+            <EntityTypeMapping TypeName="PRChurchModel.PersonEmail">
+              <MappingFragment StoreEntitySet="PersonEmail">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailTypeID" ColumnName="EmailTypeID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="PersonEmailID" ColumnName="PersonEmailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonPhones">
+            <EntityTypeMapping TypeName="PRChurchModel.PersonPhone">
+              <MappingFragment StoreEntitySet="PersonPhone">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PhoneTypeID" ColumnName="PhoneTypeID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="PersonPhoneID" ColumnName="PersonPhoneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1442,6 +1448,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EmailTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.EmailType">
+              <MappingFragment StoreEntitySet="EmailType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmailTypeID" ColumnName="EmailTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="GroupMemberTypes">
             <EntityTypeMapping TypeName="PRChurchModel.GroupMemberType">
               <MappingFragment StoreEntitySet="GroupMemberType">
@@ -1461,6 +1476,15 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.PhoneType">
+              <MappingFragment StoreEntitySet="PhoneType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneTypeID" ColumnName="PhoneTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

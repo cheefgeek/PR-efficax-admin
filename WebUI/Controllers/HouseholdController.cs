@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Kendo.Mvc.Grid.CRUD.Models;
+using Kendo.Mvc.UI;
 using PlumRunDomain;
 using PlumRunModel;
 using System.Net;
@@ -16,17 +17,39 @@ namespace WebUI.Controllers
 
         public ActionResult Index()
         {
-            var result = new PREntities().Groups
-                .OrderBy(x => x.Name)
+            return View();
+        }
+
+
+        public ActionResult Read(int take, int skip, IEnumerable<Sort> sort, Kendo.Mvc.Grid.CRUD.Models.Filter filter)
+        {
+            var result = db.Groups
+                .Where(g => g.GroupTypeID == 1)
+                .OrderBy(x => x.GroupID) // EF requires ordered IQueryable in order to do paging
+                // Use a view model to avoid serializing internal Entity Framework properties as JSON
                 .Select(x => new GroupSearch
                 {
-                    GroupID = x.GroupID,
-                    Name = x.Name,
-                    Description = x.Description
+                    GroupID = x.GroupID ,
+                    Name = x.Name ,
+                    Description = x.Description ,
+                    Address1 = x.Address.Address1 ,
+
                 })
-                ;
-            return View(result);
+                .ToDataSourceResult(take, skip, sort, filter);
+            return Json(result);
         }
+
+
+
+        public ActionResult GroupMembersByGroupID(int groupID)
+        {
+
+        }
+
+
+
+
+
 
         //
         // GET: /Household/Details/5
