@@ -29,22 +29,30 @@ namespace PlumRunModel
     
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerPayment> CustomerPayments { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<GroupMemberContactMethod> GroupMemberContactMethods { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Person> People { get; set; }
-        public DbSet<PersonEmail> PersonEmails { get; set; }
-        public DbSet<PersonPhone> PersonPhones { get; set; }
+        public DbSet<PersonContactMethod> PersonContactMethods { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<RecurringPayment> RecurringPayments { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<RoleRight> RoleRights { get; set; }
+        public DbSet<AgeGroup> AgeGroups { get; set; }
+        public DbSet<BillingInterval> BillingIntervals { get; set; }
+        public DbSet<ContactMethod> ContactMethods { get; set; }
+        public DbSet<ContactMethodQualifier> ContactMethodQualifiers { get; set; }
         public DbSet<Country> Countries { get; set; }
-        public DbSet<EmailType> EmailTypes { get; set; }
         public DbSet<GroupMemberType> GroupMemberTypes { get; set; }
         public DbSet<GroupType> GroupTypes { get; set; }
-        public DbSet<PhoneType> PhoneTypes { get; set; }
+        public DbSet<ImportantDateTypes_UNUSED> ImportantDateTypes_UNUSED { get; set; }
+        public DbSet<MaritalStatu> MaritalStatus { get; set; }
+        public DbSet<Right> Rights { get; set; }
+        public DbSet<StartList_AgeGroup> StartList_AgeGroup { get; set; }
+        public DbSet<StartList_MaritalStatus> StartList_MaritalStatus { get; set; }
         public DbSet<StateProvince> StateProvinces { get; set; }
+        public DbSet<StaticList> StaticLists { get; set; }
     }
 }

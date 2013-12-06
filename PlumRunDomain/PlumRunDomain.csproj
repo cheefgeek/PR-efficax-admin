@@ -42,13 +42,25 @@
     <Compile Include="Address.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AgeGroup.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillingInterval.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactMethod.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactMethodQualifier.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Country.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Customer.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EmailType.cs">
+    <Compile Include="CustomerPayment.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Group.cs">
@@ -57,25 +69,28 @@
     <Compile Include="GroupMember.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GroupMemberContactMethod.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GroupMemberType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GroupType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ImportantDateTypes_UNUSED.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Location.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaritalStatu.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PersonEmail.cs">
-      <DependentUpon>PRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PersonPhone.cs">
-      <DependentUpon>PRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PhoneType.cs">
+    <Compile Include="PersonContactMethod.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Price.cs">
@@ -93,13 +108,22 @@
     <Compile Include="RecurringPayment.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Right.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RoleRight.cs">
+    <Compile Include="StartList_AgeGroup.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StartList_MaritalStatus.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StateProvince.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StaticList.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

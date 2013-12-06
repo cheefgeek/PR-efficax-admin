@@ -12,9 +12,9 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class EmailType
+    public partial class ImportantDateTypes_UNUSED
     {
-        public int EmailTypeID { get; set; }
+        public int ImportantDateTypeID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

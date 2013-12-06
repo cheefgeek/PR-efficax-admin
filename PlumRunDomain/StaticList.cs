@@ -12,13 +12,11 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class PersonPhone
+    public partial class StaticList
     {
-        public long PersonPhoneID { get; set; }
-        public long PersonID { get; set; }
-        public int PhoneTypeID { get; set; }
-        public string Phone { get; set; }
-        public string Extension { get; set; }
-        public string Description { get; set; }
+        public int StaticListID { get; set; }
+        public string Value { get; set; }
+        public string MiscListName { get; set; }
+        public int ListSequence { get; set; }
     }
 }

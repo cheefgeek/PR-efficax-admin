@@ -16,27 +16,25 @@ namespace PlumRunDomain
     {
         public Group()
         {
-            this.Group1 = new HashSet<Group>();
             this.GroupMembers = new HashSet<GroupMember>();
         }
     
         public int GroupID { get; set; }
         public int GroupTypeID { get; set; }
-        public int CustomerID { get; set; }
-        public Nullable<int> ParentGroupID { get; set; }
-        public Nullable<int> AddressID { get; set; }
+        public long CustomerID { get; set; }
+        public Nullable<long> AddressID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
         public System.DateTime ModifiedDateTime { get; set; }
-        public Nullable<int> CreateByUserID { get; set; }
-        public Nullable<int> ModifiedByUserID { get; set; }
+        public Nullable<long> CreateByUserID { get; set; }
+        public Nullable<long> ModifiedByUserID { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual ICollection<Group> Group1 { get; set; }
-        public virtual Group Group2 { get; set; }
         public virtual GroupType GroupType { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual Person Person1 { get; set; }
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
     }
 }

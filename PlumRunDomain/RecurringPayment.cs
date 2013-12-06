@@ -15,7 +15,7 @@ namespace PlumRunDomain
     public partial class RecurringPayment
     {
         public int RecurringPaymentID { get; set; }
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         public int SubscriptionID { get; set; }
         public System.DateTime SubscriptionStartDate { get; set; }
         public System.DateTime SubscriptionExpireDate { get; set; }

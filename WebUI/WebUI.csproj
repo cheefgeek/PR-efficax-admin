@@ -233,6 +233,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="ViewModels\DropDownLists\MaritalStatus.cs" />
+    <Compile Include="ViewModels\Group\GroupMemberContactMethod.cs" />
+    <Compile Include="ViewModels\Group\GroupMember_Grid.cs" />
     <Compile Include="ViewModels\Group\GroupSearch.cs" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />

@@ -12,20 +12,18 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupMemberType
+    public partial class MaritalStatu
     {
-        public GroupMemberType()
+        public MaritalStatu()
         {
-            this.GroupMembers = new HashSet<GroupMember>();
+            this.People = new HashSet<Person>();
         }
     
-        public int GroupMemberTypeID { get; set; }
-        public int GroupTypeID { get; set; }
+        public long MaritalStatusID { get; set; }
+        public long CustomerID { get; set; }
         public string Name { get; set; }
-        public string ShortName { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<GroupMember> GroupMembers { get; set; }
-        public virtual GroupType GroupType { get; set; }
+        public virtual ICollection<Person> People { get; set; }
     }
 }

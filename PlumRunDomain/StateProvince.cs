@@ -16,6 +16,7 @@ namespace PlumRunDomain
     {
         public StateProvince()
         {
+            this.Addresses = new HashSet<Address>();
             this.Customers = new HashSet<Customer>();
         }
     
@@ -37,6 +38,7 @@ namespace PlumRunDomain
         public string census_devision_name { get; set; }
         public string circuit_court { get; set; }
     
+        public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
     }
 }

@@ -25,15 +25,16 @@ namespace WebUI.Controllers
         {
             var result = db.Groups
                 .Where(g => g.GroupTypeID == 1)
-                .OrderBy(x => x.GroupID) // EF requires ordered IQueryable in order to do paging
+                .OrderBy(x => x.Name) // EF requires ordered IQueryable in order to do paging
                 // Use a view model to avoid serializing internal Entity Framework properties as JSON
                 .Select(x => new GroupSearch
                 {
                     GroupID = x.GroupID ,
                     Name = x.Name ,
                     Description = x.Description ,
-                    Address1 = x.Address.Address1 ,
-
+                    Address = x.Address.Address1 ,
+                    City = x.Address.City ,
+                    State = x.Address.StateProvince.abbreviation
                 })
                 .ToDataSourceResult(take, skip, sort, filter);
             return Json(result);
@@ -43,7 +44,11 @@ namespace WebUI.Controllers
 
         public ActionResult GroupMembersByGroupID(int groupID)
         {
-
+            
+            
+            
+            
+            return null;
         }
 
 

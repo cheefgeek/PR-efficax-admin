@@ -12,12 +12,10 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class PersonEmail
+    public partial class StartList_AgeGroup
     {
-        public long PersonEmailID { get; set; }
-        public long PersonID { get; set; }
-        public int EmailTypeID { get; set; }
-        public string Email { get; set; }
+        public long StartList_AgeGroup1 { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
     }
 }
