@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Kendo.Mvc.Grid.CRUD.Models;
+using Kendo.Mvc.Extensions;
+//using Kendo.Mvc.Grid.CRUD.Models;
 using Kendo.Mvc.UI;
 using PlumRunDomain;
 using PlumRunModel;
-using System.Net;
-using System.Data.Entity;
+//using System.Net;
+//using System.Data.Entity;
 
 namespace WebUI.Controllers
 {
     public class HouseholdController : Controller
     {
-        private PREntities db = new PREntities();
+        //private PREntities db = new PREntities();
 
         public ActionResult Index()
         {
@@ -21,33 +22,38 @@ namespace WebUI.Controllers
         }
 
 
-        public ActionResult Read(int take, int skip, IEnumerable<Sort> sort, Kendo.Mvc.Grid.CRUD.Models.Filter filter)
+
+
+
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
-            var result = db.Groups
-                .Where(g => g.GroupTypeID == 1)
-                .OrderBy(x => x.Name) // EF requires ordered IQueryable in order to do paging
-                // Use a view model to avoid serializing internal Entity Framework properties as JSON
-                .Select(x => new GroupSearch
-                {
-                    GroupID = x.GroupID ,
-                    Name = x.Name ,
-                    Description = x.Description ,
-                    Address = x.Address.Address1 ,
-                    City = x.Address.City ,
-                    State = x.Address.StateProvince.abbreviation
-                })
-                .ToDataSourceResult(take, skip, sort, filter);
-            return Json(result);
+            using (var db = new PREntities())
+            {
+                var result = db.Groups
+                    .Where(g => g.GroupTypeID == 1)
+                    .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging
+                                                        // Use a view model to avoid serializing internal Entity Framework properties as JSON
+                    .Select(x => new WebUI.ViewModels.Group.GroupSearch
+                    {
+                        GroupID = x.GroupID,
+                        Name = x.Name,
+                        Description = x.Description,
+                        Address = x.Address.Address1,
+                        City = x.Address.City,
+                        State = x.Address.StateProvince.abbreviation
+                    })
+                    .ToDataSourceResult(request);
+                return Json(result);
+            }
         }
 
 
-        public ActionResult GroupMembersByGroupID(int groupID)
-        {
-           
-            return null;
-        }
 
-        //
+
+
+
+
+
         // GET: /Household/Details/5
         public ActionResult Details(int id)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Kendo.Mvc.Grid.CRUD.Models
+namespace WebUI.ViewModels.Group
 {
     public class GroupSearch
     {

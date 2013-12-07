@@ -9,8 +9,6 @@ $("#btnEdit").attr("disabled", "disabled");
 $("#btnDelete").attr("disabled", "disabled");
 
 
-
-
 var editUrl = null;
 var deleteUrl = null;
 
@@ -27,6 +25,8 @@ function showDetails(e) {
 
         editUrl = controller + '/Edit/' + currentDataItem.id;
         deleteUrl = controller + '/Delete/' + currentDataItem.id;
+
+        console.log(currentDataItem);
     }
     else {
         $("#btnEdit").attr("disabled", "disabled");

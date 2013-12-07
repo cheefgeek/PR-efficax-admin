@@ -1,5 +1,7 @@
-﻿@using Kendo.Mvc.Grid.CRUD.Models;
-@model IEnumerable<GroupSearch>
+﻿@*@using Kendo.Mvc.Grid.CRUD.Models;*@
+@using Kendo.Mvc.UI;
+@using WebUI.ViewModels;
+
 
 <legend>Households</legend>
 
@@ -32,7 +34,34 @@
 }
 
 <div class="span6">
-    <div id="grid"></div>
+
+    @(Html.Kendo().Grid<WebUI.ViewModels.Group.GroupSearch>()
+        .Name("grid")
+        .Events(e => e.Change("showDetails"))
+      .DataSource(d => d
+            .Ajax()
+            .Model(model =>
+                {
+                    model.Id(g => g.GroupID);
+                }
+            )
+            .Read(r => r.Action("Read", "Household"))
+        )
+        .Columns(c =>
+                {
+                    c.Bound(g => g.GroupID).Hidden();
+                    c.Bound(g => g.Name).Title("Family Name");
+                    c.Bound(g => g.Description).Title("Notes");
+                    c.Bound(g => g.Address);
+                    c.Bound(g => g.City);
+                    c.Bound(g => g.State).Width(10);
+                }
+        )
+        .Pageable()
+        .Sortable()
+        .Selectable()
+        .ClientDetailTemplateId("GroupMembers")
+    )
 
     <button class="btn btn-app btn-grey btn-mini radius-4" id="btnNew" name="button" value="add">
         <i class="icon-plus-sign"></i>
@@ -58,170 +87,45 @@
     <p class="lead">Widgets Here</p>
 </div>   @*Widgets*@
 
-<script>
-    $(function ()
-    {
-        $("#grid").kendoGrid(
-        {
-            height: 350,
-            columns:    [
-                        { field: "GroupID", hidden: true },
-                        { field: "Name" },
-                        { field: "Address" },
-                        { field: "City"},
-                        { field: "State", width: "5" }
-                        ],
-            editable: false,
-            navigatable: true,
-            pageable: true,
-            sortable: true,
-            filterable: true,
-            selectable: "row",
-            change: showDetails,
-            ClientDetailTemplateId: "members",
-            dataSource: {
-                serverPaging: true,
-                serverFiltering: true,
-                serverSorting: true,
-                pageSize: 10,
-                schema: {
-                    data: "Data",
-                    total: "Total",
-                    model: { // define the model of the data source. Required for validation and property types.
-                        id: "GroupID",
-                        fields:{
-                            GroupID: { editable: false, nullable: false },
-                            Name: { type: "string"},
-                            Address: { type: "string" },
-                            City: { type: "string" },
-                            State: { type: "string"}
-                        }
-                    }
-                },
-                batch: false, // enable batch editing - changes will be saved when the user clicks the "Save changes" button
-                transport:
-                    {
-                        read:
-                            {
-                                url: "@Url.Action("Read", "Household")", //specify the URL which should return the records. This is the Read method of the HomeController.
-                                contentType: "application/json",
-                                type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
-                            },
-
-                        parameterMap: function (data, operation)
-                        {
-                            if (operation !== "read")
-                            {
-                                var result = {};
-                                for (var i = 0; i < data.models.length; i++)
-                                {
-                                    var household = data.models[i];
-                                    for (var member in household)
-                                    {
-                                        result["household[" + i + "]." + member] = household[member];
-                                    }
-                                }
-                                return result;
-                            }
-                            else
-                            {
-                                return JSON.stringify(data)
-                            }
-                        }
-                    }
-            }
-        });
-
-    }) // End DOM ready //TELERIK GRID SCRIPT...
 
 
 
-    @*$(function ()
-    {
-        $("#members").kendoGrid(
+<script id="GroupMembers" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<WebUI.ViewModels.Group.GroupMember_Grid>()
+            .Name("grid_#=EmployeeID#")
+            .Columns(c =>
             {
-                height: 350,
-                columns:    [
-                            { field: "GroupID", hidden: true },
-                            { field: "PersonID", hidden: true },
-                            { field: "FirstName", name: "First Name" },
-                            { field: "LastName", name: "Last Name" },
-                            { field: "City" },
-                            { field: "State" },
-                            { field: "MemberType" },
-                            { field: "CurrentAge" }
-                ],
-                editable: false,
-                navigatable: true,
-                pageable: false,
-                sortable: true,
-                filterable: false,
-                selectable: false,
-                ToClientTemplate: true,
-                dataSource:
-                {
-                    serverPaging: true,
-                    serverFiltering: true,
-                    serverSorting: true,
-                    pageSize: 10,
-                    schema:
-                    {
-                        data: "Data",
-                        total: "Total",
-                        model:
-                        { // define the model of the data source. Required for validation and property types.
-                            id: "PersonID",
-                            fields:
-                            {
-                                GroupID: { editable: false, nullable: false },
-                                PersonID: { type: "int"},
-                                FirstName: { type: "string"},
-                                LastName: { type: "string"},
-                                City: { type: "string" },
-                                State: { type: "string"},
-                                MemberType: { type: "string" },
-                                CurrentAge: { type: "int"}
-                            }
-                        }
-                    }
-                },
-                batch: false,
-                transport:
-                {
-                    read:
-                        {
-                            url: "@Url.Action("GroupMembersByGroupID", "Household")", 
-                            contentType: "application/json",
-                            type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
-                        },
+                c.Bound(m => m.GroupID);
+                c.Bound(m => m.PersonID);
+                c.Bound(m => m.FirstName); 
+                c.Bound(m => m.LastName);
+                c.Bound(m => m.CurrentAge);
+                c.Bound(m => m.GroupMemberType);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(5)
+                .Read(read => read.Action("HierarchyBinding_Orders", "Household", new { employeeID = "#=EmployeeID#" }))
+            )
+            .Pageable()
+            .Sortable()
+            .ToClientTemplate()
+    )
+</script>
 
-                    parameterMap: function (data, operation)
-                    {
-                        if (operation !== "read")
-                        {
-                            var result = {};
-                            for (var i = 0; i < data.models.length; i++)
-                            {
-                                var household = data.models[i];
-                                for (var member in household)
-                                {
-                                    result["household[" + i + "]." + member] = household[member];
-                                }
-                            }
-                            return result;
-                        }
-                        else
-                        {
-                            return JSON.stringify(data)
-                        }
-                    }
-                }
-            });
-    
-    })*@
 
+
+
+
+
+
+<script>
     var controller = 'Household';
 
+    function dataBound()
+    {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
 </script>
 
 
