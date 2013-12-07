@@ -41,20 +41,11 @@ namespace WebUI.Controllers
         }
 
 
-
         public ActionResult GroupMembersByGroupID(int groupID)
         {
-            
-            
-            
-            
+           
             return null;
         }
-
-
-
-
-
 
         //
         // GET: /Household/Details/5
