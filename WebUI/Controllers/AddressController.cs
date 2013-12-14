@@ -3,15 +3,18 @@ using System.Linq;
 using System.Web.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using PlumRunDomain;
 using PlumRunModel;
+//using System.Collections.Generic;
+//using System.Web;
+
 
 namespace WebUI.Controllers
 {
-    public class HouseholdController : Controller
+    public class AddressController : Controller
     {
-        //private PREntities db = new PREntities();
 
+        //
+        // GET: /Address/
         public ActionResult Index()
         {
             return View();
@@ -21,62 +24,59 @@ namespace WebUI.Controllers
         {
             using (PREntities db = new PREntities())
             {
-                var result = db.Groups
-                    .Where(g => g.GroupTypeID == 1)
-                    .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging
-                                                        // Use a view model to avoid serializing internal Entity Framework properties as JSON
-                    .Select(x => new WebUI.ViewModels.Group.GroupSearch
+                var result = db.Addresses
+                    .OrderBy(x => x.Address1)
+                    .Select(x => new WebUI.ViewModels.Address.AddressSearch
                     {
-                        GroupID = x.GroupID,
-                        Name = x.Name,
-                        Description = x.Description,
-                        Address = x.Address.Address1,
-                        City = x.Address.City,
-                        State = x.Address.StateProvince.abbreviation
+                        Address1 = x.Address1,
+                        AddressID = x.AddressID,
+                        City = x.City,
+                        StateProvince = x.StateProvince.abbreviation,
+                        PostalCode = x.PostalCode
                     })
                     .ToDataSourceResult(request);
                 return Json(result);
             }
         }
 
-        public ActionResult GroupMembers_Grid (int groupID, [DataSourceRequest] DataSourceRequest request)
+
+        public ActionResult AddressMember_Grid (int addressID, [DataSourceRequest] DataSourceRequest request)
         {
             using (PREntities db = new PREntities())
             {
-                var result = db.GroupMembers
-                    .Where(gm => gm.GroupID == groupID)
-                    .OrderBy(gm => gm.Person.FirstName)               // EF requires ordered IQueryable in order to do paging
-                    // Use a view model to avoid serializing internal Entity Framework properties as JSON
-                    .Select(gm => new WebUI.ViewModels.Group.GroupMember_Grid
+                var result = db.People
+                    .Where(p => p.AddressID == addressID)
+                    .OrderBy(x => x.FirstName)
+                    .Select(am => new WebUI.ViewModels.Person.AddressMember_Grid
                     {
-                        GroupID = gm.GroupID,
-                        PersonID = gm.PersonID,
-                        FirstName = gm.Person.FirstName,
-                        LastName = gm.Person.LastName,
-                        //CurrentAge = gm.cur,                               // TODO Helpers.MathHelpers.GetAnniversaryCount(gm.Person.Birthday),
-                        MemberType = gm.GroupMemberType.Name,
-                        HasLogin =  gm.Person.UserName                       // TODO Write helper to display "Yes" or "No"
+                        AddressID = am.AddressID,
+                        PersonID = am.PersonID,
+                        Name = am.FirstName + " " + am.LastName,
+                        Gender = am.StaticList.Text
                     })
                     .ToDataSourceResult(request);
                 return Json(result);
             }
         }
 
-        // GET: /Household/Details/5
+
+
+        //
+        // GET: /Address/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
         //
-        // GET: /Household/Create
+        // GET: /Address/Create
         public ActionResult Create()
         {
             return View();
         }
 
         //
-        // POST: /Household/Create
+        // POST: /Address/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -93,14 +93,14 @@ namespace WebUI.Controllers
         }
 
         //
-        // GET: /Household/Edit/5
+        // GET: /Address/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
         //
-        // POST: /Household/Edit/5
+        // POST: /Address/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -117,14 +117,14 @@ namespace WebUI.Controllers
         }
 
         //
-        // GET: /Household/Delete/5
+        // GET: /Address/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         //
-        // POST: /Household/Delete/5
+        // POST: /Address/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -15,6 +15,8 @@ var deleteUrl = null;
 function showDetails(e) {
     grid = e.sender;
 
+    this.collapseRow(this.tbody.find(":not(tr.k-state-selected)"));
+
     // Get selected row 
     var currentDataItem = grid.dataItem(this.select());
 

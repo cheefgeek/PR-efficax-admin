@@ -1,44 +1,44 @@
-﻿@*HOUSEHOLD INDEX (SEARCH GRID)*@
+﻿@*MINISTRY INDEX (SEARCH GRID)*@
 
 @using Kendo.Mvc.UI;
 @using WebUI.ViewModels;
 
 
-<legend>Households</legend>
+<legend>Ministries</legend>
 
 @section Breadcrumb
 {
-<div class="breadcrumbs" id="breadcrumbs">
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home home-icon"></i>
-            <a href="/Home">Home</a>
+    <div class="breadcrumbs" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/Home">Home</a>
 
-            <span class="divider">
-                <i class="icon-angle-right arrow-icon"></i>
-            </span>
-        </li>
+                <span class="divider">
+                    <i class="icon-angle-right arrow-icon"></i>
+                </span>
+            </li>
 
-        <li class="active">Households</li>
+            <li class="active">Ministries</li>
 
-    </ul>
+        </ul>
 
-    <div class="nav-search" id="nav-search">
-        <form class="form-search">
-            <span class="input-icon">
-                <input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-                <i class="icon-search nav-search-icon"></i>
-            </span>
-        </form>
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+                    <i class="icon-search nav-search-icon"></i>
+                </span>
+            </form>
+        </div>
     </div>
-</div>
 }
 
 <div class="span6">
 
     @(Html.Kendo().Grid<WebUI.ViewModels.Group.GroupSearch>()
         .Name("grid")
-        .Events(e => 
+        .Events(e =>
             {
                 e.Change("showDetails");
                 e.DataBound("dataBound");
@@ -51,16 +51,13 @@
                     model.Id(x => x.GroupID);
                 }
             )
-            .Read(r => r.Action("Read", "Household"))
+            .Read(r => r.Action("Read", "Ministry"))
         )
         .Columns(c =>
             {
                 c.Bound(x => x.GroupID).Hidden();
-                c.Bound(x => x.Name).Title("Family Name");
+                c.Bound(x => x.Name).Title("Ministry Name");
                 c.Bound(x => x.Description).Title("Notes").Filterable(false);
-                c.Bound(x => x.Address);
-                c.Bound(x => x.City);
-                c.Bound(x => x.State).Width(10);
             }
         )
         .Pageable()
@@ -101,15 +98,14 @@
             {
                 c.Bound(m => m.GroupID).Hidden();
                 c.Bound(m => m.PersonID).Hidden();
-                c.Bound(m => m.FirstName).Title("First Name"); 
+                c.Bound(m => m.FirstName).Title("First Name");
                 c.Bound(m => m.LastName).Title("Last Name");
-                c.Bound(m => m.CurrentAge).Title("Age").Width(10);
-                c.Bound(m => m.MemberType).Title("Relationship");
+                c.Bound(m => m.MemberType).Title("Ministry Position");
             })
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .PageSize(5)
-                        .Read(read => read.Action("GroupMembers_Grid", "Household", new { groupID = "#=GroupID#"  }))
+                        .Read(read => read.Action("GroupMembers_Grid", "Ministry", new { groupID = "#=GroupID#" }))
             )
             .Sortable()
             .ToClientTemplate()
@@ -117,10 +113,9 @@
 </script>
 
 <script>
-    var controller = 'Household';
-    
-    function dataBound()
-    {
+    var controller = 'Ministry';
+
+    function dataBound() {
         console.log("Fired dataBound function")
         this.expandRow(this.tbody.find("tr.k-master-row").first());
 
@@ -132,29 +127,25 @@
         console.log("Fired grid collapse function")
 
         //handle clicking of the toggle icon
-        $(this).find(".t-grouping-row .t-icon").click(function (e)
-        {
+        $(this).find(".t-grouping-row .t-icon").click(function (e) {
             // find the current table row (TR)
             var tr = $(this).closest("tr");
 
             // get the group text
             var group = tr.text();
 
-            if ($(this).is(".t-collapse"))
-            {
+            if ($(this).is(".t-collapse")) {
                 // If the icon is collapse - mark the group as collapse
                 collapsed[group] = true;
             }
-            else
-            {
+            else {
                 // otherwise remove it from the list of collapsed groups
                 delete collapsed[group];
             }
         })
 
         // collapse all collapsed groups
-        for (var group in collapsed)
-        {
+        for (var group in collapsed) {
             var tr = $(this).find(".t-grouping-row:contains(" + group + ")");
             grid.collapseGroup(tr);
         }
