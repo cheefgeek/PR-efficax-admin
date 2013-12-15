@@ -8,10 +8,10 @@ using PlumRunModel;
 
 namespace WebUI.Controllers
 {
-    public class HouseholdController : Controller
+    public class MinistryController : Controller
     {
-        //private PREntities db = new PREntities();
-
+        //
+        // GET: /Ministry/
         public ActionResult Index()
         {
             return View();
@@ -22,9 +22,9 @@ namespace WebUI.Controllers
             using (PREntities db = new PREntities())
             {
                 var result = db.Groups
-                    .Where(g => g.GroupTypeID == 1)
+                    .Where(g => g.GroupTypeID == 2)
                     .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging
-                                                        // Use a view model to avoid serializing internal Entity Framework properties as JSON
+                    // Use a view model to avoid serializing internal Entity Framework properties as JSON
                     .Select(x => new WebUI.ViewModels.Group.GroupSearch
                     {
                         GroupID = x.GroupID,
@@ -39,7 +39,7 @@ namespace WebUI.Controllers
             }
         }
 
-        public ActionResult GroupMembers_Grid (int groupID, [DataSourceRequest] DataSourceRequest request)
+        public ActionResult GroupMembers_Grid(int groupID, [DataSourceRequest] DataSourceRequest request)
         {
             using (PREntities db = new PREntities())
             {
@@ -55,28 +55,33 @@ namespace WebUI.Controllers
                         LastName = gm.Person.LastName,
                         //CurrentAge = gm.cur,                               // TODO Helpers.MathHelpers.GetAnniversaryCount(gm.Person.Birthday),
                         MemberType = gm.GroupMemberType.Name,
-                        HasLogin =  gm.Person.UserName                       // TODO Write helper to display "Yes" or "No"
+                        HasLogin = gm.Person.UserName                       // TODO Write helper to display "Yes" or "No"
                     })
                     .ToDataSourceResult(request);
                 return Json(result);
             }
         }
 
-        // GET: /Household/Details/5
+
+
+
+
+        //
+        // GET: /Ministry/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
         //
-        // GET: /Household/Create
+        // GET: /Ministry/Create
         public ActionResult Create()
         {
             return View();
         }
 
         //
-        // POST: /Household/Create
+        // POST: /Ministry/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -93,14 +98,14 @@ namespace WebUI.Controllers
         }
 
         //
-        // GET: /Household/Edit/5
+        // GET: /Ministry/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
         //
-        // POST: /Household/Edit/5
+        // POST: /Ministry/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -117,14 +122,14 @@ namespace WebUI.Controllers
         }
 
         //
-        // GET: /Household/Delete/5
+        // GET: /Ministry/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         //
-        // POST: /Household/Delete/5
+        // POST: /Ministry/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -39,7 +39,7 @@ namespace PlumRunDomain
         public Nullable<int> GenderID { get; set; }
         public Nullable<long> MaritalStatusID { get; set; }
         public Nullable<long> AgeGroupID { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
+        public System.DateTime Birthday { get; set; }
         public Nullable<System.DateTime> Anniversary { get; set; }
         public Nullable<System.DateTime> MembershipDate { get; set; }
         public Nullable<System.DateTime> DecisionForChristDate { get; set; }
@@ -63,6 +63,7 @@ namespace PlumRunDomain
         public virtual ICollection<GroupType> GroupTypes1 { get; set; }
         public virtual AgeGroup AgeGroup { get; set; }
         public virtual MaritalStatu MaritalStatu { get; set; }
+        public virtual StaticList StaticList { get; set; }
         public virtual ICollection<PersonContactMethod> PersonContactMethods { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
