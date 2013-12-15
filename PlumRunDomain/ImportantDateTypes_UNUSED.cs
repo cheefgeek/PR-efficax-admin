@@ -12,11 +12,10 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleRight
+    public partial class ImportantDateTypes_UNUSED
     {
-        public int RoleID { get; set; }
-        public int RightID { get; set; }
-    
-        public virtual Role Role { get; set; }
+        public int ImportantDateTypeID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

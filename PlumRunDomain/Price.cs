@@ -27,6 +27,7 @@ namespace PlumRunDomain
     
         public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<CustomerPayment> CustomerPayments { get; set; }
+        public virtual BillingInterval BillingInterval { get; set; }
         public virtual PriceList PriceList { get; set; }
     }
 }

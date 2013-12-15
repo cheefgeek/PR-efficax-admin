@@ -25,7 +25,7 @@ namespace PlumRunDomain
             this.RecurringPayments = new HashSet<RecurringPayment>();
         }
     
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         public string AROrgName { get; set; }
         public string ARAddress1 { get; set; }
         public string ARAddress2 { get; set; }
@@ -34,6 +34,7 @@ namespace PlumRunDomain
         public int ARStateProvID { get; set; }
         public string ARPostalCode { get; set; }
         public int CountryID { get; set; }
+        public string ARPhone { get; set; }
         public int PriceID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }

@@ -12,16 +12,11 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerPayment
+    public partial class StaticList
     {
-        public int CustomerPaymentID { get; set; }
-        public long CustomerID { get; set; }
-        public int PriceID { get; set; }
-        public System.DateTime PaymentDate { get; set; }
-        public string RecurringPaymentID { get; set; }
-        public decimal PaymentAmount { get; set; }
-    
-        public virtual Customer Customer { get; set; }
-        public virtual Price Price { get; set; }
+        public int StaticListID { get; set; }
+        public string Value { get; set; }
+        public string MiscListName { get; set; }
+        public int ListSequence { get; set; }
     }
 }

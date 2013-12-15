@@ -20,22 +20,27 @@ namespace PlumRunDomain
             this.Locations = new HashSet<Location>();
         }
     
-        public int AddressID { get; set; }
-        public int CustomerID { get; set; }
+        public long AddressID { get; set; }
+        public long CustomerID { get; set; }
         public string Name { get; set; }
         public string Attention { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
         public string City { get; set; }
-        public string StateProvince { get; set; }
+        public Nullable<int> StateProvinceID { get; set; }
         public string PostalCode { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public string AddressPhone { get; set; }
         public System.DateTime CreateDateTime { get; set; }
         public Nullable<System.DateTime> ModifiedDateTime { get; set; }
-        public Nullable<int> CreatedByPersonID { get; set; }
-        public Nullable<int> ModifiedByPersonID { get; set; }
+        public Nullable<long> CreatedByPersonID { get; set; }
+        public Nullable<long> ModifiedByPersonID { get; set; }
     
         public virtual Customer Customer { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual Person Person1 { get; set; }
+        public virtual StateProvince StateProvince { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
     }

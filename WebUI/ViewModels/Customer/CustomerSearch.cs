@@ -7,7 +7,7 @@ namespace Kendo.Mvc.Grid.CRUD.Models
 {
     public class CustomerSearch
     {
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         public string AROrgName { get; set; }
         public string ARCity { get; set; }
         //public int ARStateProvID { get; set; }

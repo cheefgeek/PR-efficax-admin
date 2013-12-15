@@ -5,23 +5,37 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="39e56d97693d4dbba8b3816ad13ba808" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="PRChurchModel.Address" Width="1.5" PointX="7.5" PointY="10.25" />
-        <EntityTypeShape EntityType="PRChurchModel.Customer" Width="1.5" PointX="5.25" PointY="9.875" />
-        <EntityTypeShape EntityType="PRChurchModel.CustomerPayment" Width="1.5" PointX="7.5" PointY="15.25" />
-        <EntityTypeShape EntityType="PRChurchModel.Group" Width="1.5" PointX="9.75" PointY="10.375" />
-        <EntityTypeShape EntityType="PRChurchModel.GroupMember" Width="1.5" PointX="12" PointY="16" />
-        <EntityTypeShape EntityType="PRChurchModel.Location" Width="1.5" PointX="12.75" PointY="10.75" />
-        <EntityTypeShape EntityType="PRChurchModel.Person" Width="1.5" PointX="7.5" PointY="18.625" />
-        <EntityTypeShape EntityType="PRChurchModel.Price" Width="1.5" PointX="3" PointY="11.375" />
-        <EntityTypeShape EntityType="PRChurchModel.PriceList" Width="1.5" PointX="0.75" PointY="11.375" />
-        <EntityTypeShape EntityType="PRChurchModel.RecurringPayment" Width="1.5" PointX="7.5" PointY="5.75" />
-        <EntityTypeShape EntityType="PRChurchModel.Role" Width="1.5" PointX="9.75" PointY="19.5" />
-        <EntityTypeShape EntityType="PRChurchModel.RoleRight" Width="1.5" PointX="12" PointY="19.875" />
-        <EntityTypeShape EntityType="PRChurchModel.Country" Width="1.5" PointX="3" PointY="15" />
-        <EntityTypeShape EntityType="PRChurchModel.GroupMemberType" Width="1.5" PointX="9.75" PointY="16.375" />
-        <EntityTypeShape EntityType="PRChurchModel.GroupType" Width="1.5" PointX="7.5" PointY="2.25" />
-        <EntityTypeShape EntityType="PRChurchModel.StateProvince" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="PRChurchModel.Address" Width="1.5" PointX="5.25" PointY="13" />
+        <EntityTypeShape EntityType="PRChurchModel.Customer" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="PRChurchModel.CustomerPayment" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="PRChurchModel.Group" Width="1.5" PointX="7.5" PointY="13.5" />
+        <EntityTypeShape EntityType="PRChurchModel.GroupMember" Width="1.5" PointX="15" PointY="9.5" />
+        <EntityTypeShape EntityType="PRChurchModel.GroupMemberContactMethod" Width="1.5" PointX="17.25" PointY="8.375" />
+        <EntityTypeShape EntityType="PRChurchModel.Location" Width="1.5" PointX="10.5" PointY="13.75" />
+        <EntityTypeShape EntityType="PRChurchModel.Person" Width="1.5" PointX="8.25" PointY="4.75" />
+        <EntityTypeShape EntityType="PRChurchModel.PersonContactMethod" Width="1.5" PointX="13.5" PointY="5.125" />
+        <EntityTypeShape EntityType="PRChurchModel.Price" Width="1.5" PointX="0.75" PointY="20.875" />
+        <EntityTypeShape EntityType="PRChurchModel.PriceList" Width="1.5" PointX="1.5" PointY="27.5" />
+        <EntityTypeShape EntityType="PRChurchModel.RecurringPayment" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="PRChurchModel.Role" Width="1.5" PointX="10.5" PointY="6.5" />
+        <EntityTypeShape EntityType="PRChurchModel.AgeGroup" Width="1.5" PointX="6" PointY="3" />
+        <EntityTypeShape EntityType="PRChurchModel.BillingInterval" Width="1.5" PointX="1.5" PointY="24.375" />
+        <EntityTypeShape EntityType="PRChurchModel.ContactMethod" Width="1.5" PointX="11.25" PointY="3.5" />
+        <EntityTypeShape EntityType="PRChurchModel.ContactMethodQualifier" Width="1.5" PointX="11.25" PointY="1" />
+        <EntityTypeShape EntityType="PRChurchModel.Country" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="PRChurchModel.GroupMemberType" Width="1.5" PointX="12.75" PointY="10" />
+        <EntityTypeShape EntityType="PRChurchModel.GroupType" Width="1.5" PointX="10.5" PointY="9.625" />
+        <EntityTypeShape EntityType="PRChurchModel.ImportantDateTypes_UNUSED" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PRChurchModel.MaritalStatu" Width="1.5" PointX="6" PointY="6.25" />
+        <EntityTypeShape EntityType="PRChurchModel.Right" Width="1.5" PointX="8.25" PointY="1.625" />
+        <EntityTypeShape EntityType="PRChurchModel.StartList_AgeGroup" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PRChurchModel.StartList_MaritalStatus" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PRChurchModel.StateProvince" Width="1.5" PointX="0.75" PointY="13.25" />
+        <EntityTypeShape EntityType="PRChurchModel.StaticList" Width="1.5" PointX="2.75" PointY="3.75" />
         <AssociationConnector Association="PRChurchModel.FK_Address_Customer" />
+        <AssociationConnector Association="PRChurchModel.FK_Address_Person" />
+        <AssociationConnector Association="PRChurchModel.FK_Address_Person1" />
+        <AssociationConnector Association="PRChurchModel.FK_Address_StateProvince" />
         <AssociationConnector Association="PRChurchModel.FK_Group_Address" />
         <AssociationConnector Association="PRChurchModel.FK_Location_Address" />
         <AssociationConnector Association="PRChurchModel.FK_Customer_Country" />
@@ -34,14 +48,28 @@
         <AssociationConnector Association="PRChurchModel.FK_Person_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_RecurringPayment_Customer" />
         <AssociationConnector Association="PRChurchModel.FK_CustomerPayment_Price" />
-        <AssociationConnector Association="PRChurchModel.FK_Group_Group" />
         <AssociationConnector Association="PRChurchModel.FK_Group_GroupType" />
+        <AssociationConnector Association="PRChurchModel.FK_Group_Person" />
+        <AssociationConnector Association="PRChurchModel.FK_Group_Person1" />
         <AssociationConnector Association="PRChurchModel.FK_GroupMember_Group" />
         <AssociationConnector Association="PRChurchModel.FK_GroupMember_GroupMemberType" />
         <AssociationConnector Association="PRChurchModel.FK_GroupMember_Person" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupMember_Person1" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupMember_Person2" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupMemberContactMethod_GroupMember" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupMemberContactMethod_PersonContactMethod" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupType_Person" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupType_Person1" />
+        <AssociationConnector Association="PRChurchModel.FK_Person_AgeGroup" />
+        <AssociationConnector Association="PRChurchModel.FK_Person_MaritalStatus" />
+        <AssociationConnector Association="PRChurchModel.FK_PersonContactMethod_Person" />
+        <AssociationConnector Association="PRChurchModel.FK_PersonContactMethod_ContactMethod" />
+        <AssociationConnector Association="PRChurchModel.FK_PersonContactMethod_ContactMethodQualifier" />
+        <AssociationConnector Association="PRChurchModel.FK_Price_BillingInterval" />
         <AssociationConnector Association="PRChurchModel.FK_Price_PriceList" />
-        <AssociationConnector Association="PRChurchModel.FK_RoleRight_Role" />
+        <AssociationConnector Association="PRChurchModel.FK_GroupMemberType_GroupType" />
         <AssociationConnector Association="PRChurchModel.PersonRole" />
+        <AssociationConnector Association="PRChurchModel.RoleRight" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

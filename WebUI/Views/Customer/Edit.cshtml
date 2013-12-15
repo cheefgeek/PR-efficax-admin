@@ -45,14 +45,13 @@
 
     <div class="row-fluid">
 
-        <form method="POST" action="Customer/Edit">
             <fieldset>
                 <legend>Customer Edit</legend>
 
                 @*AROrgName*@
                 <div class="control-group">
-                    <label class="control-label span4">Church Name</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Church Name</label>
+                    <div class="controls span7">
                         @Html.EditorFor(model => model.customerEdit.AROrgName)
                     </div>
                     @Html.ValidationMessageFor(model => model.customerEdit.AROrgName)
@@ -60,8 +59,8 @@
 
                 @*ARAddress1*@
                 <div class="control-group ">
-                    <label class="control-label span4">Address 1</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Address 1</label>
+                    <div class="controls span7">
                         @*<input type="text" name="ARAddress1" placeholder="Address 1" />*@
                         @Html.EditorFor(model => model.customerEdit.ARAddress1)
                     </div>
@@ -70,8 +69,8 @@
 
                 @*ARAddress2*@
                 <div class="control-group ">
-                    <label class="control-label span4">Address 2</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Address 2</label>
+                    <div class="controls span7">
                         @*<input type="text" name="customerEdit.ARAddress2" placeholder="Address 2" />*@
                         @Html.EditorFor(model => model.customerEdit.ARAddress2)
                     </div>
@@ -80,8 +79,8 @@
 
                 @*ARAddress3*@
                 <div class="control-group ">
-                    <label class="control-label span4">Address 3</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Address 3</label>
+                    <div class="controls span7">
                         @*<input type="text" name="customerEdit.ARAddress3" placeholder="Address 3" />*@
                         @Html.EditorFor(model => model.customerEdit.ARAddress3)
                     </div>
@@ -90,8 +89,8 @@
 
                 @*ARCity*@
                 <div class="control-group ">
-                    <label class="control-label span4">City</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">City</label>
+                    <div class="controls span7">
                         @*<input type="text" name="customerEdit.ARCity" placeholder="City" />*@
                         @Html.EditorFor(model => model.customerEdit.ARCity)
                     </div>
@@ -100,8 +99,8 @@
 
                 @*ARStateProvID*@
                 <div class="control-group ">
-                    <label class="control-label span4">State ID</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">State ID</label>
+                    <div class="controls span7">
                         @Html.DropDownListFor(m => m.stateDropDown.SelectedID, Model.stateDropDown.List)
                     </div>
                     @Html.ValidationMessageFor(model => model.customerEdit.ARStateProvID)
@@ -109,8 +108,8 @@
 
                 @*ARPostalCode*@
                 <div class="control-group ">
-                    <label class="control-label span4">Postal Code</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Postal Code</label>
+                    <div class="controls span7">
                         @*<input type="text" name="customerEdit.ARPostalCode" placeholder="Postal Code" />*@
                         @Html.EditorFor(model => model.customerEdit.ARPostalCode)
                     </div>
@@ -119,8 +118,8 @@
 
                 @*CountryID*@
                 <div class="control-group ">
-                    <label class="control-label span4">Country</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Country</label>
+                    <div class="controls span7">
                         @Html.DropDownListFor(m => m.countryDropDown.SelectedID, Model.countryDropDown.List)
                     </div>
                     @Html.ValidationMessageFor(model => model.customerEdit.CountryID)
@@ -128,14 +127,15 @@
 
                 @*PriceID*@
                 <div class="control-group ">
-                    <label class="control-label span4">Price</label>
-                    <div class="controls span8">
+                    <label class="control-label span5">Price</label>
+                    <div class="controls span7">
                         @Html.DropDownListFor(m => m.pricesDropDown.SelectedID, Model.pricesDropDown.List)
                     </div>
                     @*@Html.ValidationMessageFor(model => model.PriceID)*@
                 </div>
             </fieldset>
-
+        
+        <form method="POST" action="Customer/Edit">
             <div>
                 <button class="btn btn-app btn-grey btn-mini radius-4" name="button" value="save">
                     <i class="icon-save bigger-160"></i>

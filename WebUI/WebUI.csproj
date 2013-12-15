@@ -233,6 +233,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="ViewModels\DropDownLists\MaritalStatus.cs" />
+    <Compile Include="ViewModels\Group\GroupMemberContactMethod.cs" />
+    <Compile Include="ViewModels\Group\GroupMember_Grid.cs" />
+    <Compile Include="ViewModels\Group\GroupSearch.cs" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />
     <Content Include="CodeTemplates\ApiControllerWithActions\Controller.cs.t4" />
@@ -318,13 +322,15 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Customer\CustomerCreate.cs" />
     <Compile Include="ViewModels\Customer\CustomerCreateVM.cs" />
-    <Compile Include="ViewModels\CustomerSearch.cs" />
+    <Compile Include="ViewModels\Customer\CustomerSearch.cs" />
     <Compile Include="ViewModels\Customer\CustomerDelete.cs" />
     <Compile Include="ViewModels\Customer\CustomerEdit.cs" />
     <Compile Include="ViewModels\Customer\CustomerEditVM.cs" />
     <Compile Include="ViewModels\DropDownLists\CountryDropDown.cs" />
     <Compile Include="ViewModels\DropDownLists\PricesDropDown.cs" />
     <Compile Include="ViewModels\DropDownLists\StateDropDown.cs" />
+    <Content Include="Scripts\custom\handle-grid-btn-events.js" />
+    <Content Include="Views\Household\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.css" />
@@ -1312,7 +1318,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Household\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

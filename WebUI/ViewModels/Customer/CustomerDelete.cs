@@ -6,7 +6,7 @@ namespace WebUI.ViewModels.Customer
 {
     public class CustomerDelete
     {
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         public string AROrgName { get; set; }
         public string ARAddress1 { get; set; }
         public string ARAddress2 { get; set; }

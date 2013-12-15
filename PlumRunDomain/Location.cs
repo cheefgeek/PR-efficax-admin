@@ -15,9 +15,9 @@ namespace PlumRunDomain
     public partial class Location
     {
         public int LocationID { get; set; }
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         public int LocationTypeID { get; set; }
-        public int AddressID { get; set; }
+        public long AddressID { get; set; }
         public string ParentLocationID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

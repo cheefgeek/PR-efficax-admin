@@ -16,17 +16,34 @@ namespace PlumRunDomain
     {
         public Person()
         {
+            this.Addresses = new HashSet<Address>();
+            this.Addresses1 = new HashSet<Address>();
+            this.Groups = new HashSet<Group>();
+            this.Groups1 = new HashSet<Group>();
             this.GroupMembers = new HashSet<GroupMember>();
+            this.GroupMembers1 = new HashSet<GroupMember>();
+            this.GroupMembers2 = new HashSet<GroupMember>();
+            this.GroupTypes = new HashSet<GroupType>();
+            this.GroupTypes1 = new HashSet<GroupType>();
+            this.PersonContactMethods = new HashSet<PersonContactMethod>();
             this.Roles = new HashSet<Role>();
         }
     
-        public int PersonID { get; set; }
-        public int CustomerID { get; set; }
+        public long PersonID { get; set; }
+        public long CustomerID { get; set; }
         public Nullable<int> AddressID { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public Nullable<int> GenderID { get; set; }
+        public Nullable<long> MaritalStatusID { get; set; }
+        public Nullable<long> AgeGroupID { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<System.DateTime> Anniversary { get; set; }
+        public Nullable<System.DateTime> MembershipDate { get; set; }
+        public Nullable<System.DateTime> DecisionForChristDate { get; set; }
+        public Nullable<int> CurrentAge { get; set; }
         public string ImageThumbnail { get; set; }
         public string ImageHiRes { get; set; }
         public Nullable<System.DateTime> CreatedDateTime { get; set; }
@@ -34,8 +51,19 @@ namespace PlumRunDomain
         public Nullable<int> CreatedByPersonID { get; set; }
         public Nullable<int> ModifiedByPersonID { get; set; }
     
+        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Address> Addresses1 { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Group> Groups1 { get; set; }
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
+        public virtual ICollection<GroupMember> GroupMembers1 { get; set; }
+        public virtual ICollection<GroupMember> GroupMembers2 { get; set; }
+        public virtual ICollection<GroupType> GroupTypes { get; set; }
+        public virtual ICollection<GroupType> GroupTypes1 { get; set; }
+        public virtual AgeGroup AgeGroup { get; set; }
+        public virtual MaritalStatu MaritalStatu { get; set; }
+        public virtual ICollection<PersonContactMethod> PersonContactMethods { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
 }

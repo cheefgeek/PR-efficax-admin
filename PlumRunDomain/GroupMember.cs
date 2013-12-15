@@ -14,14 +14,27 @@ namespace PlumRunDomain
     
     public partial class GroupMember
     {
+        public GroupMember()
+        {
+            this.GroupMemberContactMethods = new HashSet<GroupMemberContactMethod>();
+        }
+    
+        public long GroupMemberID { get; set; }
         public int GroupMemberTypeID { get; set; }
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         public int GroupID { get; set; }
-        public int PersonID { get; set; }
+        public long PersonID { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public long CreatedByPersonID { get; set; }
+        public Nullable<long> ModifiedByPersonID { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Group Group { get; set; }
         public virtual GroupMemberType GroupMemberType { get; set; }
         public virtual Person Person { get; set; }
+        public virtual Person Person1 { get; set; }
+        public virtual Person Person2 { get; set; }
+        public virtual ICollection<GroupMemberContactMethod> GroupMemberContactMethods { get; set; }
     }
 }

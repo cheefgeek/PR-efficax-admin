@@ -1,0 +1,243 @@
+﻿@using Kendo.Mvc.Grid.CRUD.Models;
+@model IEnumerable<GroupSearch>
+
+<legend>Households</legend>
+
+@section Breadcrumb
+{
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="/Home">Home</a>
+
+            <span class="divider">
+                <i class="icon-angle-right arrow-icon"></i>
+            </span>
+        </li>
+
+        <li class="active">Households</li>
+
+    </ul>
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+</div>
+}
+
+<div class="span6">
+    <div id="grid"></div>
+
+    <button class="btn btn-app btn-grey btn-mini radius-4" id="btnNew" name="button" value="add">
+        <i class="icon-plus-sign"></i>
+        New
+    </button>
+
+    <button class="btn btn-app btn-primary btn-mini radius-4" id="btnEdit" name="button" value="edit">
+        <i class="icon-edit bigger-230"></i>
+        Edit
+    </button>
+
+    <form id="deleteForm" class="inline">
+        @Html.AntiForgeryToken()
+        <button class="btn btn-app btn-danger btn-mini radius-4 move_to" id="btnDelete" name="button" value="delete">
+            <i class="icon-trash bigger-160"></i>
+            Delete
+        </button>
+    </form>
+
+</div>   @*Grid and Buttons*@
+
+<div class="span4">
+    <p class="lead">Widgets Here</p>
+</div>   @*Widgets*@
+
+<script>
+    $(function ()
+    {
+        $("#grid").kendoGrid(
+        {
+            height: 350,
+            columns:    [
+                        { field: "GroupID", hidden: true },
+                        { field: "Name" },
+                        { field: "Address" },
+                        { field: "City"},
+                        { field: "State", width: "5" }
+                        ],
+            editable: false,
+            navigatable: true,
+            pageable: true,
+            sortable: true,
+            filterable: true,
+            selectable: "row",
+            change: showDetails,
+            ClientDetailTemplateId: "members",
+            dataSource: {
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+                pageSize: 10,
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    model: { // define the model of the data source. Required for validation and property types.
+                        id: "GroupID",
+                        fields:{
+                            GroupID: { editable: false, nullable: false },
+                            Name: { type: "string"},
+                            Address: { type: "string" },
+                            City: { type: "string" },
+                            State: { type: "string"}
+                        }
+                    }
+                },
+                batch: false, // enable batch editing - changes will be saved when the user clicks the "Save changes" button
+                transport:
+                    {
+                        read:
+                            {
+                                url: "@Url.Action("Read", "Household")", //specify the URL which should return the records. This is the Read method of the HomeController.
+                                contentType: "application/json",
+                                type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
+                            },
+
+                        parameterMap: function (data, operation)
+                        {
+                            if (operation !== "read")
+                            {
+                                var result = {};
+                                for (var i = 0; i < data.models.length; i++)
+                                {
+                                    var household = data.models[i];
+                                    for (var member in household)
+                                    {
+                                        result["household[" + i + "]." + member] = household[member];
+                                    }
+                                }
+                                return result;
+                            }
+                            else
+                            {
+                                return JSON.stringify(data)
+                            }
+                        }
+                    }
+            }
+        });
+
+    }) // End DOM ready //TELERIK GRID SCRIPT...
+
+
+
+    @*$(function ()
+    {
+        $("#members").kendoGrid(
+            {
+                height: 350,
+                columns:    [
+                            { field: "GroupID", hidden: true },
+                            { field: "PersonID", hidden: true },
+                            { field: "FirstName", name: "First Name" },
+                            { field: "LastName", name: "Last Name" },
+                            { field: "City" },
+                            { field: "State" },
+                            { field: "MemberType" },
+                            { field: "CurrentAge" }
+                ],
+                editable: false,
+                navigatable: true,
+                pageable: false,
+                sortable: true,
+                filterable: false,
+                selectable: false,
+                ToClientTemplate: true,
+                dataSource:
+                {
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true,
+                    pageSize: 10,
+                    schema:
+                    {
+                        data: "Data",
+                        total: "Total",
+                        model:
+                        { // define the model of the data source. Required for validation and property types.
+                            id: "PersonID",
+                            fields:
+                            {
+                                GroupID: { editable: false, nullable: false },
+                                PersonID: { type: "int"},
+                                FirstName: { type: "string"},
+                                LastName: { type: "string"},
+                                City: { type: "string" },
+                                State: { type: "string"},
+                                MemberType: { type: "string" },
+                                CurrentAge: { type: "int"}
+                            }
+                        }
+                    }
+                },
+                batch: false,
+                transport:
+                {
+                    read:
+                        {
+                            url: "@Url.Action("GroupMembersByGroupID", "Household")", 
+                            contentType: "application/json",
+                            type: "POST" //use HTTP POST request as by default GET is not allowed by ASP.NET MVC
+                        },
+
+                    parameterMap: function (data, operation)
+                    {
+                        if (operation !== "read")
+                        {
+                            var result = {};
+                            for (var i = 0; i < data.models.length; i++)
+                            {
+                                var household = data.models[i];
+                                for (var member in household)
+                                {
+                                    result["household[" + i + "]." + member] = household[member];
+                                }
+                            }
+                            return result;
+                        }
+                        else
+                        {
+                            return JSON.stringify(data)
+                        }
+                    }
+                }
+            });
+    
+    })*@
+
+    var controller = 'Household';
+
+</script>
+
+
+@section Scripts
+{
+    <script src="~/Scripts/date-time/moment.min.js"></script>
+    <script src="~/Scripts/custom/pr-date.js"></script>
+    <script src="~/Scripts/custom/handle-grid-btn-events.js"></script>
+}
+
+
+
+
+
+
+
+
+
+
