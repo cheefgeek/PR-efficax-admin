@@ -162,7 +162,7 @@ namespace WebUI.Controllers
 
         // POST: /Customer/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]                        //********** REMOVED BECAUSE DELETE BUTTON THREW ERROR. NEED TO GET DELETE POST TO SEND VALIDATION TOKEN????? **********
+        [ValidateAntiForgeryToken]                        //TODO REMOVED BECAUSE DELETE BUTTON THREW ERROR. NEED TO GET DELETE POST TO SEND VALIDATION TOKEN????? **********
         public ActionResult Edit (
             int id,
             CustomerEdit customerEdit,

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PRChurchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PRChurchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressID" />
@@ -75,7 +75,7 @@
           <Key>
             <PropertyRef Name="GroupMemberID" />
           </Key>
-          <Property Name="GroupMemberID" Type="bigint" Nullable="false" />
+          <Property Name="GroupMemberID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupMemberTypeID" Type="int" Nullable="false" />
           <Property Name="CustomerID" Type="bigint" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
@@ -124,7 +124,7 @@
           <Property Name="GenderID" Type="int" />
           <Property Name="MaritalStatusID" Type="bigint" />
           <Property Name="AgeGroupID" Type="bigint" />
-          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Birthday" Type="datetime" Nullable="false" />
           <Property Name="Anniversary" Type="datetime" />
           <Property Name="MembershipDate" Type="datetime" />
           <Property Name="DecisionForChristDate" Type="datetime" />
@@ -343,10 +343,10 @@
         </EntityType>
         <EntityType Name="StaticList">
           <Key>
-            <PropertyRef Name="StaticListID" />
+            <PropertyRef Name="Value" />
           </Key>
-          <Property Name="StaticListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Value" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Value" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="MiscListName" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ListSequence" Type="int" Nullable="false" />
         </EntityType>
@@ -627,9 +627,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GroupMemberType_GroupType">
-          <End Role="GroupType" Type="Self.GroupType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="GroupType" Type="Self.GroupType" Multiplicity="1" />
           <End Role="GroupMemberType" Type="Self.GroupMemberType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GroupType">
@@ -725,6 +723,18 @@
             </Principal>
             <Dependent Role="Person">
               <PropertyRef Name="MaritalStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_StaticList">
+          <End Role="StaticList" Type="Self.StaticList" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaticList">
+              <PropertyRef Name="Value" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="GenderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1014,6 +1024,10 @@
             <End Role="MaritalStatus" EntitySet="MaritalStatus" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
+          <AssociationSet Name="FK_Person_StaticList" Association="Self.FK_Person_StaticList">
+            <End Role="StaticList" EntitySet="StaticList" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
           <AssociationSet Name="FK_PersonContactMethod_ContactMethod" Association="Self.FK_PersonContactMethod_ContactMethod">
             <End Role="ContactMethod" EntitySet="ContactMethod" />
             <End Role="PersonContactMethod" EntitySet="PersonContactMethod" />
@@ -1207,6 +1221,10 @@
             <End Role="MaritalStatu" EntitySet="MaritalStatus" />
             <End Role="Person" EntitySet="People" />
           </AssociationSet>
+          <AssociationSet Name="FK_Person_StaticList" Association="PRChurchModel.FK_Person_StaticList">
+            <End Role="StaticList" EntitySet="StaticLists" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
           <AssociationSet Name="FK_PersonContactMethod_Person" Association="PRChurchModel.FK_PersonContactMethod_Person">
             <End Role="Person" EntitySet="People" />
             <End Role="PersonContactMethod" EntitySet="PersonContactMethods" />
@@ -1334,7 +1352,7 @@
           <Key>
             <PropertyRef Name="GroupMemberID" />
           </Key>
-          <Property Name="GroupMemberID" Type="Int64" Nullable="false" />
+          <Property Name="GroupMemberID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupMemberTypeID" Type="Int32" Nullable="false" />
           <Property Name="CustomerID" Type="Int64" Nullable="false" />
           <Property Name="GroupID" Type="Int32" Nullable="false" />
@@ -1394,7 +1412,7 @@
           <Property Name="GenderID" Type="Int32" />
           <Property Name="MaritalStatusID" Type="Int64" />
           <Property Name="AgeGroupID" Type="Int64" />
-          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Anniversary" Type="DateTime" Precision="3" />
           <Property Name="MembershipDate" Type="DateTime" Precision="3" />
           <Property Name="DecisionForChristDate" Type="DateTime" Precision="3" />
@@ -1417,6 +1435,7 @@
           <NavigationProperty Name="GroupTypes1" Relationship="PRChurchModel.FK_GroupType_Person1" FromRole="Person" ToRole="GroupType" />
           <NavigationProperty Name="AgeGroup" Relationship="PRChurchModel.FK_Person_AgeGroup" FromRole="Person" ToRole="AgeGroup" />
           <NavigationProperty Name="MaritalStatu" Relationship="PRChurchModel.FK_Person_MaritalStatus" FromRole="Person" ToRole="MaritalStatu" />
+          <NavigationProperty Name="StaticList" Relationship="PRChurchModel.FK_Person_StaticList" FromRole="Person" ToRole="StaticList" />
           <NavigationProperty Name="PersonContactMethods" Relationship="PRChurchModel.FK_PersonContactMethod_Person" FromRole="Person" ToRole="PersonContactMethod" />
           <NavigationProperty Name="Roles" Relationship="PRChurchModel.PersonRole" FromRole="Person" ToRole="Role" />
         </EntityType>
@@ -1638,12 +1657,13 @@
         </EntityType>
         <EntityType Name="StaticList">
           <Key>
-            <PropertyRef Name="StaticListID" />
+            <PropertyRef Name="Value" />
           </Key>
-          <Property Name="StaticListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="MiscListName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ListSequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="People" Relationship="PRChurchModel.FK_Person_StaticList" FromRole="StaticList" ToRole="Person" />
         </EntityType>
         <Association Name="FK_Address_Customer">
           <End Type="PRChurchModel.Customer" Role="Customer" Multiplicity="1">
@@ -2023,6 +2043,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Person_StaticList">
+          <End Type="PRChurchModel.StaticList" Role="StaticList" Multiplicity="0..1" />
+          <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaticList">
+              <PropertyRef Name="Value" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonContactMethod_Person">
           <End Type="PRChurchModel.Person" Role="Person" Multiplicity="1" />
           <End Type="PRChurchModel.PersonContactMethod" Role="PersonContactMethod" Multiplicity="*" />
@@ -2090,9 +2122,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GroupMemberType_GroupType">
-          <End Type="PRChurchModel.GroupType" Role="GroupType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="PRChurchModel.GroupType" Role="GroupType" Multiplicity="1" />
           <End Type="PRChurchModel.GroupMemberType" Role="GroupMemberType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GroupType">
@@ -2468,8 +2498,8 @@
               <MappingFragment StoreEntitySet="StaticList">
                 <ScalarProperty Name="ListSequence" ColumnName="ListSequence" />
                 <ScalarProperty Name="MiscListName" ColumnName="MiscListName" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="StaticListID" ColumnName="StaticListID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2506,7 +2536,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

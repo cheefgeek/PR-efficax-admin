@@ -229,14 +229,26 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdController.cs" />
+    <Compile Include="Controllers\MinistryController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
-    <Compile Include="ViewModels\DropDownLists\MaritalStatus.cs" />
+    <Compile Include="Controllers\TalentController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Helpers\MathHelpers.cs" />
+    <Compile Include="ViewModels\Address\AddressDetail.cs" />
+    <Compile Include="ViewModels\Address\AddressSearch.cs" />
+    <Compile Include="ViewModels\DropDownLists\AddressDropDown.cs" />
+    <Compile Include="ViewModels\DropDownLists\GroupTypeDropDown.cs" />
+    <Compile Include="ViewModels\DropDownLists\MaritalStatusDropDown.cs" />
+    <Compile Include="ViewModels\Group\GroupDetail.cs" />
+    <Compile Include="ViewModels\Group\GroupDetailVM.cs" />
     <Compile Include="ViewModels\Group\GroupMemberContactMethod.cs" />
     <Compile Include="ViewModels\Group\GroupMember_Grid.cs" />
     <Compile Include="ViewModels\Group\GroupSearch.cs" />
+    <Compile Include="ViewModels\Person\AddressMember_Grid.cs" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />
     <Content Include="CodeTemplates\ApiControllerWithActions\Controller.cs.t4" />
@@ -331,6 +343,10 @@
     <Compile Include="ViewModels\DropDownLists\StateDropDown.cs" />
     <Content Include="Scripts\custom\handle-grid-btn-events.js" />
     <Content Include="Views\Household\Index.cshtml" />
+    <Content Include="Views\Address\Index.cshtml" />
+    <Content Include="Views\Ministry\Index.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Talent\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.css" />

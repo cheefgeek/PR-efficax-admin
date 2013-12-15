@@ -14,9 +14,16 @@ namespace PlumRunDomain
     
     public partial class StaticList
     {
-        public int StaticListID { get; set; }
-        public string Value { get; set; }
+        public StaticList()
+        {
+            this.People = new HashSet<Person>();
+        }
+    
+        public int Value { get; set; }
+        public string Text { get; set; }
         public string MiscListName { get; set; }
         public int ListSequence { get; set; }
+    
+        public virtual ICollection<Person> People { get; set; }
     }
 }

@@ -9,13 +9,13 @@ $("#btnEdit").attr("disabled", "disabled");
 $("#btnDelete").attr("disabled", "disabled");
 
 
-
-
 var editUrl = null;
 var deleteUrl = null;
 
 function showDetails(e) {
     grid = e.sender;
+
+    this.collapseRow(this.tbody.find(":not(tr.k-state-selected)"));
 
     // Get selected row 
     var currentDataItem = grid.dataItem(this.select());
@@ -27,6 +27,8 @@ function showDetails(e) {
 
         editUrl = controller + '/Edit/' + currentDataItem.id;
         deleteUrl = controller + '/Delete/' + currentDataItem.id;
+
+        console.log(currentDataItem);
     }
     else {
         $("#btnEdit").attr("disabled", "disabled");
