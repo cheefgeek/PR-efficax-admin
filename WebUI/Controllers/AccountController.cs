@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using WebUI.Models;
+using PlumRunModel;
+using PlumRunDomain;
 
 namespace WebUI.Controllers
 {
@@ -49,6 +51,13 @@ namespace WebUI.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+
+                    using (PREntities db = new PREntities())
+                    {
+                        Person validPerson = db.People.Where(u => u.UserName == model.UserName).First();
+                        WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+                    }
+
                     return RedirectToLocal(returnUrl);
                 }
                 else

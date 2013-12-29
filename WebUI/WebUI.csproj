@@ -237,6 +237,7 @@
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Helpers\AccountHelper.cs" />
     <Compile Include="Helpers\MathHelpers.cs" />
     <Compile Include="ViewModels\Address\AddressDetail.cs" />
     <Compile Include="ViewModels\Address\AddressSearch.cs" />
