@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @using WebUI.Helpers
+
+    <meta charset="utf-8" />
+    <title>Effective Church Home</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!--ACE basic styles-->
+    <link href="~/Content/Ace/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Ace/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="~/Content/Ace/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--page specific plugin styles-->
+    @RenderSection("PageStyles", false)
+
+    <!--ACE fonts-->
+    <link href="~/Content/Ace/css/ace-fonts.css" rel="stylesheet" />
+
+    <!--ACE styles-->
+    <link href="~/Content/Ace/css/ace.min.css" rel="stylesheet" />
+    <link href="~/Content/Ace/css/ace-responsive.min.css" rel="stylesheet" />
+    <link href="~/Content/Ace/css/ace-skins.min.css" rel="stylesheet" />
+
+    <!--These CSS entries were added by the Kendo UI VS Extensions for compatibility reasons-->
+    <link href="@Url.Content("~/Content/kendo.compatibility.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2013.2.716/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2013.2.716/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2013.2.716/kendo.silver.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2013.2.716/kendo.dataviz.silver.min.css")" rel="stylesheet" type="text/css" />
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+    <![endif]-->
+    <!--inline styles related to this page-->
+    <!-- KENDO START -->
+    <script src="@Url.Content("~/Scripts/kendo/2013.2.716/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2013.2.716/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2013.2.716/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    <script src="~/Scripts/kendo/2013.2.716/kendo.web.min.js"></script>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a href="#" class="brand">
+                    <small>
+                        <i class="icon-leaf"></i>
+                        Plum Run Software
+                    </small>
+                </a><!--/.brand-->
+
+                
+                </ul><!--/.ace-nav-->
+            </div><!--/.container-fluid-->
+        </div><!--/.navbar-inner-->
+    </div>
+
+    <div class="main-container container-fluid">
+        @*<a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>*@
+
+@*        <div class="main-content">
+            <div class="span12">
+                @RenderBody()
+            </div>
+        </div><!--/.main-content--> *@
+
+            <div class="span12">
+                @RenderBody()
+            </div>
+
+
+    </div><!--/.main-container-->
+
+
+    <script type="text/javascript">
+        if ("ontouchend" in document) document.write("<script src='~/Scripts/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <!--page specific plugin scripts-->
+    <!--ace scripts-->
+    <script src="~/Scripts/ace-elements.min.js"></script>
+    <script src="~/Scripts/ace.min.js"></script>
+    <script src="~/Scripts/custom/add-placeholder.js"></script>
+
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using WebUI.Models;
+using PlumRunModel;
+using PlumRunDomain;
+using WebMatrix.WebData;
+using System.Threading;
 
 namespace WebUI.Controllers
 {
@@ -49,6 +53,15 @@ namespace WebUI.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+
+                    //using (PREntities db = new PREntities())                      Replaced with Business.AuthClaimsTransformer
+                    //{
+                    //    Person validPerson = db.People.Where(u => u.UserName == model.UserName).First();
+                    //    WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+
+                    //    var cp = ClaimsPrincipal.Current;
+                    //}
+
                     return RedirectToLocal(returnUrl);
                 }
                 else
@@ -94,6 +107,67 @@ namespace WebUI.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        ////CODE BELOW CAME FROM http://www.codetails.com/punitganshani/using-claims-identity-with-simplemembership-in-asp-net-mvc/20130525
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public virtual ActionResult Register(RegisterModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { });
+        //            if (WebSecurity.Login(model.UserName, model.Password))
+        //            {
+        //                int userId = WebSecurity.GetUserId(model.UserName);
+        //                var nonSensitiveCookieData = new UserNonSensitiveData(userId, model.UserName, model.UserName);
+        //                FederatedAuthentication.SessionAuthenticationModule.WriteSessionTokenToCookie(GetSecurityToken(nonSensitiveCookieData));
+        //            }
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        catch (MembershipCreateUserException exception)
+        //        {
+        //            AddError("", ErrorCodeToString(exception.StatusCode));
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            AddError("", e.Message);
+        //        }
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //
         // POST: /Account/Disassociate
