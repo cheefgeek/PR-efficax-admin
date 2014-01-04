@@ -63,6 +63,9 @@
     <Compile Include="CustomerPayment.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Gift_Talent.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Group.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
@@ -108,7 +111,7 @@
     <Compile Include="RecurringPayment.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Right.cs">
+    <Compile Include="ResourceType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
@@ -117,13 +120,25 @@
     <Compile Include="StartList_AgeGroup.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="StartList_Gift_Talent.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="StartList_MaritalStatus.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StartList_ResourceType.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StartList_UserType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StateProvince.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StaticList.cs">
+      <DependentUpon>PRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs">
       <DependentUpon>PRModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

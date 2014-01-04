@@ -12,17 +12,12 @@ namespace PlumRunDomain
     using System;
     using System.Collections.Generic;
     
-    public partial class Right
+    public partial class Gift_Talent
     {
-        public Right()
-        {
-            this.Roles = new HashSet<Role>();
-        }
-    
-        public int RightID { get; set; }
+        public long Gift_TalentID { get; set; }
+        public long CustomerID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-    
-        public virtual ICollection<Role> Roles { get; set; }
+        public int Sequence { get; set; }
     }
 }

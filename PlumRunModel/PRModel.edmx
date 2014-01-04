@@ -193,22 +193,22 @@
           <Property Name="PaymentAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
           <Property Name="TrialAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
         </EntityType>
-        <EntityType Name="Role">
+        <EntityType Name="UserType">
           <Key>
-            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="UserTypeID" />
           </Key>
-          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <EntityType Name="RoleRight">
+        <EntityType Name="UserTypeRole">
           <Key>
+            <PropertyRef Name="UserTypeID" />
             <PropertyRef Name="RoleID" />
-            <PropertyRef Name="RightID" />
           </Key>
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
-          <Property Name="RightID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AgeGroup">
           <Key>
@@ -218,6 +218,7 @@
           <Property Name="CustomerID" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BillingInterval">
           <Key>
@@ -255,6 +256,16 @@
           <Property Name="AiaCountry" Type="varchar" MaxLength="255" />
           <Property Name="ISOCountryID" Type="varchar" MaxLength="50" />
           <Property Name="ISOCountryName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Gift_Talent">
+          <Key>
+            <PropertyRef Name="Gift_TalentID" />
+          </Key>
+          <Property Name="Gift_TalentID" Type="bigint" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupMemberType">
           <Key>
@@ -295,21 +306,40 @@
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" />
         </EntityType>
-        <EntityType Name="Right">
+        <EntityType Name="ResourceType">
           <Key>
-            <PropertyRef Name="RightID" />
+            <PropertyRef Name="ResourceTypeID" />
           </Key>
-          <Property Name="RightID" Type="int" Nullable="false" />
+          <Property Name="ResourceTypeID" Type="bigint" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="StartList_AgeGroup">
           <Key>
-            <PropertyRef Name="StartList_AgeGroup" />
+            <PropertyRef Name="StartList_AgeGroupID" />
           </Key>
-          <Property Name="StartList_AgeGroup" Type="bigint" Nullable="false" />
+          <Property Name="StartList_AgeGroupID" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StartList_Gift_Talent">
+          <Key>
+            <PropertyRef Name="StartList_Gift_TalentID" />
+          </Key>
+          <Property Name="StartList_Gift_TalentID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StartList_MaritalStatus">
           <Key>
@@ -318,6 +348,22 @@
           <Property Name="StartList_MaritalStatusID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="StartList_ResourceType">
+          <Key>
+            <PropertyRef Name="StartList_ResourceTypeID" />
+          </Key>
+          <Property Name="StartList_ResourceTypeID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="StartList_UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="StateProvince">
           <Key>
@@ -847,30 +893,30 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RoleRight_Right">
-          <End Role="Right" Type="Self.Right" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="RoleRight" Type="Self.RoleRight" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Right">
-              <PropertyRef Name="RightID" />
-            </Principal>
-            <Dependent Role="RoleRight">
-              <PropertyRef Name="RightID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoleRight_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RoleRight" Type="Self.RoleRight" Multiplicity="*" />
+          <End Role="UserTypeRole" Type="Self.UserTypeRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="RoleID" />
             </Principal>
-            <Dependent Role="RoleRight">
+            <Dependent Role="UserTypeRole">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleRight_Role">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserTypeRole" Type="Self.UserTypeRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="UserTypeRole">
+              <PropertyRef Name="UserTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -888,20 +934,25 @@
           <EntitySet Name="Price" EntityType="Self.Price" Schema="Core" store:Type="Tables" />
           <EntitySet Name="PriceList" EntityType="Self.PriceList" Schema="Core" store:Type="Tables" />
           <EntitySet Name="RecurringPayment" EntityType="Self.RecurringPayment" Schema="Core" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="Core" store:Type="Tables" />
-          <EntitySet Name="RoleRight" EntityType="Self.RoleRight" Schema="Core" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="Core" store:Type="Tables" />
+          <EntitySet Name="UserTypeRole" EntityType="Self.UserTypeRole" Schema="Core" store:Type="Tables" />
           <EntitySet Name="AgeGroup" EntityType="Self.AgeGroup" Schema="List" store:Type="Tables" />
           <EntitySet Name="BillingInterval" EntityType="Self.BillingInterval" Schema="List" store:Type="Tables" />
           <EntitySet Name="ContactMethod" EntityType="Self.ContactMethod" Schema="List" store:Type="Tables" />
           <EntitySet Name="ContactMethodQualifier" EntityType="Self.ContactMethodQualifier" Schema="List" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="List" store:Type="Tables" />
+          <EntitySet Name="Gift_Talent" EntityType="Self.Gift_Talent" Schema="List" store:Type="Tables" />
           <EntitySet Name="GroupMemberType" EntityType="Self.GroupMemberType" Schema="List" store:Type="Tables" />
           <EntitySet Name="GroupType" EntityType="Self.GroupType" Schema="List" store:Type="Tables" />
           <EntitySet Name="ImportantDateTypes_UNUSED" EntityType="Self.ImportantDateTypes_UNUSED" Schema="List" store:Type="Tables" />
           <EntitySet Name="MaritalStatus" EntityType="Self.MaritalStatus" Schema="List" store:Type="Tables" />
-          <EntitySet Name="Right" EntityType="Self.Right" Schema="List" store:Type="Tables" />
+          <EntitySet Name="ResourceType" EntityType="Self.ResourceType" Schema="List" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="List" store:Type="Tables" />
           <EntitySet Name="StartList_AgeGroup" EntityType="Self.StartList_AgeGroup" Schema="List" store:Type="Tables" />
+          <EntitySet Name="StartList_Gift_Talent" EntityType="Self.StartList_Gift_Talent" Schema="List" store:Type="Tables" />
           <EntitySet Name="StartList_MaritalStatus" EntityType="Self.StartList_MaritalStatus" Schema="List" store:Type="Tables" />
+          <EntitySet Name="StartList_ResourceType" EntityType="Self.StartList_ResourceType" Schema="List" store:Type="Tables" />
+          <EntitySet Name="StartList_UserType" EntityType="Self.StartList_UserType" Schema="List" store:Type="Tables" />
           <EntitySet Name="StateProvince" EntityType="Self.StateProvince" Schema="List" store:Type="Tables" />
           <EntitySet Name="StaticList" EntityType="Self.StaticList" Schema="List" store:Type="Tables" />
           <AssociationSet Name="FK_Address_Customer" Association="Self.FK_Address_Customer">
@@ -1061,12 +1112,12 @@
             <End Role="RecurringPayment" EntitySet="RecurringPayment" />
           </AssociationSet>
           <AssociationSet Name="FK_RoleRight_Right" Association="Self.FK_RoleRight_Right">
-            <End Role="Right" EntitySet="Right" />
-            <End Role="RoleRight" EntitySet="RoleRight" />
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserTypeRole" EntitySet="UserTypeRole" />
           </AssociationSet>
           <AssociationSet Name="FK_RoleRight_Role" Association="Self.FK_RoleRight_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="RoleRight" EntitySet="RoleRight" />
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="UserTypeRole" EntitySet="UserTypeRole" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1086,19 +1137,24 @@
           <EntitySet Name="Prices" EntityType="PRChurchModel.Price" />
           <EntitySet Name="PriceLists" EntityType="PRChurchModel.PriceList" />
           <EntitySet Name="RecurringPayments" EntityType="PRChurchModel.RecurringPayment" />
-          <EntitySet Name="Roles" EntityType="PRChurchModel.Role" />
+          <EntitySet Name="UserTypes" EntityType="PRChurchModel.UserType" />
           <EntitySet Name="AgeGroups" EntityType="PRChurchModel.AgeGroup" />
           <EntitySet Name="BillingIntervals" EntityType="PRChurchModel.BillingInterval" />
           <EntitySet Name="ContactMethods" EntityType="PRChurchModel.ContactMethod" />
           <EntitySet Name="ContactMethodQualifiers" EntityType="PRChurchModel.ContactMethodQualifier" />
           <EntitySet Name="Countries" EntityType="PRChurchModel.Country" />
+          <EntitySet Name="Gift_Talent" EntityType="PRChurchModel.Gift_Talent" />
           <EntitySet Name="GroupMemberTypes" EntityType="PRChurchModel.GroupMemberType" />
           <EntitySet Name="GroupTypes" EntityType="PRChurchModel.GroupType" />
           <EntitySet Name="ImportantDateTypes_UNUSED" EntityType="PRChurchModel.ImportantDateTypes_UNUSED" />
           <EntitySet Name="MaritalStatus" EntityType="PRChurchModel.MaritalStatu" />
-          <EntitySet Name="Rights" EntityType="PRChurchModel.Right" />
+          <EntitySet Name="ResourceTypes" EntityType="PRChurchModel.ResourceType" />
+          <EntitySet Name="Roles" EntityType="PRChurchModel.Role" />
           <EntitySet Name="StartList_AgeGroup" EntityType="PRChurchModel.StartList_AgeGroup" />
+          <EntitySet Name="StartList_Gift_Talent" EntityType="PRChurchModel.StartList_Gift_Talent" />
           <EntitySet Name="StartList_MaritalStatus" EntityType="PRChurchModel.StartList_MaritalStatus" />
+          <EntitySet Name="StartList_ResourceType" EntityType="PRChurchModel.StartList_ResourceType" />
+          <EntitySet Name="StartList_UserType" EntityType="PRChurchModel.StartList_UserType" />
           <EntitySet Name="StateProvinces" EntityType="PRChurchModel.StateProvince" />
           <EntitySet Name="StaticLists" EntityType="PRChurchModel.StaticList" />
           <AssociationSet Name="FK_Address_Customer" Association="PRChurchModel.FK_Address_Customer">
@@ -1253,9 +1309,9 @@
             <End Role="Person" EntitySet="People" />
             <End Role="Role" EntitySet="Roles" />
           </AssociationSet>
-          <AssociationSet Name="RoleRight" Association="PRChurchModel.RoleRight">
-            <End Role="Right" EntitySet="Rights" />
+          <AssociationSet Name="UserTypeRole" Association="PRChurchModel.UserTypeRole">
             <End Role="Role" EntitySet="Roles" />
+            <End Role="UserType" EntitySet="UserTypes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Address">
@@ -1498,16 +1554,15 @@
           <Property Name="TrialAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
           <NavigationProperty Name="Customer" Relationship="PRChurchModel.FK_RecurringPayment_Customer" FromRole="RecurringPayment" ToRole="Customer" />
         </EntityType>
-        <EntityType Name="Role">
+        <EntityType Name="UserType">
           <Key>
-            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="UserTypeID" />
           </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="People" Relationship="PRChurchModel.PersonRole" FromRole="Role" ToRole="Person" />
-          <NavigationProperty Name="Rights" Relationship="PRChurchModel.RoleRight" FromRole="Role" ToRole="Right" />
+          <NavigationProperty Name="Roles" Relationship="PRChurchModel.UserTypeRole" FromRole="UserType" ToRole="Role" />
         </EntityType>
         <EntityType Name="AgeGroup">
           <Key>
@@ -1517,6 +1572,7 @@
           <Property Name="CustomerID" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
           <NavigationProperty Name="People" Relationship="PRChurchModel.FK_Person_AgeGroup" FromRole="AgeGroup" ToRole="Person" />
         </EntityType>
         <EntityType Name="BillingInterval">
@@ -1559,6 +1615,16 @@
           <Property Name="ISOCountryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ISOCountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customers" Relationship="PRChurchModel.FK_Customer_Country" FromRole="Country" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Gift_Talent">
+          <Key>
+            <PropertyRef Name="Gift_TalentID" />
+          </Key>
+          <Property Name="Gift_TalentID" Type="Int64" Nullable="false" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupMemberType">
           <Key>
@@ -1606,22 +1672,42 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="People" Relationship="PRChurchModel.FK_Person_MaritalStatus" FromRole="MaritalStatu" ToRole="Person" />
         </EntityType>
-        <EntityType Name="Right">
+        <EntityType Name="ResourceType">
           <Key>
-            <PropertyRef Name="RightID" />
+            <PropertyRef Name="ResourceTypeID" />
           </Key>
-          <Property Name="RightID" Type="Int32" Nullable="false" />
+          <Property Name="ResourceTypeID" Type="Int64" Nullable="false" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Roles" Relationship="PRChurchModel.RoleRight" FromRole="Right" ToRole="Role" />
+          <NavigationProperty Name="People" Relationship="PRChurchModel.PersonRole" FromRole="Role" ToRole="Person" />
+          <NavigationProperty Name="UserTypes" Relationship="PRChurchModel.UserTypeRole" FromRole="Role" ToRole="UserType" />
         </EntityType>
         <EntityType Name="StartList_AgeGroup">
           <Key>
-            <PropertyRef Name="StartList_AgeGroup1" />
+            <PropertyRef Name="StartList_AgeGroupID" />
           </Key>
-          <Property Name="StartList_AgeGroup1" Type="Int64" Nullable="false" />
+          <Property Name="StartList_AgeGroupID" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StartList_Gift_Talent">
+          <Key>
+            <PropertyRef Name="StartList_Gift_TalentID" />
+          </Key>
+          <Property Name="StartList_Gift_TalentID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="StartList_MaritalStatus">
           <Key>
@@ -1630,6 +1716,22 @@
           <Property Name="StartList_MaritalStatusID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="StartList_ResourceType">
+          <Key>
+            <PropertyRef Name="StartList_ResourceTypeID" />
+          </Key>
+          <Property Name="StartList_ResourceTypeID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="StartList_UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="StateProvince">
           <Key>
@@ -2137,9 +2239,9 @@
           <End Type="PRChurchModel.Person" Role="Person" Multiplicity="*" />
           <End Type="PRChurchModel.Role" Role="Role" Multiplicity="*" />
         </Association>
-        <Association Name="RoleRight">
-          <End Type="PRChurchModel.Right" Role="Right" Multiplicity="*" />
+        <Association Name="UserTypeRole">
           <End Type="PRChurchModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="PRChurchModel.UserType" Role="UserType" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -2339,19 +2441,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="PRChurchModel.Role">
-              <MappingFragment StoreEntitySet="Role">
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgeGroups">
             <EntityTypeMapping TypeName="PRChurchModel.AgeGroup">
               <MappingFragment StoreEntitySet="AgeGroup">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -2400,6 +2503,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Gift_Talent">
+            <EntityTypeMapping TypeName="PRChurchModel.Gift_Talent">
+              <MappingFragment StoreEntitySet="Gift_Talent">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Gift_TalentID" ColumnName="Gift_TalentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="GroupMemberTypes">
             <EntityTypeMapping TypeName="PRChurchModel.GroupMemberType">
               <MappingFragment StoreEntitySet="GroupMemberType">
@@ -2443,21 +2557,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Rights">
-            <EntityTypeMapping TypeName="PRChurchModel.Right">
-              <MappingFragment StoreEntitySet="Right">
+          <EntitySetMapping Name="ResourceTypes">
+            <EntityTypeMapping TypeName="PRChurchModel.ResourceType">
+              <MappingFragment StoreEntitySet="ResourceType">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RightID" ColumnName="RightID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ResourceTypeID" ColumnName="ResourceTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="PRChurchModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StartList_AgeGroup">
             <EntityTypeMapping TypeName="PRChurchModel.StartList_AgeGroup">
               <MappingFragment StoreEntitySet="StartList_AgeGroup">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="StartList_AgeGroup1" ColumnName="StartList_AgeGroup" />
+                <ScalarProperty Name="StartList_AgeGroupID" ColumnName="StartList_AgeGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StartList_Gift_Talent">
+            <EntityTypeMapping TypeName="PRChurchModel.StartList_Gift_Talent">
+              <MappingFragment StoreEntitySet="StartList_Gift_Talent">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartList_Gift_TalentID" ColumnName="StartList_Gift_TalentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2467,6 +2602,24 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="StartList_MaritalStatusID" ColumnName="StartList_MaritalStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StartList_ResourceType">
+            <EntityTypeMapping TypeName="PRChurchModel.StartList_ResourceType">
+              <MappingFragment StoreEntitySet="StartList_ResourceType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartList_ResourceTypeID" ColumnName="StartList_ResourceTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StartList_UserType">
+            <EntityTypeMapping TypeName="PRChurchModel.StartList_UserType">
+              <MappingFragment StoreEntitySet="StartList_UserType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2511,12 +2664,12 @@
               <ScalarProperty Name="PersonID" ColumnName="PersonID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="RoleRight" TypeName="PRChurchModel.RoleRight" StoreEntitySet="RoleRight">
+          <AssociationSetMapping Name="UserTypeRole" TypeName="PRChurchModel.UserTypeRole" StoreEntitySet="UserTypeRole">
+            <EndProperty Name="UserType">
+              <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+            </EndProperty>
             <EndProperty Name="Role">
               <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-            </EndProperty>
-            <EndProperty Name="Right">
-              <ScalarProperty Name="RightID" ColumnName="RightID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
