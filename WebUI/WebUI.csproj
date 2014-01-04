@@ -127,6 +127,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.15\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
@@ -228,6 +229,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\AuthClaimsTransformer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -1275,7 +1277,9 @@
     <Content Include="Scripts\uncompressed\x-editable\bootstrap-editable.js" />
     <Content Include="Scripts\x-editable\ace-editable.min.js" />
     <Content Include="Scripts\x-editable\bootstrap-editable.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

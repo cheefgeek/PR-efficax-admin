@@ -16,18 +16,25 @@ namespace WebUI.Helpers
             {
                 new Claim(ClaimTypes.Name, validPerson.FirstName + " " + validPerson.LastName),
                 new Claim("CustID", validPerson.CustomerID.ToString()),
-                new Claim("IsPRAdmin", "true"),
-                new Claim("IsCustAdmin", "true"),
+                new Claim("PersonID", validPerson.PersonID.ToString()),
 
                 //TODO: Create ForEach loop for list of roles
-                new Claim(ClaimTypes.Role, "PR Administrator")               
+                new Claim(ClaimTypes.Role, "PR Administrator"),
+                new Claim(ClaimTypes.Role, "Cust Admin"),
+                
             };
 
             var id = new ClaimsIdentity(claims, "Forms");
 
-            var p = new ClaimsPrincipal(id);
+            var cp = new ClaimsPrincipal(id);
 
-            Thread.CurrentPrincipal = p;
+            Thread.CurrentPrincipal = cp;
+            //p = ClaimsPrincipal.Current;
+            HttpContext.Current.User = cp;
+
+            
+
+
         }
     }
 }
