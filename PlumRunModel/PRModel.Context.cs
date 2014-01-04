@@ -39,19 +39,24 @@ namespace PlumRunModel
         public DbSet<Price> Prices { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<RecurringPayment> RecurringPayments { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
         public DbSet<AgeGroup> AgeGroups { get; set; }
         public DbSet<BillingInterval> BillingIntervals { get; set; }
         public DbSet<ContactMethod> ContactMethods { get; set; }
         public DbSet<ContactMethodQualifier> ContactMethodQualifiers { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Gift_Talent> Gift_Talent { get; set; }
         public DbSet<GroupMemberType> GroupMemberTypes { get; set; }
         public DbSet<GroupType> GroupTypes { get; set; }
         public DbSet<ImportantDateTypes_UNUSED> ImportantDateTypes_UNUSED { get; set; }
         public DbSet<MaritalStatu> MaritalStatus { get; set; }
-        public DbSet<Right> Rights { get; set; }
+        public DbSet<ResourceType> ResourceTypes { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<StartList_AgeGroup> StartList_AgeGroup { get; set; }
+        public DbSet<StartList_Gift_Talent> StartList_Gift_Talent { get; set; }
         public DbSet<StartList_MaritalStatus> StartList_MaritalStatus { get; set; }
+        public DbSet<StartList_ResourceType> StartList_ResourceType { get; set; }
+        public DbSet<StartList_UserType> StartList_UserType { get; set; }
         public DbSet<StateProvince> StateProvinces { get; set; }
         public DbSet<StaticList> StaticLists { get; set; }
     }

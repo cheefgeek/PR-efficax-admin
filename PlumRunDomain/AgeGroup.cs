@@ -23,6 +23,7 @@ namespace PlumRunDomain
         public long CustomerID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Sequence { get; set; }
     
         public virtual ICollection<Person> People { get; set; }
     }

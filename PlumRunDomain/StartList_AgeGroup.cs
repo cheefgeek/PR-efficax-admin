@@ -14,8 +14,9 @@ namespace PlumRunDomain
     
     public partial class StartList_AgeGroup
     {
-        public long StartList_AgeGroup1 { get; set; }
+        public long StartList_AgeGroupID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Sequence { get; set; }
     }
 }
