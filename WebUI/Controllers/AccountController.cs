@@ -13,6 +13,8 @@ using PlumRunModel;
 using PlumRunDomain;
 using WebMatrix.WebData;
 using System.Threading;
+using System.Security.Principal;
+
 
 namespace WebUI.Controllers
 {
@@ -69,6 +71,11 @@ namespace WebUI.Controllers
                     ModelState.AddModelError("", "Invalid username or password.");
                 }
             }
+
+
+
+
+
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -478,5 +485,42 @@ namespace WebUI.Controllers
             }
         }
         #endregion
+
+
+
+
+        //public class ClaimsTransformationHttpModule : IHttpModule
+        //{
+        //    public void Dispose()
+        //    { }
+
+        //    public void Init(HttpApplication context)
+        //    {
+        //        context.PostAuthenticateRequest += Context_PostAuthenticateRequest;
+        //    }
+
+        //    void Context_PostAuthenticateRequest(object sender, EventArgs e)
+        //    {
+        //        var context = ((HttpApplication)sender).Context;
+
+        //        // no need to call transformation if session already exists
+        //        if (FederatedAuthentication.SessionAuthenticationModule != null &&
+        //            FederatedAuthentication.SessionAuthenticationModule.ContainsSessionTokenCookie(context.Request.Cookies))
+        //        {
+        //            return;
+        //        }
+
+        //        var transformer =
+        //        FederatedAuthentication.FederationConfiguration.IdentityConfiguration.ClaimsAuthenticationManager;
+        //        if (transformer != null)
+        //        {
+        //            var transformedPrincipal = transformer.Authenticate(context.Request.RawUrl, context.User as ClaimsPrincipal);
+
+        //            context.User = transformedPrincipal;
+        //            Thread.CurrentPrincipal = transformedPrincipal;
+        //        }
+        //    }
+        //}
+
     }
 }
