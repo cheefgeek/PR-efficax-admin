@@ -14,6 +14,9 @@ using PlumRunDomain;
 using WebMatrix.WebData;
 using System.Threading;
 using System.Security.Principal;
+using Microsoft.Owin.Host.SystemWeb;
+using Owin;
+using System.IdentityModel.Tokens;
 
 
 namespace WebUI.Controllers
@@ -47,35 +50,77 @@ namespace WebUI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)    (original code)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            Person validPerson = new Person();
+            
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                using (PREntities db = new PREntities())
                 {
-                    await SignInAsync(user, model.RememberMe);
+                    string userNameFound = "";
+                    string pwMatches = "";
+                    
+                    //Is there a user with the entered user name?
+                    bool doesExist = db.People.Any(u => u.UserName == model.UserName);
 
-                    //using (PREntities db = new PREntities())                      Replaced with Business.AuthClaimsTransformer
-                    //{
-                    //    Person validPerson = db.People.Where(u => u.UserName == model.UserName).First();
-                    //    WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+                    if (doesExist == true)
+                    {
+                        userNameFound = "true";
+                        validPerson = db.People.Where(u => u.UserName == model.UserName).First();
+                    }
 
-                    //    var cp = ClaimsPrincipal.Current;
-                    //}
+                    //Does the entered pw match the users password?
+                    if (1 == 1)                                         //TODO: Add Password Check
+                    {
+                        pwMatches = "true";
+                    }
 
-                    return RedirectToLocal(returnUrl);
+                    if(userNameFound == "true" && pwMatches == "true")
+                    {
+                        //Create a Claims Principal
+                        ClaimsPrincipal cp = WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+
+                        //Authenticate ClaimsIdentity from SetupPrincipal AND create SessionSecurityToken
+                        
+
+                        return RedirectToLocal(returnUrl);
+
+                    }
+                    
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+
+
+
+
+
+
+                //var user = await UserManager.FindAsync(model.UserName, model.Password);
+
+                //if (user != null)
+                //{
+                //    await SignInAsync(user, model.RememberMe);
+
+                //    using (PREntities db = new PREntities())                      //Replaced with Business.AuthClaimsTransformer
+                //    {
+                //        
+                //        var cp = WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+
+                //        var sessionToken = new SessionSecurityToken(cp, TimeSpan.FromHours(2));
+                //        sessionToken.IsPersistent = true;
+
+                //        //FederatedAuthentication.SessionAuthenticationModule.WriteSessionTokenToCookie(sessionToken);
+                //    }
+
+                //    return RedirectToLocal(returnUrl);
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("", "Invalid username or password.");
+                //}
+
             }
-
-
-
-
-
 
             // If we got this far, something failed, redisplay form
             return View(model);

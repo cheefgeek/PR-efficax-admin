@@ -5,12 +5,15 @@ using System.Security.Claims;
 using System.Web;
 using PlumRunDomain;
 using System.Threading;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Host.SystemWeb;
+
 
 namespace WebUI.Helpers
 {
     public class AccountHelper
     {
-        public static void SetupPrincipal(Person validPerson)
+        public static ClaimsPrincipal SetupPrincipal(Person validPerson)
         {
             var claims = new List<Claim>
             {
@@ -24,16 +27,11 @@ namespace WebUI.Helpers
                 
             };
 
-            var id = new ClaimsIdentity(claims, "Forms");
+            var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 
             var cp = new ClaimsPrincipal(id);
 
-            Thread.CurrentPrincipal = cp;
-            //p = ClaimsPrincipal.Current;
-            HttpContext.Current.User = cp;
-
-            
-
+            return cp;
 
         }
     }
