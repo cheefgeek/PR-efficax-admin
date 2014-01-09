@@ -24,7 +24,7 @@ namespace WebUI.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
+        public AccountController()        
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
         }
@@ -45,81 +45,104 @@ namespace WebUI.Controllers
             return View();
         }
 
+//// *************************** START NEW LOGIN CODE ***************************************************************************
+//        //
+//        // POST: /Account/Login   THIS IS NEW CODE
+//        [HttpPost]
+//        [AllowAnonymous]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)    //(original code)
+//        //public ActionResult Login(LoginViewModel model, string returnUrl)
+//        {
+//            Person validPerson = new Person();
+            
+//            if (ModelState.IsValid)
+//            {
+//            //    using (PREntities db = new PREntities())
+//            //    {
+//            //        string userNameFound = "";
+//            //        string pwMatches = "";
+                    
+//            //        //Is there a user with the entered user name?
+//            //        bool doesExist = db.People.Any(u => u.UserName == model.UserName);
+
+//            //        if (doesExist == true)
+//            //        {
+//            //            userNameFound = "true";
+//            //            validPerson = db.People.Where(u => u.UserName == model.UserName).First();
+//            //        }
+
+//            //        //Does the entered pw match the users password?
+//            //        if (1 == 1)                                         //TODO: Add Password Check
+//            //        {
+//            //            pwMatches = "true";
+//            //        }
+
+//            //        if(userNameFound == "true" && pwMatches == "true")
+//            //        {
+//            //            //Create a Claims Principal
+//            //            ClaimsPrincipal cp = WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+
+//            //            //Authenticate ClaimsIdentity from SetupPrincipal AND create SessionSecurityToken
+                        
+
+//            //            return RedirectToLocal(returnUrl);
+
+//            //        }
+                    
+//            //    }
+
+//                var user = await UserManager.FindAsync(model.UserName, model.Password);
+
+//                if (user != null)
+//                {
+//                    await SignInAsync(user, model.RememberMe);
+
+//                    using (PREntities db = new PREntities())                      //Replaced with Business.AuthClaimsTransformer
+//                    {
+                        
+//                        var cp = WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
+
+//                        var sessionToken = new SessionSecurityToken(cp, TimeSpan.FromHours(2));
+//                        sessionToken.IsPersistent = true;
+
+//                        //FederatedAuthentication.SessionAuthenticationModule.WriteSessionTokenToCookie(sessionToken);
+//                    }
+
+//                    return RedirectToLocal(returnUrl);
+//                }
+//                else
+//                {
+//                    ModelState.AddModelError("", "Invalid username or password.");
+//                }
+//            }
+
+//            // If we got this far, something failed, redisplay form
+//            //return View(model);
+//        }
+//// *************************** END NEW LOGIN CODE ***************************************************************************
+
+
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)    (original code)
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            Person validPerson = new Person();
-            
             if (ModelState.IsValid)
-            {
-                using (PREntities db = new PREntities())
+            {                
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
+
+                if (user != null)
                 {
-                    string userNameFound = "";
-                    string pwMatches = "";
-                    
-                    //Is there a user with the entered user name?
-                    bool doesExist = db.People.Any(u => u.UserName == model.UserName);
-
-                    if (doesExist == true)
-                    {
-                        userNameFound = "true";
-                        validPerson = db.People.Where(u => u.UserName == model.UserName).First();
-                    }
-
-                    //Does the entered pw match the users password?
-                    if (1 == 1)                                         //TODO: Add Password Check
-                    {
-                        pwMatches = "true";
-                    }
-
-                    if(userNameFound == "true" && pwMatches == "true")
-                    {
-                        //Create a Claims Principal
-                        ClaimsPrincipal cp = WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
-
-                        //Authenticate ClaimsIdentity from SetupPrincipal AND create SessionSecurityToken
-                        
-
-                        return RedirectToLocal(returnUrl);
-
-                    }
-                    
+                    await SignInAsync(user, model.RememberMe);
+                    return RedirectToLocal(returnUrl);
                 }
-
-
-
-
-
-
-                //var user = await UserManager.FindAsync(model.UserName, model.Password);
-
-                //if (user != null)
-                //{
-                //    await SignInAsync(user, model.RememberMe);
-
-                //    using (PREntities db = new PREntities())                      //Replaced with Business.AuthClaimsTransformer
-                //    {
-                //        
-                //        var cp = WebUI.Helpers.AccountHelper.SetupPrincipal(validPerson);
-
-                //        var sessionToken = new SessionSecurityToken(cp, TimeSpan.FromHours(2));
-                //        sessionToken.IsPersistent = true;
-
-                //        //FederatedAuthentication.SessionAuthenticationModule.WriteSessionTokenToCookie(sessionToken);
-                //    }
-
-                //    return RedirectToLocal(returnUrl);
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", "Invalid username or password.");
-                //}
-
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -194,31 +217,6 @@ namespace WebUI.Controllers
         //    // If we got this far, something failed, redisplay form
         //    return View(model);
         //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         //
