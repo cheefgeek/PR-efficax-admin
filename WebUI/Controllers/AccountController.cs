@@ -17,6 +17,8 @@ using System.Security.Principal;
 using Microsoft.Owin.Host.SystemWeb;
 using Owin;
 using System.IdentityModel.Tokens;
+using WebUI.Business;
+using System.IdentityModel.Services;
 
 
 namespace WebUI.Controllers
@@ -137,6 +139,15 @@ namespace WebUI.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+
+                    GenericIdentity gi = new GenericIdentity(model.UserName);
+
+                    ClaimsIdentity ci = new ClaimsIdentity(gi);
+
+                    var cp = new ClaimsPrincipal(gi);
+
+                    Thread.CurrentPrincipal = FederatedAuthentication.FederationConfiguration.IdentityConfiguration.ClaimsAuthenticationManager.Authenticate("none", cp);
+
                     return RedirectToLocal(returnUrl);
                 }
                 else

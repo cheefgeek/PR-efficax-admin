@@ -32,6 +32,7 @@ namespace WebUI.Business
 
                 var claims = new List<Claim>
                 {
+                    new Claim(ClaimTypes.Name, name),
                     new Claim(ClaimTypes.GivenName, person.FirstName + " " + person.LastName),
                     new Claim("CustID", person.CustomerID.ToString()),
                     new Claim("PersonID", person.PersonID.ToString()),
