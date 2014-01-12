@@ -13,7 +13,9 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    @Html.ValidationSummary(true)
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary(true)
+                    </div> 
 
                     <div class="well" align="center" >
                         @*User Name*@
@@ -21,7 +23,7 @@
                             <div class="controls">
                                 <input type="text" name="model.UserName" placeholder="User Name" />
                             </div>
-                            @Html.ValidationMessageFor(model => model.UserName)
+                                @Html.ValidationMessageFor(model => model.UserName)
                         </div>
 
                         @*Password*@
@@ -29,7 +31,7 @@
                             <div class="controls">
                                 <input type="text" name="model.Password" placeholder="Password" />
                             </div>
-                            @Html.ValidationMessageFor(model => model.Password)
+                                @Html.ValidationMessageFor(model => model.Password)
                         </div>
 
                         <button class="btn btn-app btn-primary btn-mini radius-4" id="btnlogin" name="button">

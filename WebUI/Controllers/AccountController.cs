@@ -138,20 +138,11 @@ namespace WebUI.Controllers
 
                 if (user != null)
                 {
-                                        
-                    
-                    //await SignInAsync(user, model.RememberMe);
-
                     GenericIdentity gi = new GenericIdentity(model.UserName);
                     string[] roleArray = {};
                     GenericPrincipal gp = new GenericPrincipal(gi, roleArray);
 
-                    //ClaimsIdentity ci = new ClaimsIdentity(gi);
-                    //var cp = new ClaimsPrincipal(ci);
-
                     Thread.CurrentPrincipal = FederatedAuthentication.FederationConfiguration.IdentityConfiguration.ClaimsAuthenticationManager.Authenticate("none", gp) as IPrincipal;
-
-                    //HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, ci);
 
                     IPrincipal principal = Thread.CurrentPrincipal;
                     ClaimsPrincipal cprincipal = new ClaimsPrincipal(principal);
