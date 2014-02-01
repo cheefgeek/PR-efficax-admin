@@ -5,6 +5,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using PlumRunDomain;
 using PlumRunModel;
+using System.Threading;
 
 namespace WebUI.Controllers
 {
@@ -19,9 +20,12 @@ namespace WebUI.Controllers
 
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
+
             using (PREntities db = new PREntities())
             {
                 var result = db.Groups
+
+
                     .Where(g => g.GroupTypeID == 2)
                     .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging
                     // Use a view model to avoid serializing internal Entity Framework properties as JSON

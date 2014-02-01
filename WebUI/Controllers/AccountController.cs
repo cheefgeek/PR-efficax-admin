@@ -144,8 +144,11 @@ namespace WebUI.Controllers
 
                     Thread.CurrentPrincipal = FederatedAuthentication.FederationConfiguration.IdentityConfiguration.ClaimsAuthenticationManager.Authenticate("none", gp) as IPrincipal;
 
+
                     IPrincipal principal = Thread.CurrentPrincipal;
                     ClaimsPrincipal cprincipal = new ClaimsPrincipal(principal);
+
+                    //HttpContext.Current.User = principal;                 //Claims Transformation Demo video shows this line, but doesn't work here
 
                     var sessionToken = new SessionSecurityToken(cprincipal, TimeSpan.FromHours(8));
 
