@@ -144,7 +144,6 @@ namespace WebUI.Controllers
 
                     Thread.CurrentPrincipal = FederatedAuthentication.FederationConfiguration.IdentityConfiguration.ClaimsAuthenticationManager.Authenticate("none", gp) as IPrincipal;
 
-
                     IPrincipal principal = Thread.CurrentPrincipal;
                     ClaimsPrincipal cprincipal = new ClaimsPrincipal(principal);
 

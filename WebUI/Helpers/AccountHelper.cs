@@ -32,7 +32,7 @@ namespace WebUI.Helpers
             var cp = new ClaimsPrincipal(id);
 
             return cp;
-
         }
+
     }
 }

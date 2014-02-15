@@ -6,6 +6,10 @@ using Kendo.Mvc.UI;
 using PlumRunDomain;
 using PlumRunModel;
 using System.Threading;
+using System.IdentityModel.Services;
+using System.Security.Permissions;
+using WebUI.Business;
+using System.Security;
 
 namespace WebUI.Controllers
 {
@@ -18,13 +22,24 @@ namespace WebUI.Controllers
             return View();
         }
 
+        [HandleError(ExceptionType = typeof(SecurityException))]
+        [ClaimsPrincipalPermission(SecurityAction.Demand, Operation = "Show", Resource = "Ministry")]
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
-
-            using (PREntities db = new PREntities())
+           
+           using (PREntities db = new PREntities())
             {
-                var result = db.Groups
+                var userPersonID = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("PersonID").Value;
 
+                //var userGroups = db.GroupMembers          CAN'T GET THIS TO WORK!
+                //    .Where(p => p.PersonID == 0)
+                //    .Select(x => new Int32
+                //    {
+                //        GroupID = x.GroupID
+                //    });
+
+
+                var result = db.Groups
 
                     .Where(g => g.GroupTypeID == 2)
                     .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging
@@ -41,6 +56,26 @@ namespace WebUI.Controllers
                     .ToDataSourceResult(request);
                 return Json(result);
             }
+
+            
+            //SAMPLE LINQ JOIN
+            //var query = contacts.AsEnumerable().Join(orders.AsEnumerable(),
+            //order => order.Field<Int32>("ContactID"),
+            //contact => contact.Field<Int32>("ContactID"),
+            //(contact, order) => new
+            //{
+            //    ContactID = contact.Field<Int32>("ContactID"),
+            //    SalesOrderID = order.Field<Int32>("SalesOrderID"),
+            //    FirstName = contact.Field<string>("FirstName"),
+            //    Lastname = contact.Field<string>("Lastname"),
+            //    TotalDue = order.Field<decimal>("TotalDue")
+            //})
+            //    .GroupBy(record => record.ContactID);
+
+
+
+
+
         }
 
         public ActionResult GroupMembers_Grid(int groupID, [DataSourceRequest] DataSourceRequest request)
