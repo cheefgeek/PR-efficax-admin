@@ -29,7 +29,12 @@ namespace WebUI.Controllers
            
            using (PREntities db = new PREntities())
             {
+                //BEGIN TESTS OF SECURITY METHODS
                 var userPersonID = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("PersonID").Value;
+                var testClaim = System.Security.Claims.ClaimsPrincipal.Current.HasClaim("PersonID", "0");
+                var isPRAdmin = System.Security.Claims.ClaimsPrincipal.Current.HasClaim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "PR Administrator");
+                //END TESTS OF SECURITY METHODS
+
 
                 //var userGroups = db.GroupMembers          CAN'T GET THIS TO WORK!
                 //    .Where(p => p.PersonID == 0)

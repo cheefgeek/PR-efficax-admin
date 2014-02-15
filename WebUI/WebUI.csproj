@@ -249,6 +249,7 @@
     <Compile Include="Filters\RedirectOnErrorAttribute.cs" />
     <Compile Include="Helpers\AccountHelper.cs" />
     <Compile Include="Helpers\MathHelpers.cs" />
+    <Compile Include="ViewModels\Account\CurrentUser.cs" />
     <Compile Include="ViewModels\Address\AddressDetail.cs" />
     <Compile Include="ViewModels\Address\AddressSearch.cs" />
     <Compile Include="ViewModels\DropDownLists\AddressDropDown.cs" />
