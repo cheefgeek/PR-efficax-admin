@@ -29,7 +29,7 @@ namespace WebUI.Business
             using (PREntities db = new PREntities())
             {
                 Person person = db.People.Where(u => u.UserName == name).First();
-                var personRoles = person.Roles;
+                var personRoles = person.Roles.Select(x => x.Name);
 
                 var claims = new List<Claim>
                 {
@@ -37,14 +37,20 @@ namespace WebUI.Business
                     new Claim(ClaimTypes.GivenName, person.FirstName + " " + person.LastName),
                     new Claim("CustID", person.CustomerID.ToString()),
                     new Claim("PersonID", person.PersonID.ToString()),
-
-                    //TODO: Create ForEach loop for list of roles
-                    new Claim(ClaimTypes.Role, "PR Admin"),
-                    new Claim(ClaimTypes.Role, "Administrator"),
                 };
+                
+                foreach (string role in personRoles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+
                 return new ClaimsPrincipal(new ClaimsIdentity(claims, "Custom"));
 
             }
         }
     }
 }
+
+
+
+
