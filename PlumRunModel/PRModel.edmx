@@ -276,6 +276,7 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ShortName" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="AdminCapable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupType">
           <Key>
@@ -1637,6 +1638,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="GroupMembers" Relationship="PRChurchModel.FK_GroupMember_GroupMemberType" FromRole="GroupMemberType" ToRole="GroupMember" />
           <NavigationProperty Name="GroupType" Relationship="PRChurchModel.FK_GroupMemberType_GroupType" FromRole="GroupMemberType" ToRole="GroupType" />
+          <Property Name="AdminCapable" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupType">
           <Key>
@@ -2517,6 +2519,7 @@
           <EntitySetMapping Name="GroupMemberTypes">
             <EntityTypeMapping TypeName="PRChurchModel.GroupMemberType">
               <MappingFragment StoreEntitySet="GroupMemberType">
+                <ScalarProperty Name="AdminCapable" ColumnName="AdminCapable" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

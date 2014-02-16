@@ -24,6 +24,7 @@ namespace PlumRunDomain
         public string Name { get; set; }
         public string ShortName { get; set; }
         public string Description { get; set; }
+        public bool AdminCapable { get; set; }
     
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         public virtual GroupType GroupType { get; set; }
