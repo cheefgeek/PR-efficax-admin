@@ -13,8 +13,8 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="alert alert-danger">
-                        @Html.ValidationSummary(true)
+                    <div>
+                        <p class="alert alert-danger">@Html.ValidationSummary(true)</p>
                     </div> 
 
                     <div class="well" align="center" >

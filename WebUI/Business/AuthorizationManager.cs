@@ -17,32 +17,14 @@ namespace WebUI.Business
             if (action == "Show" && resource == "Ministry")
             {
                 //Check for required claim...
-                var hasClaim = context.Principal.IsInRole("PR Administrator");
+                var hasClaim = context.Principal.IsInRole("PR Admin") || context.Principal.IsInRole("Administrator") || context.Principal.IsInRole("Ministry Admin");
 
                 return hasClaim;
             }
 
             return false;
 
-            //try
-            //{
-            //    if (action == "Show" && resource == "Ministry")
-            //    {
-            //        //Check for required claim...
-            //        var hasClaim = context.Principal.IsInRole("PR Administrator");
 
-            //        return hasClaim;
-            //    }
-
-            //    return false;
-            //}
-            //catch (System.Security.SecurityException e)
-            //{
-            //    var exception = e;
-                
-            //}
-
-            //return false;
         }
     }
 }

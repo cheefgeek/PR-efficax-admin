@@ -29,26 +29,17 @@ namespace WebUI.Controllers
            
            using (PREntities db = new PREntities())
             {
-                //BEGIN TESTS OF SECURITY METHODS
                 var userPersonID = System.Security.Claims.ClaimsPrincipal.Current.FindFirst("PersonID").Value;
-                var testClaim = System.Security.Claims.ClaimsPrincipal.Current.HasClaim("PersonID", "0");
-                var isPRAdmin = System.Security.Claims.ClaimsPrincipal.Current.HasClaim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "PR Administrator");
+                int userCustID = Convert.ToInt32(System.Security.Claims.ClaimsPrincipal.Current.FindFirst("CustID").Value);
+               
+                //BEGIN TESTS OF SECURITY METHODS
+                //var custID = System.Security.Claims.ClaimsPrincipal.Current.HasClaim("CustID", "0");
+                //var isPRAdmin = System.Security.Claims.ClaimsPrincipal.Current.HasClaim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "PR Administrator");
                 //END TESTS OF SECURITY METHODS
 
-
-                //var userGroups = db.GroupMembers          CAN'T GET THIS TO WORK!
-                //    .Where(p => p.PersonID == 0)
-                //    .Select(x => new Int32
-                //    {
-                //        GroupID = x.GroupID
-                //    });
-
-
                 var result = db.Groups
-
-                    .Where(g => g.GroupTypeID == 2)
-                    .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging
-                    // Use a view model to avoid serializing internal Entity Framework properties as JSON
+                    .Where(g => g.GroupTypeID == 2 && g.CustomerID == userCustID)
+                    .OrderBy(x => x.Name)               // EF requires ordered IQueryable in order to do paging. Use a view model to avoid serializing internal Entity Framework properties as JSON
                     .Select(x => new WebUI.ViewModels.Group.GroupSearch
                     {
                         GroupID = x.GroupID,
@@ -61,24 +52,6 @@ namespace WebUI.Controllers
                     .ToDataSourceResult(request);
                 return Json(result);
             }
-
-            
-            //SAMPLE LINQ JOIN
-            //var query = contacts.AsEnumerable().Join(orders.AsEnumerable(),
-            //order => order.Field<Int32>("ContactID"),
-            //contact => contact.Field<Int32>("ContactID"),
-            //(contact, order) => new
-            //{
-            //    ContactID = contact.Field<Int32>("ContactID"),
-            //    SalesOrderID = order.Field<Int32>("SalesOrderID"),
-            //    FirstName = contact.Field<string>("FirstName"),
-            //    Lastname = contact.Field<string>("Lastname"),
-            //    TotalDue = order.Field<decimal>("TotalDue")
-            //})
-            //    .GroupBy(record => record.ContactID);
-
-
-
 
 
         }
