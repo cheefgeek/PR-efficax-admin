@@ -10,7 +10,6 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
         public ActionResult Index()
         {
             ViewBag.ClaimsIdentity = Thread.CurrentPrincipal.Identity;

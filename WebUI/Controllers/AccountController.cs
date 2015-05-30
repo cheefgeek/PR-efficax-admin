@@ -23,7 +23,6 @@ using System.IdentityModel.Services;
 
 namespace WebUI.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         public AccountController()        
