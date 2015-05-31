@@ -21,7 +21,7 @@ namespace WebUI.Controllers
         {
             return View();
         }
-
+        //3 LINES BELOW CALL Business/AuthorizationManager.cs, AND THROW SECURITY ERRORS IF NEEDED - MUST HANDLE ERRORS
         [HandleError(ExceptionType = typeof(SecurityException))]
         [ClaimsPrincipalPermission(SecurityAction.Demand, Operation = "Show", Resource = "Ministry")]
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
